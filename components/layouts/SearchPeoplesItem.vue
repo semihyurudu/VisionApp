@@ -2,7 +2,9 @@
   <div class="search-peoples-item">
     <ul>
       <li v-for="(item, index) in peoples" :key="index">
-        <img :src="getPoster(item['profile_path'])" />
+        <nuxt-link :to="getPersonLink(item.id)">
+          <img :src="getPoster(item['profile_path'])" />
+        </nuxt-link>
         <div class="search-peoples-item-content">
           <div>
             <h4>

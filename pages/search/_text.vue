@@ -1,6 +1,6 @@
 <template>
     <div>
-        <Header/>
+        <Header :search-text="this.$route.query.text" :search-type="this.$route.query.search_type" />
         <main class="search">
             <b-container>
                 <b-row>
@@ -224,5 +224,7 @@
     .search-person-block h1 {
         margin-bottom: 20px;
     }
-
+    main.search {
+        margin-top: 30px;
+    }
 </style>

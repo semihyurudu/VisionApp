@@ -28,6 +28,7 @@
 
 <style scoped>
   .menu {
+    margin-top: 10px;
     color: #fff;
   }
   .menu ul {
