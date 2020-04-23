@@ -7,7 +7,7 @@
             <Logo />
           </b-col>
           <b-col col md="8">
-            <SearchBar v-on:OnChangedSearchBarShowing="CameSearchBarShowing" :is-show-search-bar="isShowSearchBar" :text="searchText" :type="searchType" />
+            <SearchBar />
             <Menu />
           </b-col>
         </b-row>
@@ -32,36 +32,20 @@
           Logo,
           SearchBar
       },
-      props: {
-        searchText: {
-          type: String,
-          required: false,
-          default() {
-            return '';
-          }
-        },
-        searchType: {
-          type: String,
-          required: false,
-          default() {
-            return '';
-          }
-        }
-      },
       data() {
         return {
-          isShowSearchBar: (this.$route.name === 'search-text')
+          // isShowSearchBar: (this.$route.name === 'search-text')
         }
       },
       methods: {
         CameSearchBarShowing(is_show) {
-          this.isShowSearchBar = is_show;
+          // this.isShowSearchBar = is_show;
+
 
           setTimeout(() => {
             if(is_show)
               document.getElementById("search-bar-input").focus();
           }, 100);
-
         }
       },
       mounted() {

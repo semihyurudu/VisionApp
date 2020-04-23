@@ -1,12 +1,12 @@
 <template>
     <div class="search-bar">
-        <div class="search-bar-icon search-bar-icon-close" v-show="isShowSearchBar" @click="toggleSearch(false)">
+        <div class="search-bar-icon search-bar-icon-close" v-show="searchBar.isShow" @click="toggleSearch(false)">
             <b-icon-x></b-icon-x>
         </div>
-        <div class="search-bar-icon search-bar-icon-open" v-show="!isShowSearchBar" @click="toggleSearch(true)">
+        <div class="search-bar-icon search-bar-icon-open" v-show="!searchBar.isShow" @click="toggleSearch(true)">
             <b-icon-search></b-icon-search>
         </div>
-        <div class="search-bar-form" id="search-bar-form" v-show="isShowSearchBar">
+        <div class="search-bar-form" id="search-bar-form" v-show="searchBar.isShow">
             <b-container>
                 <b-row>
                     <b-col col>
@@ -31,33 +31,21 @@
 
 <script>
     import { helper } from '../../../mixins/helper.js';
+    import { mapGetters } from 'vuex';
+
     export default {
         name: 'SearchBar',
         mixins: [helper],
-        props: {
-            text: {
-                type: String,
-                required: false
-            },
-            type: {
-                type: String,
-                required: false,
-                default() {
-                    return 'multi'
-                }
-            },
-            isShowSearchBar: {
-                type: Boolean,
-                required: false,
-                default() {
-                    return false;
-                }
-            }
-        },
         computed: {
             getPrependDescription() {
-                return this.getSearchTypeText(this.$route.query.search_type);
-            }
+                return this.getSearchTypeText(this.search_type);
+            },
+            ...mapGetters({
+                searchBar: 'searchBar'
+            }),
+        },
+        watch: {
+          'searchBar': 'cameSearchFromStore'
         },
         methods: {
             Search() {
@@ -66,25 +54,31 @@
                         name: 'search-text',
                         query: {
                             text: this.query,
-                            search_type: (typeof this.$route.query.search_type !== 'undefined') ? this.$route.query.search_type : 'multi',
+                            search_type: (typeof this.search_type !== 'undefined') ? this.search_type : 'multi',
                             page: 1
                         }
                     });
                 }
             },
             toggleSearch(is_show) {
-                this.$emit('OnChangedSearchBarShowing', is_show);
+                this.$store.commit('SET_SEARCH_BAR', {
+                    isShow: is_show,
+                    text: this.$route.query.text
+                });
+            },
+            cameSearchFromStore(search) {
+                this.query = search.text;
+                this.search_type = search.search_type;
             }
         },
         data() {
             return {
-                query: '',
-                search_type: 'multi'
+                search_type: 'multi',
+                query: ''
             }
         },
         mounted() {
-            this.query = this.text;
-            this.search_type = this.type;
+            this.search_type = this.$route.query.search_type;
         }
     }
 </script>

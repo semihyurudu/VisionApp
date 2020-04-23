@@ -1,6 +1,5 @@
 <template>
     <div>
-        <Header :search-text="this.$route.query.text" :search-type="this.$route.query.search_type" />
         <main class="search">
             <b-container>
                 <b-row>
@@ -88,6 +87,12 @@
         },
         mounted() {
             this.fetchData();
+            this.$store.commit('SET_SEARCH_BAR', {
+                isShow: true,
+                text: this.$route.query.text,
+                search_type: this.$route.query.search_type
+            });
+
         },
         watch: {
             '$route': 'fetchData'
