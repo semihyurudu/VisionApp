@@ -3,7 +3,7 @@
         <main class="search">
             <b-container>
                 <b-row>
-                    <b-col col md="12" lg="3">
+                    <b-col md="12" lg="3" class="mb-4">
                         <SearchResultsSidebar
                                 :text="getText"
                                 :multi-count="getCounts.multiCount"
@@ -12,7 +12,7 @@
                                 :tv-count="getCounts.tvCount"
                         ></SearchResultsSidebar>
                     </b-col>
-                    <b-col col md="12" lg="9">
+                    <b-col md="12" lg="9">
                         <loading :active.sync="isLoading"
                                  :can-cancel="false"
                                  :is-full-page="false">

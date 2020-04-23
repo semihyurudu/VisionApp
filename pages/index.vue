@@ -1,10 +1,18 @@
 <template>
   <div id="app">
-    <main class="homepage">
-      <HomeSearch />
-    </main>
 
-    <WhatIsPopular />
+    <loading :active.sync="isLoading"
+             :can-cancel="false"
+             :is-full-page="true">
+    </loading>
+
+    <div v-if="!isLoading">
+      <main class="homepage">
+        <HomeSearch />
+      </main>
+
+      <WhatIsPopular />
+    </div>
   </div>
 </template>
 
@@ -13,24 +21,26 @@
   import HomeSearch from '../components/layouts/search/HomeSearch';
   import WhatIsPopular from "../components/layouts/what-is-popular/WhatIsPopular";
   import { helper } from '../mixins/helper.js';
+  import Loading from 'vue-loading-overlay';
+  import 'vue-loading-overlay/dist/vue-loading.css';
   export default {
       components: {
           Header,
           HomeSearch,
-          WhatIsPopular
+          WhatIsPopular,
+         Loading
       },
       mixins: [helper],
-      methods: {
-
-      },
-      computed: {
-
-      },
-      data() {
+    data() {
         return {
-            movies: []
+          isLoading: true
         }
-      }
+    },
+    mounted() {
+        setTimeout(() => {
+          this.isLoading = false;
+        }, 500)
+    }
   }
 </script>
 

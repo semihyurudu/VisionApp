@@ -30,8 +30,8 @@
       },
     methods: {
         fetchData() {
-          console.log('api url', this.popularMovies(1))
-          fetch(this.popularMovies(1))
+          console.log('api url', this.popularMoviesUrl(1))
+          fetch(this.popularMoviesUrl(1))
             .then((res) => {
               return res.json()
             })

@@ -53,8 +53,11 @@ export const helper = {
     getRequestAppend() {
       return 'api_key=' + this.apiKey() + '&language=' + this.getLanguage()
     },
-    popularMovies(page) {
+    popularMoviesUrl(page) {
       return this.apiUrl() + 'movie/popular?page=' + page + '&' + this.getRequestAppend();
+    },
+    popularTvShowsUrl(page) {
+      return this.apiUrl() + 'tv/popular?page=' + page + '&' + this.getRequestAppend();
     }
   }
 };

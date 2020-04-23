@@ -62,13 +62,12 @@
 <style scoped>
   .home-search {
     background-image: url('../../../assets/images/home-search-backdrop-02.jpg');
-    min-height: 400px;
     background-repeat: no-repeat;
     background-size: cover;
     background-position: bottom center;
   }
   .home-search-input-group {
-    margin: 150px 0;
+    margin: 150px 0 170px 0;
   }
 
   .home-search-input-group input {
@@ -89,5 +88,12 @@
     border-radius: 0;
     border: none;
     box-shadow: inset -1px 0 0 #dedede;
+  }
+  @media screen and(max-width: $maxMd) {
+    .carousel-tabs-container > h4 {
+      position: static !important;
+      margin-bottom: 15px;
+      font-size: 20px;
+    }
   }
 </style>
