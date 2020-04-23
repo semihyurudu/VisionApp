@@ -26,7 +26,7 @@
 
 <script>
     import { helper } from '@/mixins/helper.js';
-    import SearchTypeSelect from "../partials/SearchTypeSelect";
+    import SearchTypeSelect from "../../partials/SearchTypeSelect";
     export default {
       name: 'HomeSearch',
       mixins: [helper],
@@ -61,7 +61,7 @@
 
 <style scoped>
   .home-search {
-    background-image: url('../../assets/images/home-search-backdrop-02.jpg');
+    background-image: url('../../../assets/images/home-search-backdrop-02.jpg');
     min-height: 400px;
     background-repeat: no-repeat;
     background-size: cover;

@@ -63,10 +63,10 @@
 
 <script>
     import Header from "../../components/layouts/Header";
-    import SearchMovieItem from "../../components/layouts/SearchMovieItem";
-    import SearchTvItem from "../../components/layouts/SearchTvItem";
-    import SearchPeoplesItem from "../../components/layouts/SearchPeoplesItem";
-    import SearchResultsSidebar from "../../components/layouts/SearchResultsSidebar";
+    import SearchMovieItem from "../../components/layouts/search/SearchMovieItem";
+    import SearchTvItem from "../../components/layouts/search/SearchTvItem";
+    import SearchPeoplesItem from "../../components/layouts/search/SearchPeoplesItem";
+    import SearchResultsSidebar from "../../components/layouts/search/SearchResultsSidebar";
     import {helper} from '@/mixins/helper.js';
     import Loading from 'vue-loading-overlay';
     import 'vue-loading-overlay/dist/vue-loading.css';

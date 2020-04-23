@@ -11,7 +11,7 @@
 <script>
   import Header from '../components/layouts/Header';
   import ListMovies from '../components/layouts/ListMovies';
-  import HomeSearch from '../components/layouts/HomeSearch';
+  import HomeSearch from '../components/layouts/search/HomeSearch';
   import { helper } from '../mixins/helper.js';
   export default {
       components: {

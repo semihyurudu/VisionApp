@@ -20,7 +20,7 @@
     import Vue from 'vue';
     import Logo from '../partials/Logo';
     import Menu from "../partials/Menu";
-    import SearchBar from "../partials/SearchBar";
+    import SearchBar from "./search/SearchBar";
 
     import { BootstrapVueIcons } from 'bootstrap-vue';
     Vue.use(BootstrapVueIcons);

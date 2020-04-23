@@ -30,7 +30,7 @@
 </template>
 
 <script>
-    import { helper } from '../../mixins/helper.js';
+    import { helper } from '../../../mixins/helper.js';
     export default {
         name: 'SearchBar',
         mixins: [helper],
