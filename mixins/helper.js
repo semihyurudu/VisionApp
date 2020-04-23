@@ -26,6 +26,29 @@ export const helper = {
     },
     getSearchUrl(search_type, query, page) {
       return this.apiUrl() + 'search/' + search_type + '?api_key=' + this.apiKey() + '&query=' + query + '&language=' + this.getLanguage() + '&page=' + page;
+    },
+    getSearchTypeText(search_type) {
+      let text = '';
+      switch (search_type) {
+        case 'multi':
+          text = 'All';
+          break;
+        case 'movie':
+          text = 'Movies';
+          break;
+        case 'person':
+          text = 'Peoples';
+          break;
+        case 'tv':
+          text = 'TV Shows';
+          break;
+        default:
+          text = 'All';
+          break;
+      }
+
+      return text;
+
     }
   }
 };

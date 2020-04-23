@@ -30,8 +30,10 @@
 </template>
 
 <script>
+    import { helper } from '../../mixins/helper.js';
     export default {
         name: 'SearchBar',
+        mixins: [helper],
         props: {
             text: {
                 type: String,
@@ -54,24 +56,7 @@
         },
         computed: {
             getPrependDescription() {
-                let text = 'All';
-
-                switch (this.$route.query.search_type) {
-                    case 'multi':
-                        text = 'All';
-                        break;
-                    case 'movie':
-                        text = 'Movies';
-                        break;
-                    case 'person':
-                        text = 'Peoples';
-                        break;
-                    case 'tv':
-                        text = 'TV';
-                        break;
-                }
-
-                return text;
+                return this.getSearchTypeText(this.$route.query.search_type);
             }
         },
         methods: {
