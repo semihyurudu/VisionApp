@@ -69,6 +69,12 @@
             cameSearchFromStore(search) {
                 this.query = search.text;
                 this.search_type = search.search_type;
+
+                setTimeout(() => {
+                    if(search.isShow)
+                        document.getElementById("search-bar-input").focus();
+                }, 50);
+
             }
         },
         data() {
@@ -76,9 +82,6 @@
                 search_type: 'multi',
                 query: ''
             }
-        },
-        mounted() {
-            this.search_type = this.$route.query.search_type;
         }
     }
 </script>

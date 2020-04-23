@@ -12,16 +12,33 @@
 
 <script>
   import ListMovieItem from "./ListMovieItem";
+  import { helper } from '@/mixins/helper.js';
+
   export default {
       name: 'ListMovies',
-      props: {
-          movies: {
-              type: Array,
-              required: true
-          }
-      },
+      mixins: [helper],
       components: {
           ListMovieItem
-      }
+      },
+      data() {
+        return {
+          movies: []
+        }
+      },
+      mounted() {
+          this.fetchData();
+      },
+    methods: {
+        fetchData() {
+          console.log('api url', this.popularMovies(1))
+          fetch(this.popularMovies(1))
+            .then((res) => {
+              return res.json()
+            })
+            .then((res) => {
+              console.log('res', res)
+            })
+        }
+    }
   }
 </script>

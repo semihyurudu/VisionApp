@@ -6,8 +6,13 @@
 </template>
 
 <script>
+  import Vue from 'vue';
+  import { BootstrapVueIcons } from 'bootstrap-vue';
   import Header from "../components/layouts/Header";
   import { mapGetters } from 'vuex';
+
+  Vue.use(BootstrapVueIcons);
+
   export default {
     name: 'MainLayout',
     components: {Header},

@@ -49,6 +49,12 @@ export const helper = {
 
       return text;
 
+    },
+    getRequestAppend() {
+      return 'api_key=' + this.apiKey() + '&language=' + this.getLanguage()
+    },
+    popularMovies(page) {
+      return this.apiUrl() + 'movie/popular?page=' + page + '&' + this.getRequestAppend();
     }
   }
 };

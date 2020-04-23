@@ -17,13 +17,10 @@
 </template>
 
 <script>
-    import Vue from 'vue';
     import Logo from '../partials/Logo';
     import Menu from "../partials/Menu";
     import SearchBar from "./search/SearchBar";
 
-    import { BootstrapVueIcons } from 'bootstrap-vue';
-    Vue.use(BootstrapVueIcons);
 
     export default {
       name: 'Header',
@@ -32,21 +29,8 @@
           Logo,
           SearchBar
       },
-      data() {
-        return {
-          // isShowSearchBar: (this.$route.name === 'search-text')
-        }
-      },
       methods: {
-        CameSearchBarShowing(is_show) {
-          // this.isShowSearchBar = is_show;
 
-
-          setTimeout(() => {
-            if(is_show)
-              document.getElementById("search-bar-input").focus();
-          }, 100);
-        }
       },
       mounted() {
         window.onscroll = function () {
