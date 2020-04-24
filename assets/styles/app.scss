@@ -118,3 +118,36 @@ main:not(.homepage) {
   height: 80px !important;
 }
 
+.carousel-tabs-container {
+  position: relative;
+}
+
+.carousel-tabs-container > h4 {
+  position: absolute;
+  top: 0;
+  right: 0;
+  font-style: italic;
+  font-weight: bold;
+  color: #dc4545;
+}
+
+.black-image-bg .carousel-tabs-container > h4 {
+  color: #fff;
+}
+
+.black-image-bg .nav-tabs {
+  border-color: #565656;
+}
+
+.black-image-bg .nav-item > a {
+  color: #cccccc;
+}
+
+.black-image-bg .carousel-with-poster .hooper-slide .carousel-with-poster-content h4 {
+  color: #fff;
+}
+
+.black-image-bg .carousel-with-poster .hooper-slide .carousel-with-poster-content h6 {
+  color: #afafaf;
+}
+

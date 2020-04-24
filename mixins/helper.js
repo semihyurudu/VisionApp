@@ -67,6 +67,9 @@ export const helper = {
     },
     popularPeoplesUrl(page) {
       return this.apiUrl() + 'person/popular?page=' + page + '&' + this.getRequestAppend();
+    },
+    trendingUrl(media_type, time_period) {
+      return this.apiUrl() + 'trending/' + media_type + '/' + time_period + '?' + this.getRequestAppend();
     }
   }
 };

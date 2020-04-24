@@ -11,6 +11,7 @@
                     :percent="getPercentage(movie['vote_average'])"
                     size="small"
                     active-color="orange"
+                    complete-color="orange"
             />
         </div>
     </nuxt-link>

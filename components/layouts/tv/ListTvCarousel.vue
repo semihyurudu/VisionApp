@@ -61,6 +61,7 @@
                     playSpeed: 2000,
                     mouseDrag: true,
                     touchDrag: true,
+                    wheelControl: false,
                     trimWhiteSpace: true,
                     pagination: 'fraction',
                     breakpoints: {

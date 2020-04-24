@@ -1,5 +1,5 @@
 <template>
-    <div class="what-is-popular">
+    <div class="what-is-popular-carousel">
         <b-container>
             <b-row>
                 <b-col col>
@@ -41,7 +41,7 @@
     import ListTvCarousel from "../tv/ListTvCarousel";
     import ListPersonCarousel from "../person/ListPersonCarousel";
     export default {
-        name: 'WhatIsPopular',
+        name: 'WhatIsPopularCarousel',
         mixins: [helper],
         components: {ListMoviesCarousel, ListTvCarousel, ListPersonCarousel},
         data() {
@@ -96,20 +96,7 @@
 </script>
 
 <style scoped>
-    .what-is-popular {
+    .what-is-popular-carousel {
         margin-top: 20px;
-        margin-bottom: 50px;
-    }
-    .carousel-tabs-container {
-        position: relative;
-    }
-
-    .carousel-tabs-container > h4 {
-        position: absolute;
-        top: 0;
-        right: 0;
-        font-style: italic;
-        font-weight: bold;
-        color: #dc4545;
     }
 </style>

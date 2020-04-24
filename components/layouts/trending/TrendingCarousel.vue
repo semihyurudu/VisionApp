@@ -1,45 +1,49 @@
 <template>
     <b-overlay :show="loading" rounded="sm">
-        <div class="list-person-carousel carousel-with-poster">
+        <div class="list-movies-carousel carousel-with-poster">
             <hooper :settings="hooperSettings" v-if="!loading">
 
-                <slide v-for="(person, index) in peoples" :key="index" :index="index">
-                    <ListPersonCarouselItem :person="person" />
+                <slide v-for="(trend, index) in trends" :key="index" :index="index">
+                    <ListMoviesCarouselItem :movie="trend" v-if="trend['media_type'] === 'movie'" />
+                    <ListPersonCarouselItem :person="trend" v-if="trend['media_type'] === 'person'" />
+                    <ListTvCarouselItem :tv="trend" v-if="trend['media_type'] === 'tv'" />
                 </slide>
 
-                <slide class="show-all-poster" v-if="!loading">
-                    <nuxt-link to="/person/popular">
+                <!--<slide class="show-all-poster" v-if="!loading">
+                    <nuxt-link to="/movies/popular">
                         <div class="carousel-with-poster-image">
-                            <img src="/show-all-poster.jpg" />
+                            <img src="/show-all-poster.jpg"/>
                         </div>
                         <h4>
                             Show All
                             <b-icon-caret-right-fill></b-icon-caret-right-fill>
                         </h4>
                     </nuxt-link>
-                </slide>
-
+                </slide>-->
             </hooper>
         </div>
     </b-overlay>
 </template>
 
 
-
 <script>
-    import { Hooper, Slide } from 'hooper';
+    import {Hooper, Slide} from 'hooper';
     import 'hooper/dist/hooper.css';
-    import ListPersonCarouselItem from "./ListPersonCarouselItem";
+    import ListMoviesCarouselItem from "./../movie/ListMoviesCarouselItem";
+    import ListPersonCarouselItem from "./../person/ListPersonCarouselItem";
+    import ListTvCarouselItem from "./../tv/ListTvCarouselItem";
 
     export default {
-        name: 'ListTvCarousel',
+        name: 'TrendingCarousel',
         components: {
             Hooper,
             Slide,
-            ListPersonCarouselItem
+            ListMoviesCarouselItem,
+            ListPersonCarouselItem,
+            ListTvCarouselItem
         },
         props: {
-            peoples: {
+            trends: {
                 type: Array,
                 required: true,
                 default() {
@@ -54,19 +58,9 @@
                 }
             }
         },
-        methods: {
-            getProfileImage(path) {
-                return this.getMediumProfilePath() + path;
-            },
-            getPersonLink(id) {
-                return '/person/' + id;
-            },
-            getPercentage(ratio) {
-                return ratio * 10;
-            }
-        },
         data() {
             return {
+
                 hooperSettings: {
                     centerMode: false,
                     infiniteScroll: false,
@@ -99,3 +93,7 @@
         }
     }
 </script>
+
+<style scoped>
+
+</style>
