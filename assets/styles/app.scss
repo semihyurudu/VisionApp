@@ -36,21 +36,19 @@ main:not(.homepage) {
   color: #777676;
 }
 
-
-
-
-
 .hooper {
   display: initial;
 }
 .hooper-list {
-  //height: auto !important;
   outline: none;
 }
 .carousel-with-poster .hooper-slide .carousel-with-poster-content {
   position: relative;
-  padding: 25px 5px 5px 5px;
-  border-left: 1px solid #e6e6e6;
+  padding: 25px 10px 10px 10px;
+}
+
+.carousel-with-poster.list-person-carousel .hooper-slide .carousel-with-poster-content {
+  padding: 10px !important;
 }
 
 .carousel-with-poster .hooper-slide .carousel-with-poster-content h4 {

@@ -18,7 +18,13 @@ export const helper = {
     getBackdropPath() {
       return 'https://image.tmdb.org/t/p/w1920_and_h800_multi_faces'
     },
-    getProfilePath() {
+    getLargeProfilePath() {
+      return 'https://image.tmdb.org/t/p/w600_and_h900_bestv2'
+    },
+    getMediumProfilePath() {
+      return 'https://image.tmdb.org/t/p/w300_and_h450_bestv2'
+    },
+    getSmallProfilePath() {
       return 'https://image.tmdb.org/t/p/w90_and_h90_face'
     },
     substringWithWords(text, length) {
@@ -58,6 +64,9 @@ export const helper = {
     },
     popularTvShowsUrl(page) {
       return this.apiUrl() + 'tv/popular?page=' + page + '&' + this.getRequestAppend();
+    },
+    popularPeoplesUrl(page) {
+      return this.apiUrl() + 'person/popular?page=' + page + '&' + this.getRequestAppend();
     }
   }
 };

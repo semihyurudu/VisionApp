@@ -6,7 +6,7 @@
                 <slide v-for="(tv, index) in tvShows" :key="index" :index="index">
                     <nuxt-link :to="getTvLink(tv['id'])">
                         <div class="carousel-with-poster-image">
-                            <img :src="getMoviePoster(tv['poster_path'])" />
+                            <img :src="getPoster(tv['poster_path'])" />
                         </div>
 
                         <div class="carousel-with-poster-content">
@@ -22,7 +22,7 @@
                 </slide>
 
                 <slide class="show-all-poster" v-if="!loading">
-                    <nuxt-link to="/popular-tv-shows">
+                    <nuxt-link to="/tv-shows/popular">
                         <div class="carousel-with-poster-image">
                             <img src="/show-all-poster.jpg" />
                         </div>
@@ -44,7 +44,7 @@
     import { Hooper, Slide } from 'hooper';
     import 'hooper/dist/hooper.css';
     import { helper } from '../../../mixins/helper.js';
-    import PercentageCircle from 'vue-css-percentage-circle';
+    import PercentageCircle from '../../../node_modules/vue-css-percentage-circle';
 
     export default {
         name: 'ListTvCarousel',
@@ -71,7 +71,7 @@
             }
         },
         methods: {
-            getMoviePoster(path) {
+            getPoster(path) {
                 return this.getSmallPosterPath() + path;
             },
             getTvLink(id) {

@@ -1,30 +1,26 @@
 <template>
     <b-overlay :show="loading" rounded="sm">
-        <div class="list-movies-carousel carousel-with-poster">
+        <div class="list-person-carousel carousel-with-poster">
             <hooper :settings="hooperSettings" v-if="!loading">
 
-                <slide v-for="(movie, index) in movies" :key="index" :index="index">
-                    <nuxt-link :to="getMovieLink(movie['id'])">
+                <slide v-for="(person, index) in peoples" :key="index" :index="index">
+                    <nuxt-link :to="getPersonLink(person['id'])">
                         <div class="carousel-with-poster-image">
-                            <img :src="getMoviePoster(movie['poster_path'])"/>
+                            <img :src="getProfileImage(person['profile_path'])" />
                         </div>
 
                         <div class="carousel-with-poster-content">
-                            <h4>{{movie['title']}}</h4>
-                            <h6>{{movie['release_date']}}</h6>
-                            <PercentageCircle
-                                    :percent="getPercentage(movie['vote_average'])"
-                                    size="small"
-                                    active-color="orange"
-                            />
+                            <h4>{{person['name']}}</h4>
+                            <h6>{{person['known_for_department']}}</h6>
+
                         </div>
                     </nuxt-link>
                 </slide>
 
                 <slide class="show-all-poster" v-if="!loading">
-                    <nuxt-link to="/movies/popular">
+                    <nuxt-link to="/person/popular">
                         <div class="carousel-with-poster-image">
-                            <img src="/show-all-poster.jpg"/>
+                            <img src="/show-all-poster.jpg" />
                         </div>
                         <h4>
                             Show All
@@ -39,22 +35,21 @@
 </template>
 
 
+
 <script>
-    import {Hooper, Slide} from 'hooper';
+    import { Hooper, Slide } from 'hooper';
     import 'hooper/dist/hooper.css';
-    import {helper} from '../../../mixins/helper.js';
-    import PercentageCircle from '../../../node_modules/vue-css-percentage-circle';
+    import { helper } from '../../../mixins/helper.js';
 
     export default {
-        name: 'ListMoviesCarousel',
+        name: 'ListTvCarousel',
         mixins: [helper],
         components: {
             Hooper,
             Slide,
-            PercentageCircle
         },
         props: {
-            movies: {
+            peoples: {
                 type: Array,
                 required: true,
                 default() {
@@ -70,11 +65,11 @@
             }
         },
         methods: {
-            getMoviePoster(path) {
-                return this.getSmallPosterPath() + path;
+            getProfileImage(path) {
+                return this.getMediumProfilePath() + path;
             },
-            getMovieLink(id) {
-                return '/movie/' + id;
+            getPersonLink(id) {
+                return '/person/' + id;
             },
             getPercentage(ratio) {
                 return ratio * 10;
@@ -113,7 +108,3 @@
         }
     }
 </script>
-
-<style scoped>
-
-</style>

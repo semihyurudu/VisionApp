@@ -1,9 +1,19 @@
 <template>
     <div class="search-bar">
-        <div class="search-bar-icon search-bar-icon-close" v-show="searchBar.isShow" @click="toggleSearch(false)">
+        <div
+                class="search-bar-icon search-bar-icon-close"
+                v-show="searchBar.isShow"
+                @click="toggleSearch(false)"
+                v-b-tooltip.hover title="CLOSE THE SEARCH BAR"
+        >
             <b-icon-x></b-icon-x>
         </div>
-        <div class="search-bar-icon search-bar-icon-open" v-show="!searchBar.isShow" @click="toggleSearch(true)">
+        <div
+                class="search-bar-icon search-bar-icon-open"
+                v-show="!searchBar.isShow"
+                @click="toggleSearch(true)"
+                v-b-tooltip.hover title="SEARCH BAR"
+        >
             <b-icon-search></b-icon-search>
         </div>
         <div class="search-bar-form" id="search-bar-form" v-show="searchBar.isShow">
@@ -96,13 +106,19 @@
         margin-top: 10px;
     }
 
-    .search-bar .search-bar-icon {text-align: center;line-height: 30px;color: white;cursor: pointer;}
+    .search-bar .search-bar-icon {
+        text-align: center;
+        line-height: 30px;
+        color: white;
+        cursor: pointer;
+        font-size: 20px;
+    }
     .search-bar .search-bar-form {
         position: fixed;
         top: 70px;
         width: 100%;
         right: 0;
         left: 0;
-        z-index: 9999;
+        z-index: 999;
     }
 </style>

@@ -5,7 +5,7 @@
                 <b-col col>
                     <div class="carousel-tabs-container">
                         <h4>What's Popular</h4>
-                        <b-tabs v-model="tabIndex">
+                        <b-tabs v-model="tabIndex" lazy>
                             <b-tab active>
                                 <template v-slot:title>
                                     <b-icon-film></b-icon-film> <strong>{{getSearchTypeText('movie')}}</strong>
@@ -13,11 +13,18 @@
                                 <ListMoviesCarousel :movies="movies" :loading="moviesLoading" />
                             </b-tab>
 
-                            <b-tab lazy>
+                            <b-tab>
                                 <template v-slot:title>
                                     <b-icon-tv></b-icon-tv> <strong>{{getSearchTypeText('tv')}}</strong>
                                 </template>
                                 <ListTvCarousel :tv-shows="tvShows" :loading="tvShowsLoading" />
+                            </b-tab>
+
+                            <b-tab>
+                                <template v-slot:title>
+                                    <b-icon-people-fill></b-icon-people-fill> <strong>{{getSearchTypeText('person')}}</strong>
+                                </template>
+                                <ListPeoplesCarousel :peoples="peoples" :loading="peoplesLoading" />
                             </b-tab>
                         </b-tabs>
                     </div>
@@ -30,20 +37,22 @@
 
 <script>
     import { helper } from '../../../mixins/helper.js';
-    import ListMovies from "../movie/ListMovies";
     import ListMoviesCarousel from "../movie/ListMoviesCarousel";
     import ListTvCarousel from "../tv/ListTvCarousel";
+    import ListPeoplesCarousel from "../person/ListPeoplesCarousel";
     export default {
         name: 'WhatIsPopular',
         mixins: [helper],
-        components: {ListMoviesCarousel, ListMovies, ListTvCarousel},
+        components: {ListMoviesCarousel, ListTvCarousel, ListPeoplesCarousel},
         data() {
             return {
                 tabIndex: 0,
                 movies: [],
                 moviesLoading: true,
                 tvShows: [],
-                tvShowsLoading: true
+                tvShowsLoading: true,
+                peoples: [],
+                peoplesLoading: true
             }
         },
         methods: {
@@ -66,11 +75,22 @@
                         });
                         this.tvShowsLoading = false;
                     })
+            },
+            getPopularPeoples() {
+                fetch(this.popularPeoplesUrl(1))
+                    .then((res) => { return res.json() })
+                    .then((res) => {
+                        this.peoples = res.results.filter((x) => {
+                            return x['profile_path'];
+                        });
+                        this.peoplesLoading = false;
+                    })
             }
         },
         mounted() {
             this.getPopularMovies();
             this.getPopularTvShows();
+            this.getPopularPeoples()
         }
     }
 </script>
