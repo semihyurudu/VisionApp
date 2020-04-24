@@ -4,17 +4,7 @@
             <hooper :settings="hooperSettings" v-if="!loading">
 
                 <slide v-for="(person, index) in peoples" :key="index" :index="index">
-                    <nuxt-link :to="getPersonLink(person['id'])">
-                        <div class="carousel-with-poster-image">
-                            <img :src="getProfileImage(person['profile_path'])" />
-                        </div>
-
-                        <div class="carousel-with-poster-content">
-                            <h4>{{person['name']}}</h4>
-                            <h6>{{person['known_for_department']}}</h6>
-
-                        </div>
-                    </nuxt-link>
+                    <ListPersonCarouselItem :person="person" />
                 </slide>
 
                 <slide class="show-all-poster" v-if="!loading">
@@ -39,14 +29,14 @@
 <script>
     import { Hooper, Slide } from 'hooper';
     import 'hooper/dist/hooper.css';
-    import { helper } from '../../../mixins/helper.js';
+    import ListPersonCarouselItem from "./ListPersonCarouselItem";
 
     export default {
         name: 'ListTvCarousel',
-        mixins: [helper],
         components: {
             Hooper,
             Slide,
+            ListPersonCarouselItem
         },
         props: {
             peoples: {

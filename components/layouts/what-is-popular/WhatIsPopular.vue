@@ -24,7 +24,7 @@
                                 <template v-slot:title>
                                     <b-icon-people-fill></b-icon-people-fill> <strong>{{getSearchTypeText('person')}}</strong>
                                 </template>
-                                <ListPeoplesCarousel :peoples="peoples" :loading="peoplesLoading" />
+                                <ListPersonCarousel :peoples="peoples" :loading="peoplesLoading" />
                             </b-tab>
                         </b-tabs>
                     </div>
@@ -39,11 +39,11 @@
     import { helper } from '../../../mixins/helper.js';
     import ListMoviesCarousel from "../movie/ListMoviesCarousel";
     import ListTvCarousel from "../tv/ListTvCarousel";
-    import ListPeoplesCarousel from "../person/ListPeoplesCarousel";
+    import ListPersonCarousel from "../person/ListPersonCarousel";
     export default {
         name: 'WhatIsPopular',
         mixins: [helper],
-        components: {ListMoviesCarousel, ListTvCarousel, ListPeoplesCarousel},
+        components: {ListMoviesCarousel, ListTvCarousel, ListPersonCarousel},
         data() {
             return {
                 tabIndex: 0,

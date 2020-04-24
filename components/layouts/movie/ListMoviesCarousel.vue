@@ -4,21 +4,7 @@
             <hooper :settings="hooperSettings" v-if="!loading">
 
                 <slide v-for="(movie, index) in movies" :key="index" :index="index">
-                    <nuxt-link :to="getMovieLink(movie['id'])">
-                        <div class="carousel-with-poster-image">
-                            <img :src="getMoviePoster(movie['poster_path'])"/>
-                        </div>
-
-                        <div class="carousel-with-poster-content">
-                            <h4>{{movie['title']}}</h4>
-                            <h6>{{movie['release_date']}}</h6>
-                            <PercentageCircle
-                                    :percent="getPercentage(movie['vote_average'])"
-                                    size="small"
-                                    active-color="orange"
-                            />
-                        </div>
-                    </nuxt-link>
+                    <ListMoviesCarouselItem :movie="movie" />
                 </slide>
 
                 <slide class="show-all-poster" v-if="!loading">
@@ -42,16 +28,14 @@
 <script>
     import {Hooper, Slide} from 'hooper';
     import 'hooper/dist/hooper.css';
-    import {helper} from '../../../mixins/helper.js';
-    import PercentageCircle from '../../../node_modules/vue-css-percentage-circle';
+    import ListMoviesCarouselItem from "./ListMoviesCarouselItem";
 
     export default {
         name: 'ListMoviesCarousel',
-        mixins: [helper],
         components: {
             Hooper,
             Slide,
-            PercentageCircle
+            ListMoviesCarouselItem
         },
         props: {
             movies: {
@@ -67,17 +51,6 @@
                 default() {
                     return true;
                 }
-            }
-        },
-        methods: {
-            getMoviePoster(path) {
-                return this.getSmallPosterPath() + path;
-            },
-            getMovieLink(id) {
-                return '/movie/' + id;
-            },
-            getPercentage(ratio) {
-                return ratio * 10;
             }
         },
         data() {
