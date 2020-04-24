@@ -1,3 +1,24 @@
+@import "responsive.scss";
+
+html {
+  font-family: 'Source Sans Pro', -apple-system, BlinkMacSystemFont, 'Segoe UI',
+  Roboto, 'Helvetica Neue', Arial, sans-serif;
+  font-size: 16px;
+  word-spacing: 1px;
+  -ms-text-size-adjust: 100%;
+  -webkit-text-size-adjust: 100%;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-font-smoothing: antialiased;
+  box-sizing: border-box;
+}
+
+*,
+*:before,
+*:after {
+  box-sizing: border-box;
+  margin: 0;
+}
+
 body {
   font-size: 15px;
 }
@@ -7,3 +28,93 @@ img {
 main:not(.homepage) {
   padding-top: 30px;
 }
+.b-pagination {
+  float: left;
+  width: 100%;
+}
+.nav-item > a {
+  color: #777676;
+}
+
+.hooper {
+  display: initial;
+}
+.hooper-list {
+  outline: none;
+}
+.carousel-with-poster .hooper-slide .carousel-with-poster-content {
+  position: relative;
+  padding: 25px 10px 10px 10px;
+}
+
+.carousel-with-poster.list-person-carousel .hooper-slide .carousel-with-poster-content {
+  padding: 10px !important;
+}
+
+.carousel-with-poster .hooper-slide .carousel-with-poster-content h4 {
+  font-size: 17px;
+  color: #404040;
+  font-weight: bold;
+}
+
+.carousel-with-poster .hooper-slide a {
+  text-decoration: none;
+}
+
+.carousel-with-poster .hooper-slide {
+  padding: 20px 10px;
+}
+
+.carousel-with-poster .hooper-slide .carousel-with-poster-content h6 {
+  font-size: 14px;
+  color: #888888;
+}
+
+.show-all-poster h4 {
+  position: absolute;
+  text-align: center;
+  top: 30%;
+  width: 100%;
+  margin-bottom: 0;
+  color: #fff;
+  font-weight: bold;
+}
+
+.show-all-poster img {
+  opacity: 0.8;
+}
+
+.show-all-poster a {
+  display: block;
+  background: #f7f7f7;
+  position: relative;
+  border: 1px solid #ececec;
+}
+
+.carousel-with-poster-image {
+  overflow: hidden;
+}
+.carousel-with-poster .hooper-slide a img {
+  transition-duration: 0.2s;
+}
+.carousel-with-poster .hooper-slide a:hover img {
+  transform: scale(1.2);
+}
+.carousel-with-poster {
+  min-height: 200px;
+}
+.carousel-with-poster-content .c100 {
+  transform: scale(0.6);
+  position: absolute !important;
+  top: -40px;
+  right: -10px;
+}
+.carousel-with-poster-content .c100 span {
+  color: #dd9d29 !important;
+  font-weight: bold !important;
+  font-size: 22px !important;
+  line-height: 80px !important;
+  width: 80px !important;
+  height: 80px !important;
+}
+

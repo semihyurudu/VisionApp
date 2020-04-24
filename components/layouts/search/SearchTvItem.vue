@@ -2,10 +2,16 @@
   <div class="search-tv-item">
     <ul>
       <li v-for="(item, index) in tv" :key="index">
-        <img :src="getPoster(item['poster_path'])" />
+        <nuxt-link :to="getTvLink(item.id)">
+         <img :src="getPoster(item['poster_path'])" />
+        </nuxt-link>
         <div class="search-tv-item-content">
           <div>
-            <h4>{{item['original_name']}}</h4>
+            <h4>
+              <nuxt-link :to="getTvLink(item.id)">
+                {{item['original_name']}}
+              </nuxt-link>
+            </h4>
             <h6>{{item['first_air_date']}}</h6>
             <p>
               {{substringWithWords(item['overview'], 150)}}...
@@ -43,6 +49,9 @@
               }
 
               return url;
+          },
+          getTvLink(id) {
+            return '/tv/' + id;
           }
       },
       mounted() {
@@ -93,6 +102,11 @@
 
   .search-tv-item-content > div h4 {
     font-weight: 500;
+  }
+
+  .search-tv-item-content > div h4 a {
+    color: #444444;
+    text-decoration: none;
   }
 
   .search-tv-item-content > div h6 {

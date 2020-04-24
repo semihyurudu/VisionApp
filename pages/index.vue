@@ -1,47 +1,46 @@
 <template>
   <div id="app">
-    <Header />
-    <main class="homepage">
-      <HomeSearch />
-    </main>
-    <ListMovies :movies=movies />
+
+    <loading :active.sync="isLoading"
+             :can-cancel="false"
+             :is-full-page="true">
+    </loading>
+
+    <div v-if="!isLoading">
+      <main class="homepage">
+        <HomeSearch />
+      </main>
+
+      <WhatIsPopular />
+    </div>
   </div>
 </template>
 
 <script>
   import Header from '../components/layouts/Header';
-  import ListMovies from '../components/layouts/ListMovies';
-  import HomeSearch from '../components/layouts/HomeSearch';
+  import HomeSearch from '../components/layouts/search/HomeSearch';
+  import WhatIsPopular from "../components/layouts/what-is-popular/WhatIsPopular";
   import { helper } from '../mixins/helper.js';
+  import Loading from 'vue-loading-overlay';
+  import 'vue-loading-overlay/dist/vue-loading.css';
   export default {
       components: {
           Header,
-          ListMovies,
-          HomeSearch
+          HomeSearch,
+          WhatIsPopular,
+         Loading
       },
       mixins: [helper],
-      methods: {
-          getMovies() {
-              fetch(this.getMoviesUrl)
-                  .then((res) => { return res.json() })
-                  .then((res) => {
-                      this.movies = res.results;
-                  })
-          }
-      },
-      data() {
+    data() {
         return {
-            movies: []
+          isLoading: true
         }
-      },
-      created() {
-          this.getMovies();
-      },
-      computed: {
-          getMoviesUrl() {
-              return 'https://api.themoviedb.org/3/movie/top_rated?api_key=1b3c8e5cc36a460bb507fea55c7f8f56&language=tr-TR'
-          }
-      }
+    },
+    mounted() {
+        setTimeout(() => {
+          this.isLoading = false;
+        }, 500)
+    }
   }
 </script>
 

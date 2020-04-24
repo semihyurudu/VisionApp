@@ -2,10 +2,16 @@
   <div class="search-movie-item">
     <ul>
       <li v-for="(movie, index) in movies" :key="index">
-        <img :src="getPoster(movie['poster_path'])" />
+        <nuxt-link :to="getMovieLink(movie.id)">
+          <img :src="getPoster(movie['poster_path'])" />
+        </nuxt-link>
         <div class="search-movie-item-content">
           <div>
-            <h4>{{movie['original_title']}}</h4>
+            <h4>
+              <nuxt-link :to="getMovieLink(movie.id)">
+                {{movie['original_title']}}
+              </nuxt-link>
+            </h4>
             <h6>{{movie['release_date']}}</h6>
             <p>
               {{substringWithWords(movie['overview'], 150)}}...
@@ -43,6 +49,9 @@
               }
 
               return url;
+          },
+          getMovieLink(id) {
+            return '/movie/' + id;
           }
       },
       mounted() {
@@ -93,6 +102,11 @@
 
   .search-movie-item-content > div h4 {
     font-weight: 500;
+  }
+
+  .search-movie-item-content > div h4 a {
+    color: #444444;
+    text-decoration: none;
   }
 
   .search-movie-item-content > div h6 {

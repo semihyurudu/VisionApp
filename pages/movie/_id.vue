@@ -1,6 +1,5 @@
 <template>
   <div>
-    <Header />
     <div class="movie-item">
       <div class="movie-item-bg" :style=getBgImage></div>
       <div class="movie-item-content">
