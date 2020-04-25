@@ -14,7 +14,7 @@
             </h4>
             <h6>{{movie['release_date']}}</h6>
             <p>
-              {{substringWithWords(movie['overview'], 150)}}...
+              {{substringWithWords(movie['overview'], 250)}}...
             </p>
           </div>
         </div>

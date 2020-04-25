@@ -11,7 +11,7 @@
         <HomeSearch />
       </main>
 
-      <WhatIsPopular />
+      <WhatIsPopularCarouselContainer />
       <TrendingCarouselContainer />
     </div>
   </div>
@@ -20,7 +20,7 @@
 <script>
   import Header from '../components/layouts/Header';
   import HomeSearch from '../components/layouts/search/HomeSearch';
-  import WhatIsPopular from "../components/layouts/what-is-popular/Carousel";
+  import WhatIsPopularCarouselContainer from "../components/layouts/what-is-popular/WhatIsPopularCarouselContainer";
   import TrendingCarouselContainer from "../components/layouts/trending/TrendingCarouselContainer";
   import { helper } from '../mixins/helper.js';
   import Loading from 'vue-loading-overlay';
@@ -29,7 +29,7 @@
       components: {
           Header,
           HomeSearch,
-          WhatIsPopular,
+          WhatIsPopularCarouselContainer,
           TrendingCarouselContainer,
           Loading
       },
@@ -46,7 +46,3 @@
     }
   }
 </script>
-
-<style>
-
-</style>

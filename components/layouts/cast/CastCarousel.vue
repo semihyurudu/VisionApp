@@ -1,21 +1,9 @@
 <template>
     <b-overlay :show="loading" rounded="sm">
-        <div class="list-tv-carousel carousel-with-poster">
+        <div class="list-movies-carousel carousel-with-poster">
             <hooper :settings="hooperSettings" v-if="!loading">
-                <slide v-for="(tv, index) in tvShows" :key="index" :index="index">
-                    <ListTvCarouselItem :tv="tv" />
-                </slide>
-
-                <slide class="show-all-poster" v-if="!loading">
-                    <nuxt-link to="/tv-shows/popular">
-                        <div class="carousel-with-poster-image">
-                            <img src="/show-all-poster.jpg" />
-                        </div>
-                        <h4>
-                            Show All
-                            <b-icon-caret-right-fill></b-icon-caret-right-fill>
-                        </h4>
-                    </nuxt-link>
+                <slide v-for="(castItem, index) in cast" :key="index" :index="index">
+                    <CastCarouselItem :cast-item="castItem" />
                 </slide>
             </hooper>
         </div>
@@ -23,21 +11,20 @@
 </template>
 
 
-
 <script>
-    import { Hooper, Slide } from 'hooper';
+    import {Hooper, Slide} from 'hooper';
     import 'hooper/dist/hooper.css';
-    import ListTvCarouselItem from "./ListTvCarouselItem";
+    import CastCarouselItem from "./CastCarouselItem";
 
     export default {
-        name: 'ListTvCarousel',
+        name: 'CastCarousel',
         components: {
             Hooper,
             Slide,
-            ListTvCarouselItem
+            CastCarouselItem
         },
         props: {
-            tvShows: {
+            cast: {
                 type: Array,
                 required: true,
                 default() {
@@ -56,7 +43,7 @@
             return {
                 hooperSettings: {
                     centerMode: false,
-                    infiniteScroll: false,
+                    infiniteScroll: true,
                     autoPlay: true,
                     playSpeed: 3000,
                     mouseDrag: true,
@@ -86,3 +73,7 @@
         }
     }
 </script>
+
+<style scoped>
+
+</style>

@@ -8,18 +8,6 @@
                     <ListPersonCarouselItem :person="trend" v-if="trend['media_type'] === 'person'" />
                     <ListTvCarouselItem :tv="trend" v-if="trend['media_type'] === 'tv'" />
                 </slide>
-
-                <!--<slide class="show-all-poster" v-if="!loading">
-                    <nuxt-link to="/movies/popular">
-                        <div class="carousel-with-poster-image">
-                            <img src="/show-all-poster.jpg"/>
-                        </div>
-                        <h4>
-                            Show All
-                            <b-icon-caret-right-fill></b-icon-caret-right-fill>
-                        </h4>
-                    </nuxt-link>
-                </slide>-->
             </hooper>
         </div>
     </b-overlay>
@@ -65,7 +53,7 @@
                     centerMode: false,
                     infiniteScroll: false,
                     autoPlay: true,
-                    playSpeed: 2000,
+                    playSpeed: 3000,
                     mouseDrag: true,
                     touchDrag: true,
                     wheelControl: false,

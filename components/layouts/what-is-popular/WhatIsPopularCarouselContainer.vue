@@ -97,6 +97,6 @@
 
 <style scoped>
     .what-is-popular-carousel {
-        margin-top: 20px;
+        margin-top: 60px;
     }
 </style>

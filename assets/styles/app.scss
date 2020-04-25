@@ -20,7 +20,7 @@ html {
 }
 
 body {
-  font-size: 15px;
+  font-size: 16px;
 }
 img {
   max-width: 100%;
@@ -109,7 +109,7 @@ main:not(.homepage) {
   top: -40px;
   right: -10px;
 }
-.carousel-with-poster-content .c100 span {
+.c100 span {
   color: #dd9d29 !important;
   font-weight: bold !important;
   font-size: 22px !important;
@@ -151,3 +151,142 @@ main:not(.homepage) {
   color: #afafaf;
 }
 
+
+.movie-or-tv-item {
+  position: relative;
+  color: #fff;
+}
+.movie-or-tv-item-content {
+  width: 100%;
+  padding: 30px 0;
+}
+.movie-or-tv-item-bg {
+  border-bottom: 1px solid rgba(21.57%, 12.55%, 26.86%, 1.00);
+  background-position: right -200px top;
+  background-size: cover;
+  background-repeat: no-repeat;
+  margin-bottom: 50px;
+}
+.movie-or-tv-item-bg-field {
+  background-image: linear-gradient(to right, rgb(50, 63, 68) 150px, rgba(115, 115, 115, 0.84) 100%);
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+.movie-or-tv-item-content-poster {
+  padding: 0;
+}
+
+.movie-or-tv-item-content-poster img {
+  border-radius: 5px;
+}
+
+.movie-or-tv-item-content-details h1 {
+  font-size: 35px;
+  font-weight: 600;
+  color: white;
+}
+.movie-or-tv-item-content-table {
+  display: table;
+}
+.movie-or-tv-item-content-details {
+  padding: 0;
+  display: table-cell;
+  vertical-align: middle;
+}
+
+.movie-or-tv-item-content-details h1 span {
+  color: #cacaca;
+  font-weight: 500;
+}
+
+.movie-or-tv-item-content-details ul {
+  padding-left: 0;
+}
+
+.movie-or-tv-item-content-details ul li {
+  float: left;
+  margin-left: 30px;
+  font-size: 16px;
+}
+
+.movie-or-tv-item-content-details ul li:first-child {
+  margin-left: 0;
+  list-style: none;
+}
+
+.movie-or-tv-item-content-details ul li a {
+  color: white;
+  text-decoration: none;
+}
+.movie-or-tv-item-percentage {
+  float: left;
+  width: 100%;
+  margin: 20px 0;
+}
+
+.movie-or-tv-item-percentage .score-title {
+  display: block;
+  margin-top: 17px;
+  font-weight: 600;
+  margin-left: 5px;
+  float: left;
+}
+.movie-or-tv-item-overview {
+  float: left;
+  width: 100%;
+  margin-top: 10px;
+}
+
+.movie-or-tv-item-overview h5 {
+  font-size: 23px;
+  font-weight: bold;
+}
+
+.movie-or-tv-item-overview p {
+  font-size: 17px;
+}
+
+.movie-or-tv-item-crew {
+  float: left;
+  width: 100%;
+  margin-top: 5px;
+  height: 185px;
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+.movie-or-tv-item-crew::-webkit-scrollbar {
+  width: 1em;
+}
+
+.movie-or-tv-item-crew::-webkit-scrollbar-track {
+  box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.8);
+  background: rgba(247, 247, 247, 0.4);
+}
+
+.movie-or-tv-item-crew::-webkit-scrollbar-thumb {
+  background-color: #333;
+  outline: 1px solid slategrey;
+  cursor: pointer;
+}
+
+.movie-or-tv-item-crew .crew-item {
+  margin-top: 15px;
+}
+
+.movie-or-tv-item-crew .crew-item a {
+  color: #fff;
+  font-size: 16px;
+  text-decoration: none;
+}
+.carousel-with-poster-image img {
+  border: 1px solid #efefef;
+}
+
+.carousel-container > h4 {
+  padding: 10px 0;
+  font-weight: bold;
+  color: #dc4545;
+  font-style: italic;
+  border-bottom: 1px solid #e6e6e6;
+}

@@ -71,7 +71,7 @@
                     centerMode: false,
                     infiniteScroll: false,
                     autoPlay: true,
-                    playSpeed: 2000,
+                    playSpeed: 3000,
                     mouseDrag: true,
                     touchDrag: true,
                     wheelControl: false,
