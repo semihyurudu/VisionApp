@@ -43,10 +43,9 @@
         },
         methods: {
             getReviews(page) {
-
                 this.loading = true;
 
-                fetch(this.getMovieReviewsUrl(this.$route.params.id, 1))
+                fetch(this.getMovieReviewsUrl(this.$route.params.id, page))
                     .then((res) => {
                         return res.json()
                     })
