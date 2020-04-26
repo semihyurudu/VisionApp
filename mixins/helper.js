@@ -82,6 +82,15 @@ export const helper = {
     getMovieKeywordsUrl(id) {
       return this.apiUrl() + 'movie/' + id + '/keywords?' + this.getRequestAppend();
     },
+    getMovieVideosUrl(id) {
+      return this.apiUrl() + 'movie/' + id + '/videos?' + this.getRequestAppend();
+    },
+    getSimilarMoviesUrl(id) {
+      return this.apiUrl() + 'movie/' + id + '/similar?' + this.getRequestAppend();
+    },
+    getRecommendationsMoviesUrl(id) {
+      return this.apiUrl() + 'movie/' + id + '/recommendations?' + this.getRequestAppend();
+    },
     getRandomBackdropColor() {
       const colors = [
           'linear-gradient(to right, rgba(16.47%, 16.08%, 13.33%, 1.00) 150px, rgba(21.96%, 21.96%, 21.96%, 0.84) 100%)',
@@ -129,10 +138,13 @@ export const helper = {
 
 
       if(budget && budget !== 0) {
-        val = budget;
+        val = this.formatMoney(budget);
       }
 
       return val;
+    },
+    getYoutubeIframe(key) {
+      return 'https://www.youtube.com/embed/' + key;
     }
   }
 };

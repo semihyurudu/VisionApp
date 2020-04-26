@@ -290,3 +290,43 @@ main:not(.homepage) {
   font-style: italic;
   border-bottom: 1px solid #e6e6e6;
 }
+
+.embed-container {
+  position: relative;
+  padding-bottom: 56.25%;
+  height: 0;
+  overflow: hidden;
+  max-width: 100%;
+}
+
+.embed-container iframe,
+.embed-container object,
+.embed-container embed {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.videos-carousel iframe {
+  width: 100%;
+  padding: 10px;
+  min-height: 210px;
+}
+
+.test1 {
+  background-color: red;
+  width: 100%;
+  padding-top: 100%; /* 1:1 Aspect Ratio */
+  position: relative; /* If you want text inside of it */
+}
+
+/* If you want text inside of the container */
+.test1 iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+}

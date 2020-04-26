@@ -35,7 +35,15 @@
         },
         methods: {
             getMoviePoster(path) {
-                return this.getSmallPosterPath() + path;
+                let image = '';
+
+                if(path) {
+                    image = this.getSmallPosterPath() + path;
+                } else {
+                    image = '/default_poster.png';
+                }
+
+                return image;
             },
             getMovieLink(id) {
                 return '/movie/' + id;

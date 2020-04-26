@@ -7,8 +7,8 @@
                     <ListMoviesCarouselItem :movie="movie" />
                 </slide>
 
-                <slide class="show-all-poster" v-if="!loading">
-                    <nuxt-link to="/movies/popular">
+                <slide class="show-all-poster" v-if="!loading && this.showAll">
+                    <nuxt-link :to="getShowAllLink(this.showAllLink)">
                         <div class="carousel-with-poster-image">
                             <img src="/show-all-poster.jpg"/>
                         </div>
@@ -51,6 +51,25 @@
                 default() {
                     return true;
                 }
+            },
+            showAll: {
+                type: Boolean,
+                required: true,
+                default() {
+                    return false;
+                }
+            },
+            showAllLink: {
+                type: String,
+                required: false,
+                default() {
+                    return 'popular';
+                }
+            }
+        },
+        methods: {
+            getShowAllLink(link) {
+                return '/movies/' + link;
             }
         },
         data() {

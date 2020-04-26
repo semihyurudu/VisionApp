@@ -10,7 +10,7 @@
                                 <template v-slot:title>
                                     <b-icon-film></b-icon-film> <strong>{{getSearchTypeText('movie')}}</strong>
                                 </template>
-                                <ListMoviesCarousel :movies="movies" :loading="moviesLoading" />
+                                <ListMoviesCarousel :movies="movies" :loading="moviesLoading" :show-all="true" show-all-link="popular" />
                             </b-tab>
 
                             <b-tab>

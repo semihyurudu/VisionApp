@@ -21,19 +21,20 @@
                                         <div class="movie-or-tv-item-content-details">
                                             <h1>{{movie['title']}}
                                                 <span v-if="movie['release_date']">
-                        ({{this.getYearFromString(movie['release_date'])}})
-                      </span>
+                                                    ({{this.getYearFromString(movie['release_date'])}})
+                                                </span>
                                             </h1>
                                             <ul>
                                                 <li v-if="movie['release_date']">
                                                     {{movie['release_date']}}
                                                 </li>
                                                 <li v-if="movie['genres']">
-                        <span v-for="(genre, index) in movie['genres']">
-                          <nuxt-link :to="getGenreUrl(genre.id)">
-                            {{genre['name']}}<span v-if="(index+1) !== movie['genres'].length">,</span>
-                          </nuxt-link>
-                        </span>
+                                                    <span v-for="(genre, index) in movie['genres']">
+                                                      <nuxt-link :to="getGenreUrl(genre.id)">
+                                                        {{genre['name']}}<span
+                                                              v-if="(index+1) !== movie['genres'].length">,</span>
+                                                      </nuxt-link>
+                                                    </span>
                                                 </li>
                                             </ul>
 
@@ -44,9 +45,34 @@
                                                         active-color="orange"
                                                         complete-color="orange"
                                                 />
-                                                <span class="score-title">
-                        User<br/>Score
-                      </span>
+                                                <span class="score-title">User<br/>Score</span>
+
+
+                                                <div class="movie-trailer" v-if="Object.entries(trailer).length > 0">
+                                                    <b-button v-b-modal.trailer-modal variant="dark">
+                                                        Play Trailer
+                                                        <b-icon-play-fill></b-icon-play-fill>
+                                                    </b-button>
+
+                                                    <b-modal id="trailer-modal" centered :title="trailer['name']" size="lg">
+                                                        <div class="embed-container">
+                                                            <iframe :src="getYoutubeIframe(trailer['key'])" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                                                        </div>
+                                                        <template v-slot:modal-footer>
+                                                            <div class="w-100">
+                                                                <b-button
+                                                                        variant="dark"
+                                                                        class="float-right"
+                                                                        @click="$bvModal.hide('trailer-modal')"
+                                                                >
+                                                                    Close
+                                                                </b-button>
+                                                            </div>
+                                                        </template>
+                                                    </b-modal>
+
+                                                </div>
+
                                             </div>
 
                                             <div class="movie-or-tv-item-overview" v-if="movie['overview']">
@@ -78,6 +104,24 @@
                             <h4>Cast</h4>
                             <CastCarousel :cast="cast" :loading="castLoading"/>
                         </div>
+
+                        <div class="carousel-container">
+                            <h4>Videos <span v-if="videosLength > 0">({{videosLength}})</span></h4>
+                            <VideoCarousel :videos="videos" :items-to-show="videosLength" v-if="!videosLoading" />
+                            <b-overlay :show="true" rounded="sm" class="video-carousel-loading" v-if="videosLoading">
+                            </b-overlay>
+                        </div>
+
+                        <div class="carousel-container mt-5">
+                            <h4>Similar Movies</h4>
+                            <ListMoviesCarousel :movies="similarMovies" :loading="similarMoviesLoading" :show-all="false" />
+                        </div>
+
+                        <div class="carousel-container mt-2">
+                            <h4>Recommendations</h4>
+                            <ListMoviesCarousel :movies="recommendationsMovies" :loading="recommendationsMoviesLoading" :show-all="false" />
+                        </div>
+
                     </b-col>
                     <b-col lg="3">
                         <SidebarTitleDescription title="Status" :description="movie['status']"/>
@@ -87,7 +131,7 @@
                         <SidebarTitleDescription title="Revenue" :description="formatMoney(movie['revenue'])"
                                                  v-if="movie['revenue']"/>
 
-                        <div class="keywords-item">
+                        <div class="keywords-item" v-if="keywords.length">
                             <span><b>Keywords</b></span><br/>
                             <Keywords :keywords="keywords"/>
                         </div>
@@ -107,17 +151,22 @@
     import SidebarTitleDescription from "../../components/partials/SidebarTitleDescription";
     import Keywords from "../../components/partials/Keywords";
     import Loading from '../../node_modules/vue-loading-overlay';
+    import VideoCarousel from "../../components/layouts/video/VideoCarousel";
+    import ListMoviesCarousel from "../../components/layouts/movie/ListMoviesCarousel";
 
     export default {
         name: 'MovieItem',
         mixins: [helper],
         components: {
+            ListMoviesCarousel,
             PercentageCircle,
             CrewItem,
             CastCarousel,
             SidebarTitleDescription,
             Keywords,
-            Loading
+            Loading,
+            VideoCarousel,
+
         },
         methods: {
             getMovieDetail() {
@@ -156,6 +205,63 @@
                         this.keywords = res.keywords;
                     })
             },
+            getSimilarMovies() {
+                fetch(this.getSimilarMoviesUrl(this.$route.params.id))
+                    .then((res) => {
+                        return res.json()
+                    })
+                    .then((res) => {
+                        this.similarMovies = res.results;
+                        this.similarMoviesLoading = false;
+                    })
+            },
+            getRecommendationsMovies() {
+                fetch(this.getRecommendationsMoviesUrl(this.$route.params.id))
+                    .then((res) => {
+                        return res.json()
+                    })
+                    .then((res) => {
+                        this.recommendationsMovies = res.results;
+                        this.recommendationsMoviesLoading = false;
+                    })
+            },
+            getVideos() {
+                fetch(this.getMovieVideosUrl(this.$route.params.id))
+                    .then((res) => {
+                        return res.json()
+                    })
+                    .then((res) => {
+                        this.videos = res.results.filter((x) => {
+                            return x['site'] === 'YouTube';
+                        });
+                        this.videosLoading = false;
+                        let length = this.videos.length;
+
+                        switch (length) {
+                            case 0:
+                            case 1:
+                            case 2:
+                                break;
+                            default:
+                                length = 2.3;
+                                break;
+                        }
+
+                        this.videosLength = length;
+
+                        let trailer;
+
+                        trailer = res.results.filter((x) => {
+                            return (x['type'] === 'Trailer' && x['site'] === 'YouTube');
+                        });
+
+                        if (trailer.length > 0) {
+                            trailer = trailer[0];
+                        }
+
+                        this.trailer = trailer;
+                    })
+            },
         },
         computed: {
             getBackdrop() {
@@ -185,13 +291,24 @@
                 cast: [],
                 castLoading: true,
                 keywords: [],
-                isLoading: true
+                isLoading: true,
+                videos: [],
+                videosLoading: true,
+                videosLength: 0,
+                trailer: {},
+                similarMovies: [],
+                similarMoviesLoading: true,
+                recommendationsMovies: [],
+                recommendationsMoviesLoading: true
             }
         },
         created() {
             this.getMovieDetail();
             this.getCredits();
             this.getKeywords();
+            this.getVideos();
+            this.getSimilarMovies();
+            this.getRecommendationsMovies();
         }
     }
 </script>
@@ -223,5 +340,13 @@
 
     .keywords-item {
         margin-bottom: 20px;
+    }
+    .movie-trailer {
+        float: left;
+        margin-top: 20px;
+        margin-left: 40px;
+    }
+    .video-carousel-loading {
+        min-height: 200px;
     }
 </style>
