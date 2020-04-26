@@ -1,10 +1,15 @@
 <template>
     <div class="keywords">
-        <b-badge size="md" v-for="(keyword, index) in keywords" :key="index">
-            <nuxt-link :to="getKeywordUrl(keyword['id'])">
-                {{keyword['name']}}
-            </nuxt-link>
-        </b-badge>
+        <b-overlay :show="loading" rounded="sm" class="default-overlay-loading">
+            <b-badge size="md" v-for="(keyword, index) in keywords" :key="index" v-if="!loading && keywords.length > 0">
+                <nuxt-link :to="getKeywordUrl(keyword['id'])">
+                    {{keyword['name']}}
+                </nuxt-link>
+            </b-badge>
+            <span class="text-dark" v-if="!loading && keywords.length < 1">
+                We don't have any keywords.
+            </span>
+        </b-overlay>
     </div>
 </template>
 
@@ -17,6 +22,13 @@
                 required: false,
                 default() {
                     return [];
+                }
+            },
+            loading: {
+                type: Boolean,
+                required: true,
+                default() {
+                    return true;
                 }
             }
         },

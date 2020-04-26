@@ -1,12 +1,15 @@
 <template>
-    <b-overlay :show="loading" rounded="sm">
-        <div class="list-movies-carousel carousel-with-poster">
-            <hooper :settings="hooperSettings" v-if="!loading">
+    <b-overlay :show="loading" rounded="sm" :class="loading ? 'default-overlay-loading' : ''">
+        <div class="list-movies-carousel carousel-with-poster" v-if="!loading && cast.length > 0">
+            <hooper :settings="hooperSettings">
                 <slide v-for="(castItem, index) in cast" :key="index" :index="index">
                     <CastCarouselItem :cast-item="castItem" />
                 </slide>
             </hooper>
         </div>
+        <span class="text-dark" v-if="!loading && cast.length < 1">
+            We don't have any cast.
+        </span>
     </b-overlay>
 </template>
 

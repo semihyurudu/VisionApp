@@ -1,9 +1,8 @@
 <template>
-    <b-overlay :show="loading" rounded="sm">
+    <b-overlay :show="loading" rounded="sm" :class="loading ? 'default-overlay-loading' : ''">
         <div class="list-movies-carousel carousel-with-poster">
-            <hooper :settings="hooperSettings" v-if="!loading">
-
-                <slide v-for="(movie, index) in movies" :key="index" :index="index">
+            <hooper :settings="hooperSettings" v-if="!loading && movies.length > 0">
+                <slide v-for="(movie, index) in movies" :key="index">
                     <ListMoviesCarouselItem :movie="movie" />
                 </slide>
 
@@ -18,8 +17,10 @@
                         </h4>
                     </nuxt-link>
                 </slide>
-
             </hooper>
+            <span class="text-dark" v-if="!loading && movies.length < 1">
+                We don't have any movies.
+            </span>
         </div>
     </b-overlay>
 </template>

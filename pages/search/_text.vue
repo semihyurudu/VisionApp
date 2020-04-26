@@ -1,63 +1,61 @@
 <template>
-    <div>
-        <main class="search">
-            <b-container>
-                <b-row>
-                    <b-col md="12" lg="3" class="mb-4">
-                        <SearchResultsSidebar
-                                :text="getText"
-                                :multi-count="getCounts.multiCount"
-                                :movie-count="getCounts.movieCount"
-                                :person-count="getCounts.personCount"
-                                :tv-count="getCounts.tvCount"
-                        ></SearchResultsSidebar>
-                    </b-col>
-                    <b-col md="12" lg="9">
-                        <loading :active.sync="isLoading"
-                                 :can-cancel="false"
-                                 :is-full-page="false">
-                        </loading>
+    <main class="search pt-5">
+        <b-container>
+            <b-row>
+                <b-col md="12" lg="3" class="mb-4">
+                    <SearchResultsSidebar
+                            :text="getText"
+                            :multi-count="getCounts.multiCount"
+                            :movie-count="getCounts.movieCount"
+                            :person-count="getCounts.personCount"
+                            :tv-count="getCounts.tvCount"
+                    ></SearchResultsSidebar>
+                </b-col>
+                <b-col md="12" lg="9">
+                    <loading :active.sync="isLoading"
+                             :can-cancel="false"
+                             :is-full-page="false">
+                    </loading>
 
-                        <b-alert show variant="danger"
-                                 v-if="!isLoading && !result.movies.length && !result.tv.length && !result.peoples.length">
-                            <h5>We are sad.</h5>
-                            We couldn't find any results matching your search.
-                        </b-alert>
+                    <b-alert show variant="danger"
+                             v-if="!isLoading && !result.movies.length && !result.tv.length && !result.peoples.length">
+                        <h5>We are sad.</h5>
+                        We couldn't find any results matching your search.
+                    </b-alert>
 
 
-                        <div v-if="!isLoading">
-                            <div class="search-movie-block" v-if="result.movies.length > 0">
-                                <h1>Movies</h1>
-                                <SearchMovieItem :movies="result.movies"/>
-                            </div>
-
-                            <div class="search-tv-block" v-if="result.tv.length > 0">
-                                <h1>TV Shows</h1>
-                                <SearchTvItem :tv="result.tv"/>
-                            </div>
-
-                            <div class="search-peoples-block" v-if="result.peoples.length > 0">
-                                <h1>Peoples</h1>
-                                <SearchPeoplesItem :peoples="result.peoples"/>
-                            </div>
-
-                            <b-pagination
-                                    v-model="getPage"
-                                    :total-rows="result.total"
-                                    per-page="20"
-                                    aria-controls="my-table"
-                                    align="center"
-                                    input="inputTriggered"
-                                    @change="onPageChanged"
-                                    v-if="result.total > 0"
-                            ></b-pagination>
+                    <div v-if="!isLoading">
+                        <div class="search-movie-block" v-if="result.movies.length > 0">
+                            <h1>Movies</h1>
+                            <SearchMovieItem :movies="result.movies"/>
                         </div>
 
-                    </b-col>
-                </b-row>
-            </b-container>
-        </main>
-    </div>
+                        <div class="search-tv-block" v-if="result.tv.length > 0">
+                            <h1>TV Shows</h1>
+                            <SearchTvItem :tv="result.tv"/>
+                        </div>
+
+                        <div class="search-peoples-block" v-if="result.peoples.length > 0">
+                            <h1>Peoples</h1>
+                            <SearchPeoplesItem :peoples="result.peoples"/>
+                        </div>
+
+                        <b-pagination
+                                v-model="getPage"
+                                :total-rows="result.total"
+                                per-page="20"
+                                aria-controls="my-table"
+                                align="center"
+                                input="inputTriggered"
+                                @change="onPageChanged"
+                                v-if="result.total > 0"
+                        ></b-pagination>
+                    </div>
+
+                </b-col>
+            </b-row>
+        </b-container>
+    </main>
 </template>
 
 <script>
@@ -132,7 +130,6 @@
         },
         methods: {
             onPageChanged(page) {
-
                 this.$router.push({
                     name: 'search-text',
                     query: {
@@ -228,8 +225,5 @@
     .search-tv-block h1,
     .search-person-block h1 {
         margin-bottom: 20px;
-    }
-    main.search {
-        margin-top: 30px;
     }
 </style>

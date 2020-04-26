@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <main>
         <loading :active.sync="isLoading"
                  :can-cancel="false"
                  :is-full-page="true">
@@ -28,7 +28,7 @@
                                                 <li v-if="movie['release_date']">
                                                     {{movie['release_date']}}
                                                 </li>
-                                                <li v-if="movie['genres']">
+                                                <li v-if="movie['genres'].length > 0">
                                                     <span v-for="(genre, index) in movie['genres']">
                                                       <nuxt-link :to="getGenreUrl(genre.id)">
                                                         {{genre['name']}}<span
@@ -101,19 +101,17 @@
                 <b-row>
                     <b-col xl="9">
                         <div class="carousel-container">
-                            <h4>Cast</h4>
+                            <BlockTitle title="Cast" />
                             <CastCarousel :cast="cast" :loading="castLoading"/>
                         </div>
 
-                        <div class="carousel-container">
-                            <h4>Videos</h4>
-                            <VideoCarousel :videos="videos" :items-to-show="videosLength" v-if="!videosLoading" />
-                            <b-overlay :show="true" rounded="sm" class="video-carousel-loading" v-if="videosLoading">
-                            </b-overlay>
+                        <div class="carousel-container" v-if="videosLength > 0">
+                            <BlockTitle title="Videos" />
+                            <VideoCarousel :videos="videos" :items-to-show="videosLength" />
                         </div>
 
-                        <div class="carousel-container mt-5" v-if="similarMovies.length > 0">
-                            <h4>Similar Movies</h4>
+                        <div class="carousel-container">
+                            <BlockTitle title="Similar Movies" />
                             <ListMoviesCarousel
                                     :movies="similarMovies"
                                     :loading="similarMoviesLoading"
@@ -121,14 +119,21 @@
                             />
                         </div>
 
-                        <div class="carousel-container mt-2">
-                            <h4>Recommendations</h4>
+                        <div class="carousel-container">
+                            <BlockTitle title="Recommendations" />
                             <ListMoviesCarousel
                                     :movies="recommendationsMovies"
                                     :loading="recommendationsMoviesLoading"
                                     :show-all="false"
                             />
                         </div>
+
+
+                        <div class="reviews-container">
+                            <BlockTitle title="Reviews" />
+                            <Reviews :url="this.getMovieReviewsUrl(this.$route.params.id)" />
+                        </div>
+
 
                     </b-col>
                     <b-col xl="3">
@@ -139,16 +144,15 @@
                         <SidebarTitleDescription title="Revenue" :description="formatMoney(movie['revenue'])"
                                                  v-if="movie['revenue']"/>
 
-                        <div class="keywords-item" v-if="keywords.length">
+                        <div class="keywords-item">
                             <span><b>Keywords</b></span><br/>
-                            <Keywords :keywords="keywords"/>
+                            <Keywords :keywords="keywords" :loading="keywordsLoading" />
                         </div>
-
                     </b-col>
                 </b-row>
             </b-container>
         </div>
-    </div>
+    </main>
 </template>
 
 <script>
@@ -161,6 +165,8 @@
     import Loading from '../../node_modules/vue-loading-overlay';
     import VideoCarousel from "../../components/layouts/video/VideoCarousel";
     import ListMoviesCarousel from "../../components/layouts/movie/ListMoviesCarousel";
+    import Reviews from "../../components/layouts/reviews/Reviews";
+    import BlockTitle from "../../components/partials/BlockTitle";
 
     export default {
         name: 'MovieItem',
@@ -174,7 +180,8 @@
             Keywords,
             Loading,
             VideoCarousel,
-
+            Reviews,
+            BlockTitle
         },
         methods: {
             getMovieDetail() {
@@ -211,6 +218,7 @@
                     })
                     .then((res) => {
                         this.keywords = res.keywords;
+                        this.keywordsLoading = false;
                     })
             },
             getSimilarMovies() {
@@ -269,16 +277,6 @@
 
                         this.trailer = trailer;
                     })
-            },
-            getReviews(page) {
-                fetch(this.getMovieReviewsUrl(this.$route.params.id, page))
-                    .then((res) => {
-                        return res.json()
-                    })
-                    .then((res) => {
-                        this.reviews = res.results;
-                        this.reviewsLoading = false;
-                    })
             }
         },
         computed: {
@@ -291,13 +289,20 @@
                 return style;
             },
             getBackdropColor() {
-                return 'background-image:' + this.getRandomBackdropColor();
+                let style = 'background-image: linear-gradient(to right, #949494 150px, #949494 100%)';
+
+                if (this.movie['backdrop_path'])
+                    style = 'background-image:' + this.getRandomBackdropColor();
+
+                return style;
             },
             getPoster() {
                 let image = '';
 
                 if (this.movie['poster_path'])
                     image = this.getPosterPath() + this.movie['poster_path'];
+                else
+                    image = '/default_poster.png';
 
                 return image;
             }
@@ -309,6 +314,7 @@
                 cast: [],
                 castLoading: true,
                 keywords: [],
+                keywordsLoading: true,
                 isLoading: true,
                 videos: [],
                 videosLoading: true,
@@ -317,9 +323,7 @@
                 similarMovies: [],
                 similarMoviesLoading: true,
                 recommendationsMovies: [],
-                recommendationsMoviesLoading: true,
-                reviews: [],
-                reviewsLoading: true
+                recommendationsMoviesLoading: true
             }
         },
         created() {
@@ -329,7 +333,6 @@
             this.getVideos();
             this.getSimilarMovies();
             this.getRecommendationsMovies();
-            this.getReviews(1);
         }
     }
 </script>
@@ -366,8 +369,5 @@
         float: left;
         margin-top: 20px;
         margin-left: 40px;
-    }
-    .video-carousel-loading {
-        min-height: 200px;
     }
 </style>

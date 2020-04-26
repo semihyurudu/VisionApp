@@ -1,15 +1,10 @@
 <template>
     <div class="videos-carousel">
-        <div v-if="videos.length > 0">
-            <hooper :settings="hooperSettings">
-                <slide v-for="(video, index) in videos" :key="index">
-                    <iframe :src="getYoutubeIframe(video['key'])" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-                </slide>
-            </hooper>
-        </div>
-        <b-alert variant="danger" show v-if="videos.length < 1">
-            Video recording was not found.
-        </b-alert>
+        <hooper :settings="hooperSettings">
+            <slide v-for="(video, index) in videos" :key="index">
+                <iframe :src="getYoutubeIframe(video['key'])" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+            </slide>
+        </hooper>
     </div>
 </template>
 

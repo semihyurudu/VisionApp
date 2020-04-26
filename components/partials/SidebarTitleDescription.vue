@@ -15,7 +15,7 @@
             },
             description: {
                 type: [String, Number],
-                required: true
+                required: false
             }
         }
     }
