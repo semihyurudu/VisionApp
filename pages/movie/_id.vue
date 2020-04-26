@@ -99,31 +99,39 @@
 
             <b-container>
                 <b-row>
-                    <b-col lg="9">
+                    <b-col xl="9">
                         <div class="carousel-container">
                             <h4>Cast</h4>
                             <CastCarousel :cast="cast" :loading="castLoading"/>
                         </div>
 
                         <div class="carousel-container">
-                            <h4>Videos <span v-if="videosLength > 0">({{videosLength}})</span></h4>
+                            <h4>Videos</h4>
                             <VideoCarousel :videos="videos" :items-to-show="videosLength" v-if="!videosLoading" />
                             <b-overlay :show="true" rounded="sm" class="video-carousel-loading" v-if="videosLoading">
                             </b-overlay>
                         </div>
 
-                        <div class="carousel-container mt-5">
+                        <div class="carousel-container mt-5" v-if="similarMovies.length > 0">
                             <h4>Similar Movies</h4>
-                            <ListMoviesCarousel :movies="similarMovies" :loading="similarMoviesLoading" :show-all="false" />
+                            <ListMoviesCarousel
+                                    :movies="similarMovies"
+                                    :loading="similarMoviesLoading"
+                                    :show-all="false"
+                            />
                         </div>
 
                         <div class="carousel-container mt-2">
                             <h4>Recommendations</h4>
-                            <ListMoviesCarousel :movies="recommendationsMovies" :loading="recommendationsMoviesLoading" :show-all="false" />
+                            <ListMoviesCarousel
+                                    :movies="recommendationsMovies"
+                                    :loading="recommendationsMoviesLoading"
+                                    :show-all="false"
+                            />
                         </div>
 
                     </b-col>
-                    <b-col lg="3">
+                    <b-col xl="3">
                         <SidebarTitleDescription title="Status" :description="movie['status']"/>
                         <SidebarTitleDescription title="Original Language"
                                                  :description="getLanguageFromCode(movie['original_language'])"/>
@@ -262,6 +270,16 @@
                         this.trailer = trailer;
                     })
             },
+            getReviews(page) {
+                fetch(this.getMovieReviewsUrl(this.$route.params.id, page))
+                    .then((res) => {
+                        return res.json()
+                    })
+                    .then((res) => {
+                        this.reviews = res.results;
+                        this.reviewsLoading = false;
+                    })
+            }
         },
         computed: {
             getBackdrop() {
@@ -299,7 +317,9 @@
                 similarMovies: [],
                 similarMoviesLoading: true,
                 recommendationsMovies: [],
-                recommendationsMoviesLoading: true
+                recommendationsMoviesLoading: true,
+                reviews: [],
+                reviewsLoading: true
             }
         },
         created() {
@@ -309,6 +329,7 @@
             this.getVideos();
             this.getSimilarMovies();
             this.getRecommendationsMovies();
+            this.getReviews(1);
         }
     }
 </script>

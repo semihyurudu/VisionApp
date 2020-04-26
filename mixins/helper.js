@@ -145,6 +145,9 @@ export const helper = {
     },
     getYoutubeIframe(key) {
       return 'https://www.youtube.com/embed/' + key;
+    },
+    getMovieReviewsUrl(id, page) {
+      return this.apiUrl() + 'movie/' + id + '/reviews?page=' + page + '&' + this.getRequestAppend();
     }
   }
 };
