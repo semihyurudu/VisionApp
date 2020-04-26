@@ -18,7 +18,6 @@
       },
       methods: {
           SearchTypeSelectChanged(value) {
-              console.log('event', value)
               this.$emit('OnChangedSearchType', value);
           }
       }

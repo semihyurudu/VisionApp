@@ -1,7 +1,7 @@
 <template>
   <div class="logo">
     <nuxt-link to="/">
-      <img src="../../assets/images/logo.svg" />
+      <img src="/vision-app-logo.png" />
     </nuxt-link>
   </div>
 </template>
@@ -14,6 +14,6 @@
 
 <style scoped>
   .logo img {
-    height: 30px;
+    height: 50px;
   }
 </style>
