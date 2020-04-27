@@ -53,6 +53,7 @@
                         this.reviews = res.results;
                         this.loading = false;
                         this.total = res['total_results'];
+                        this.page = page;
                     })
             },
         },

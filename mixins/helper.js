@@ -91,6 +91,15 @@ export const helper = {
     getRecommendationsMoviesUrl(id) {
       return this.apiUrl() + 'movie/' + id + '/recommendations?' + this.getRequestAppend();
     },
+    getGenrePageUrl(type, id, name) {
+      return '/genre/' + type + '/' + id + '?name=' + name;
+    },
+    getGenreListUrl(type) {
+      return this.apiUrl() + 'genre/' + type + '/list?' + this.getRequestAppend();
+    },
+    getWithGenresUrl(type, id, page) {
+      return this.apiUrl() + 'discover/' + type + '?with_genres=' + id + '&page=' + page + '&' + this.getRequestAppend()
+    },
     getRandomBackdropColor() {
       const colors = [
           'linear-gradient(to right, rgba(16.47%, 16.08%, 13.33%, 1.00) 150px, rgba(21.96%, 21.96%, 21.96%, 0.84) 100%)',

@@ -28,11 +28,11 @@
                                                 <li v-if="movie['release_date']">
                                                     {{movie['release_date']}}
                                                 </li>
-                                                <li v-if="movie['genres'].length > 0">
-                                                    <span v-for="(genre, index) in movie['genres']">
-                                                      <nuxt-link :to="getGenreUrl(genre.id)">
+                                                <li v-if="movie['genre']">
+                                                    <span v-for="(genre, index) in movie['genre']">
+                                                      <nuxt-link :to="getGenrePageUrl('movie', genre.id, genre['name'])">
                                                         {{genre['name']}}<span
-                                                              v-if="(index+1) !== movie['genres'].length">,</span>
+                                                              v-if="(index+1) !== movie['genre'].length">,</span>
                                                       </nuxt-link>
                                                     </span>
                                                 </li>
@@ -194,9 +194,6 @@
                         this.isLoading = false;
                     })
             },
-            getGenreUrl(id) {
-                return '/genre/' + id;
-            },
             getPercentage(ratio) {
                 return ratio * 10;
             },
@@ -247,35 +244,37 @@
                         return res.json()
                     })
                     .then((res) => {
-                        this.videos = res.results.filter((x) => {
-                            return x['site'] === 'YouTube';
-                        });
-                        this.videosLoading = false;
-                        let length = this.videos.length;
+                        if(res.results.length > 0) {
+                            this.videos = res.results.filter((x) => {
+                                return x['site'] === 'YouTube';
+                            });
+                            this.videosLoading = false;
+                            let length = this.videos.length;
 
-                        switch (length) {
-                            case 0:
-                            case 1:
-                            case 2:
-                                break;
-                            default:
-                                length = 2.3;
-                                break;
+                            switch (length) {
+                                case 0:
+                                case 1:
+                                case 2:
+                                    break;
+                                default:
+                                    length = 2.3;
+                                    break;
+                            }
+
+                            this.videosLength = length;
+
+                            let trailer;
+
+                            trailer = res.results.filter((x) => {
+                                return (x['type'] === 'Trailer' && x['site'] === 'YouTube');
+                            });
+
+                            if (trailer.length > 0) {
+                                trailer = trailer[0];
+                            }
+
+                            this.trailer = trailer;
                         }
-
-                        this.videosLength = length;
-
-                        let trailer;
-
-                        trailer = res.results.filter((x) => {
-                            return (x['type'] === 'Trailer' && x['site'] === 'YouTube');
-                        });
-
-                        if (trailer.length > 0) {
-                            trailer = trailer[0];
-                        }
-
-                        this.trailer = trailer;
                     })
             }
         },

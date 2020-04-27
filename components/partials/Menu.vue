@@ -36,17 +36,16 @@
                 name: 'HOME PAGE',
               },
               {
-                name: 'MOVIES',
+                name: 'GENRES',
                 second_menu: true,
                 children: [
                   {
-                    name: 'MOVIES2',
-                    children: [
-                      {
-                        path: '/movie/23',
-                        name: 'IN THEATERS',
-                      }
-                    ]
+                    name: 'MOVIES',
+                    path: '/genre/movie'
+                  },
+                  {
+                    name: 'TV SHOWS',
+                    path: '/genre/tv'
                   }
                 ]
               }
@@ -67,6 +66,7 @@
           }
         },
         closeMenu() {
+          console.log('here')
           this.isOpen = false;
         },
         hasChild(item) {

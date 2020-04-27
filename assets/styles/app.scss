@@ -28,6 +28,15 @@ img {
 main {
   padding-bottom: 30px;
 }
+.page-link {
+  color: #383838;
+}
+
+.page-item.active .page-link {
+  background: #383838;
+  border-color: #383838;
+}
+
 .b-pagination {
   float: left;
   width: 100%;
