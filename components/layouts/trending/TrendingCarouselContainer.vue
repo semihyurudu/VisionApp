@@ -5,18 +5,18 @@
                 <b-col col>
                     <div class="carousel-tabs-container">
                         <h4>Trending</h4>
-                        <b-tabs v-model="tabIndex" lazy>
+                        <b-tabs lazy>
                             <b-tab active>
                                 <template v-slot:title>
                                     <b-icon-layers-half></b-icon-layers-half> <strong>Day</strong>
                                 </template>
-                                <TrendingCarousel :trends="trendsOfDay" :loading="trendsOfDayLoading" />
+                                <ListMoviesCarousel :movies="trendsOfDay" :loading="trendsOfDayLoading" :show-all="true" show-all-link="trending/day" />
                             </b-tab>
                             <b-tab>
                                 <template v-slot:title>
                                     <b-icon-layers-fill></b-icon-layers-fill> <strong>Week</strong>
                                 </template>
-                                <TrendingCarousel :trends="trendsOfWeek" :loading="trendsOfWeekLoading" />
+                                <ListMoviesCarousel :movies="trendsOfWeek" :loading="trendsOfWeekLoading" :show-all="true" show-all-link="trending/week" />
                             </b-tab>
                         </b-tabs>
                     </div>
@@ -28,14 +28,15 @@
 
 <script>
     import { helper } from '../../../mixins/helper.js';
-    import TrendingCarousel from "./TrendingCarousel";
+    import ListMoviesCarousel from "../movie/ListMoviesCarousel";
     export default {
         name: 'TrendingCarouselContainer',
         mixins: [helper],
-        components: {TrendingCarousel},
+        components: {
+            ListMoviesCarousel
+        },
         data() {
             return {
-                tabIndex: 0,
                 trendsOfDay: [],
                 trendsOfDayLoading: true,
                 trendsOfWeek: [],

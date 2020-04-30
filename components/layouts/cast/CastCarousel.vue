@@ -58,19 +58,24 @@
                     pagination: 'fraction',
                     breakpoints: {
                         0: {
-                            itemsToShow: 1.2
+                            itemsToShow: 1.2,
+                            itemsToSlide: 1
                         },
                         320: {
-                            itemsToShow: 2.2
+                            itemsToShow: 2.2,
+                            itemsToSlide: 2
                         },
                         768: {
-                            itemsToShow: 3.2
+                            itemsToShow: 3.2,
+                            itemsToSlide: 3
                         },
                         960: {
-                            itemsToShow: 4.3
+                            itemsToShow: 4.3,
+                            itemsToSlide: 4
                         },
                         1140: {
                             itemsToShow: 5.5,
+                            itemsToSlide: 5
                         }
                     }
                 },

@@ -289,7 +289,9 @@ main {
 .carousel-with-poster-image img {
   border: 1px solid #efefef;
 }
-
+.black-image-bg .carousel-with-poster-image img {
+  border-color: #444444;
+}
 .embed-container {
   position: relative;
   padding-bottom: 56.25%;

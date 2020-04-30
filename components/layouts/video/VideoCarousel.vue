@@ -52,17 +52,16 @@
                     pagination: 'fraction',
                     breakpoints: {
                         0: {
-                            itemsToShow: 1
+                            itemsToShow: 1,
+                            itemsToSlide: 1
                         },
                         1140: {
                             itemsToShow: this.itemsToShow,
+                            itemsToSlide: Math.floor(this.itemsToShow)
                         }
                     }
                 },
             }
-        },
-        mounted() {
-            console.log(this.itemsToShow)
         }
     }
 </script>
