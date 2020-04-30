@@ -318,3 +318,42 @@ main {
   min-height: 200px;
   margin-bottom: 20px;
 }
+
+.hooper-list {
+  position: relative;
+}
+
+.hooper-list .hooper-navigation button {
+  background: #d4d4d4;
+  top: auto;
+  bottom: 0;
+  margin-top: -28px;
+  border-radius: 100%;
+  font-size: 46px;
+  padding: 0 !important;
+  line-height: 10px;
+  width: 48px;
+  height: 48px;
+  outline: none !important;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+  transition-duration: 0.2s;
+  -webkit-transition-duration: 0.2s;
+  -moz-transition-duration: 0.2s;
+  -o-transition-duration: 0.2s;
+}
+.hooper-list .hooper-navigation button:hover {
+  background: #cacaca;
+}
+
+.hooper-prev {
+  left: 50% !important;
+  margin-left: -55px;
+}
+
+.hooper-next {
+  right: 50% !important;
+  margin-right: -55px;
+}
+.hooper-list {
+  padding-bottom: 70px;
+}

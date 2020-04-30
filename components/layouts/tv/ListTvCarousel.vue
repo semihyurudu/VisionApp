@@ -17,6 +17,7 @@
                         </h4>
                     </nuxt-link>
                 </slide>
+                <hooper-navigation slot="hooper-addons"></hooper-navigation>
             </hooper>
         </div>
     </b-overlay>
@@ -25,7 +26,7 @@
 
 
 <script>
-    import { Hooper, Slide } from 'hooper';
+    import { Hooper, Slide, Navigation as HooperNavigation } from 'hooper';
     import 'hooper/dist/hooper.css';
     import ListTvCarouselItem from "./ListTvCarouselItem";
 
@@ -34,7 +35,8 @@
         components: {
             Hooper,
             Slide,
-            ListTvCarouselItem
+            ListTvCarouselItem,
+            HooperNavigation
         },
         props: {
             tvShows: {
@@ -59,8 +61,8 @@
                     infiniteScroll: false,
                     autoPlay: true,
                     playSpeed: 3000,
-                    mouseDrag: true,
-                    touchDrag: true,
+                    mouseDrag: false,
+                    touchDrag: false,
                     wheelControl: false,
                     trimWhiteSpace: true,
                     pagination: 'fraction',

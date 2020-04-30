@@ -5,6 +5,7 @@
                 <slide v-for="(castItem, index) in cast" :key="index" :index="index">
                     <CastCarouselItem :cast-item="castItem" />
                 </slide>
+                <hooper-navigation slot="hooper-addons"></hooper-navigation>
             </hooper>
         </div>
         <span class="text-dark" v-if="!loading && cast.length < 1">
@@ -15,7 +16,7 @@
 
 
 <script>
-    import {Hooper, Slide} from 'hooper';
+    import {Hooper, Slide, Navigation as HooperNavigation} from 'hooper';
     import 'hooper/dist/hooper.css';
     import CastCarouselItem from "./CastCarouselItem";
 
@@ -24,7 +25,8 @@
         components: {
             Hooper,
             Slide,
-            CastCarouselItem
+            CastCarouselItem,
+            HooperNavigation
         },
         props: {
             cast: {
@@ -46,11 +48,11 @@
             return {
                 hooperSettings: {
                     centerMode: false,
-                    infiniteScroll: true,
+                    infiniteScroll: false,
                     autoPlay: true,
                     playSpeed: 3000,
-                    mouseDrag: true,
-                    touchDrag: true,
+                    mouseDrag: false,
+                    touchDrag: false,
                     wheelControl: false,
                     trimWhiteSpace: true,
                     pagination: 'fraction',

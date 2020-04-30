@@ -2,12 +2,12 @@
     <b-overlay :show="loading" rounded="sm">
         <div class="list-movies-carousel carousel-with-poster">
             <hooper :settings="hooperSettings" v-if="!loading">
-
                 <slide v-for="(trend, index) in trends" :key="index" :index="index">
                     <ListMoviesCarouselItem :movie="trend" v-if="trend['media_type'] === 'movie'" />
                     <ListPersonCarouselItem :person="trend" v-if="trend['media_type'] === 'person'" />
                     <ListTvCarouselItem :tv="trend" v-if="trend['media_type'] === 'tv'" />
                 </slide>
+                <hooper-navigation slot="hooper-addons"></hooper-navigation>
             </hooper>
         </div>
     </b-overlay>
@@ -15,7 +15,7 @@
 
 
 <script>
-    import {Hooper, Slide} from 'hooper';
+    import {Hooper, Slide, Navigation as HooperNavigation} from 'hooper';
     import 'hooper/dist/hooper.css';
     import ListMoviesCarouselItem from "./../movie/ListMoviesCarouselItem";
     import ListPersonCarouselItem from "./../person/ListPersonCarouselItem";
@@ -28,7 +28,8 @@
             Slide,
             ListMoviesCarouselItem,
             ListPersonCarouselItem,
-            ListTvCarouselItem
+            ListTvCarouselItem,
+            HooperNavigation
         },
         props: {
             trends: {
@@ -54,8 +55,8 @@
                     infiniteScroll: false,
                     autoPlay: true,
                     playSpeed: 3000,
-                    mouseDrag: true,
-                    touchDrag: true,
+                    mouseDrag: false,
+                    touchDrag: false,
                     wheelControl: false,
                     trimWhiteSpace: true,
                     pagination: 'fraction',

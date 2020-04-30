@@ -17,6 +17,7 @@
                         </h4>
                     </nuxt-link>
                 </slide>
+                <hooper-navigation slot="hooper-addons"></hooper-navigation>
             </hooper>
             <span class="text-dark" v-if="!loading && movies.length < 1">
                 We don't have any movies.
@@ -27,7 +28,7 @@
 
 
 <script>
-    import {Hooper, Slide} from 'hooper';
+    import {Hooper, Slide, Navigation as HooperNavigation} from 'hooper';
     import 'hooper/dist/hooper.css';
     import ListMoviesCarouselItem from "./ListMoviesCarouselItem";
 
@@ -36,7 +37,8 @@
         components: {
             Hooper,
             Slide,
-            ListMoviesCarouselItem
+            ListMoviesCarouselItem,
+            HooperNavigation
         },
         props: {
             movies: {
@@ -80,8 +82,8 @@
                     infiniteScroll: false,
                     autoPlay: true,
                     playSpeed: 3000,
-                    mouseDrag: true,
-                    touchDrag: true,
+                    mouseDrag: false,
+                    touchDrag: false,
                     wheelControl: false,
                     trimWhiteSpace: true,
                     pagination: 'fraction',
