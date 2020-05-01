@@ -2,8 +2,14 @@
     <b-overlay :show="loading" rounded="sm" :class="loading ? 'default-overlay-loading' : ''">
         <div class="carousel carousel-with-poster">
             <hooper :settings="hooperSettings" v-if="!loading && items.length > 0">
-                <slide v-for="(movie, index) in items" :key="index">
-                    <ListMoviesCarouselItem :movie="movie" v-if="type === 'movie'" />
+                <slide v-for="(item, index) in items" :key="index">
+
+                    <ListMoviesCarouselItem :movie="item" v-if="type === 'movie'" />
+
+                    <ListTvCarouselItem :tv="item" v-if="type === 'tv'" />
+
+                    <ListPersonCarouselItem :person="item" v-if="type === 'person'" />
+
                 </slide>
 
                 <slide class="show-all-poster" v-if="!loading && this.showAllLink">
@@ -31,14 +37,18 @@
     import {Hooper, Slide, Navigation as HooperNavigation} from 'hooper';
     import 'hooper/dist/hooper.css';
     import ListMoviesCarouselItem from "../../layouts/movie/ListMoviesCarouselItem";
+    import ListTvCarouselItem from "../../layouts/tv/ListTvCarouselItem";
+    import ListPersonCarouselItem from "../../layouts/person/ListPersonCarouselItem";
 
     export default {
         name: 'Carousel',
         components: {
             Hooper,
             Slide,
+            HooperNavigation,
             ListMoviesCarouselItem,
-            HooperNavigation
+            ListTvCarouselItem,
+            ListPersonCarouselItem
         },
         props: {
             type: {

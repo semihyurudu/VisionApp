@@ -13,7 +13,7 @@
                                 <Carousel
                                         :items="movies"
                                         :loading="moviesLoading"
-                                        show-all-link="popular"
+                                        show-all-link="/movie/popular"
                                         type="movie"
                                 />
                             </b-tab>
@@ -22,14 +22,24 @@
                                 <template v-slot:title>
                                     <b-icon-tv></b-icon-tv> <strong>{{getSearchTypeText('tv')}}</strong>
                                 </template>
-                                <ListTvCarousel :tv-shows="tvShows" :loading="tvShowsLoading" />
+                                <Carousel
+                                        :items="tvShows"
+                                        :loading="tvShowsLoading"
+                                        show-all-link="/tv/popular"
+                                        type="tv"
+                                />
                             </b-tab>
 
                             <b-tab>
                                 <template v-slot:title>
                                     <b-icon-people-fill></b-icon-people-fill> <strong>{{getSearchTypeText('person')}}</strong>
                                 </template>
-                                <ListPersonCarousel :peoples="peoples" :loading="peoplesLoading" />
+                                <Carousel
+                                        :items="peoples"
+                                        :loading="peoplesLoading"
+                                        show-all-link="/person/popular"
+                                        type="person"
+                                />
                             </b-tab>
                         </b-tabs>
                     </div>
@@ -43,12 +53,10 @@
 <script>
     import { helper } from '../../../mixins/helper.js';
     import Carousel from "../../partials/carousel/Carousel";
-    import ListTvCarousel from "../tv/ListTvCarousel";
-    import ListPersonCarousel from "../person/ListPersonCarousel";
     export default {
         name: 'WhatIsPopularCarousel',
         mixins: [helper],
-        components: {Carousel, ListTvCarousel, ListPersonCarousel},
+        components: {Carousel},
         data() {
             return {
                 tabIndex: 0,
