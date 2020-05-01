@@ -12,7 +12,13 @@
       </main>
 
       <WhatIsPopularCarouselContainer />
-      <TrendingCarouselContainer />
+
+      <div class=" black-image-bg">
+        <TrendingCarouselContainer />
+      </div>
+
+      <UpcomingMoviesContainer style="margin-top: 50px" />
+
     </div>
   </div>
 </template>
@@ -22,6 +28,7 @@
   import HomeSearch from '../components/layouts/search/HomeSearch';
   import WhatIsPopularCarouselContainer from "../components/layouts/what-is-popular/WhatIsPopularCarouselContainer";
   import TrendingCarouselContainer from "../components/layouts/trending/TrendingCarouselContainer";
+  import UpcomingMoviesContainer from "../components/layouts/upcoming/UpcomingMoviesContainer";
   import { helper } from '../mixins/helper.js';
   import Loading from 'vue-loading-overlay';
   import 'vue-loading-overlay/dist/vue-loading.css';
@@ -31,18 +38,19 @@
           HomeSearch,
           WhatIsPopularCarouselContainer,
           TrendingCarouselContainer,
-          Loading
+          Loading,
+          UpcomingMoviesContainer
       },
       mixins: [helper],
-    data() {
-        return {
-          isLoading: true
-        }
-    },
-    mounted() {
-        setTimeout(() => {
-          this.isLoading = false;
-        }, 500)
-    }
+      data() {
+          return {
+            isLoading: true
+          }
+      },
+      mounted() {
+          setTimeout(() => {
+            this.isLoading = false;
+          }, 500)
+      }
   }
 </script>

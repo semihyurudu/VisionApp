@@ -35,6 +35,7 @@ main {
 .page-item.active .page-link {
   background: #383838;
   border-color: #383838;
+  pointer-events: none;
 }
 
 .b-pagination {

@@ -1,5 +1,5 @@
 <template>
-    <div class="trending-carousel black-image-bg">
+    <div class="trending-carousel">
         <b-container>
             <b-row>
                 <b-col col>
