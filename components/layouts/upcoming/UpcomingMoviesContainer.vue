@@ -10,13 +10,24 @@
                                 <template v-slot:title>
                                     <b-icon-layers-half></b-icon-layers-half> <strong>Day</strong>
                                 </template>
-                                <ListMoviesCarousel :movies="upcomingMoviesOfDay" :loading="upcomingMoviesOfDayLoading" :show-all="true" show-all-link="upcoming" />
+                                <Carousel
+                                        :items="upcomingMoviesOfDay"
+                                        :loading="upcomingMoviesOfDayLoading"
+                                        show-all-link="upcoming"
+                                        type="movie"
+                                />
                             </b-tab>
                             <b-tab>
                                 <template v-slot:title>
                                     <b-icon-layers-fill></b-icon-layers-fill> <strong>Week</strong>
                                 </template>
-                                <ListMoviesCarousel :movies="upcomingMoviesOfWeek" :loading="upcomingMoviesOfWeekLoading" :show-all="true" show-all-link="upcoming" />                            </b-tab>
+                                <Carousel
+                                        :items="upcomingMoviesOfWeek"
+                                        :loading="upcomingMoviesOfWeekLoading"
+                                        show-all-link="upcoming"
+                                        type="movie"
+                                />
+                            </b-tab>
                         </b-tabs>
                     </div>
                 </b-col>
@@ -27,12 +38,12 @@
 
 <script>
     import { helper } from '../../../mixins/helper.js';
-    import ListMoviesCarousel from "../movie/ListMoviesCarousel";
+    import Carousel from "../../partials/carousel/Carousel";
     export default {
         name: 'upcomingMoviesOfWeekContainer',
         mixins: [helper],
         components: {
-            ListMoviesCarousel,
+            Carousel,
         },
         data() {
             return {

@@ -10,13 +10,23 @@
                                 <template v-slot:title>
                                     <b-icon-layers-half></b-icon-layers-half> <strong>Day</strong>
                                 </template>
-                                <ListMoviesCarousel :movies="trendsOfDay" :loading="trendsOfDayLoading" :show-all="true" show-all-link="trending/day" />
+                                <Carousel
+                                        :items="trendsOfDay"
+                                        :loading="trendsOfDayLoading"
+                                        show-all-link="trending/day"
+                                        type="movie"
+                                />
                             </b-tab>
                             <b-tab>
                                 <template v-slot:title>
                                     <b-icon-layers-fill></b-icon-layers-fill> <strong>Week</strong>
                                 </template>
-                                <ListMoviesCarousel :movies="trendsOfWeek" :loading="trendsOfWeekLoading" :show-all="true" show-all-link="trending/week" />
+                                <Carousel
+                                        :items="trendsOfWeek"
+                                        :loading="trendsOfWeekLoading"
+                                        show-all-link="trending/week"
+                                        type="movie"
+                                />
                             </b-tab>
                         </b-tabs>
                     </div>
@@ -28,12 +38,12 @@
 
 <script>
     import { helper } from '../../../mixins/helper.js';
-    import ListMoviesCarousel from "../movie/ListMoviesCarousel";
+    import Carousel from "../../partials/carousel/Carousel";
     export default {
         name: 'TrendingCarouselContainer',
         mixins: [helper],
         components: {
-            ListMoviesCarousel
+            Carousel
         },
         data() {
             return {

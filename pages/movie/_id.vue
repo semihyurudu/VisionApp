@@ -112,19 +112,17 @@
 
                         <div class="carousel-container">
                             <BlockTitle title="Similar Movies" />
-                            <ListMoviesCarousel
-                                    :movies="similarMovies"
+                            <Carousel
+                                    :items="similarMovies"
                                     :loading="similarMoviesLoading"
-                                    :show-all="false"
                             />
                         </div>
 
                         <div class="carousel-container">
                             <BlockTitle title="Recommendations" />
-                            <ListMoviesCarousel
-                                    :movies="recommendationsMovies"
+                            <Carousel
+                                    :items="recommendationsMovies"
                                     :loading="recommendationsMoviesLoading"
-                                    :show-all="false"
                             />
                         </div>
 
@@ -164,7 +162,7 @@
     import Keywords from "../../components/partials/Keywords";
     import Loading from '../../node_modules/vue-loading-overlay';
     import VideoCarousel from "../../components/layouts/video/VideoCarousel";
-    import ListMoviesCarousel from "../../components/layouts/movie/ListMoviesCarousel";
+    import Carousel from "../../components/partials/carousel/Carousel";
     import Reviews from "../../components/layouts/reviews/Reviews";
     import BlockTitle from "../../components/partials/BlockTitle";
 
@@ -172,7 +170,7 @@
         name: 'MovieItem',
         mixins: [helper],
         components: {
-            ListMoviesCarousel,
+            Carousel,
             PercentageCircle,
             CrewItem,
             CastCarousel,

@@ -10,7 +10,12 @@
                                 <template v-slot:title>
                                     <b-icon-film></b-icon-film> <strong>{{getSearchTypeText('movie')}}</strong>
                                 </template>
-                                <ListMoviesCarousel :movies="movies" :loading="moviesLoading" :show-all="true" show-all-link="popular" />
+                                <Carousel
+                                        :items="movies"
+                                        :loading="moviesLoading"
+                                        show-all-link="popular"
+                                        type="movie"
+                                />
                             </b-tab>
 
                             <b-tab>
@@ -37,13 +42,13 @@
 
 <script>
     import { helper } from '../../../mixins/helper.js';
-    import ListMoviesCarousel from "../movie/ListMoviesCarousel";
+    import Carousel from "../../partials/carousel/Carousel";
     import ListTvCarousel from "../tv/ListTvCarousel";
     import ListPersonCarousel from "../person/ListPersonCarousel";
     export default {
         name: 'WhatIsPopularCarousel',
         mixins: [helper],
-        components: {ListMoviesCarousel, ListTvCarousel, ListPersonCarousel},
+        components: {Carousel, ListTvCarousel, ListPersonCarousel},
         data() {
             return {
                 tabIndex: 0,

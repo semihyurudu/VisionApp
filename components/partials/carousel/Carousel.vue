@@ -1,13 +1,13 @@
 <template>
     <b-overlay :show="loading" rounded="sm" :class="loading ? 'default-overlay-loading' : ''">
-        <div class="list-movies-carousel carousel-with-poster">
-            <hooper :settings="hooperSettings" v-if="!loading && movies.length > 0">
-                <slide v-for="(movie, index) in movies" :key="index">
-                    <ListMoviesCarouselItem :movie="movie" />
+        <div class="carousel carousel-with-poster">
+            <hooper :settings="hooperSettings" v-if="!loading && items.length > 0">
+                <slide v-for="(movie, index) in items" :key="index">
+                    <ListMoviesCarouselItem :movie="movie" v-if="type === 'movie'" />
                 </slide>
 
-                <slide class="show-all-poster" v-if="!loading && this.showAll">
-                    <nuxt-link :to="getShowAllLink(this.showAllLink)">
+                <slide class="show-all-poster" v-if="!loading && this.showAllLink">
+                    <nuxt-link :to="this.showAllLink">
                         <div class="carousel-with-poster-image">
                             <img src="/show-all-poster.jpg"/>
                         </div>
@@ -19,7 +19,7 @@
                 </slide>
                 <hooper-navigation slot="hooper-addons"></hooper-navigation>
             </hooper>
-            <span class="text-dark" v-if="!loading && movies.length < 1">
+            <span class="text-dark" v-if="!loading && items.length < 1">
                 We don't have any movies.
             </span>
         </div>
@@ -30,10 +30,10 @@
 <script>
     import {Hooper, Slide, Navigation as HooperNavigation} from 'hooper';
     import 'hooper/dist/hooper.css';
-    import ListMoviesCarouselItem from "./ListMoviesCarouselItem";
+    import ListMoviesCarouselItem from "../../layouts/movie/ListMoviesCarouselItem";
 
     export default {
-        name: 'ListMoviesCarousel',
+        name: 'Carousel',
         components: {
             Hooper,
             Slide,
@@ -41,7 +41,11 @@
             HooperNavigation
         },
         props: {
-            movies: {
+            type: {
+                type: String,
+                required: true
+            },
+            items: {
                 type: Array,
                 required: true,
                 default() {
@@ -55,39 +59,15 @@
                     return true;
                 }
             },
-            showAll: {
-                type: Boolean,
-                required: true,
-                default() {
-                    return false;
-                }
-            },
             showAllLink: {
                 type: String,
+                required: false
+            },
+            breakpoints: {
+                type: Object,
                 required: false,
                 default() {
-                    return 'popular';
-                }
-            }
-        },
-        methods: {
-            getShowAllLink(link) {
-                return '/movies/' + link;
-            }
-        },
-        data() {
-            return {
-                hooperSettings: {
-                    centerMode: false,
-                    infiniteScroll: false,
-                    autoPlay: true,
-                    playSpeed: 3000,
-                    mouseDrag: false,
-                    touchDrag: false,
-                    wheelControl: false,
-                    trimWhiteSpace: true,
-                    pagination: 'fraction',
-                    breakpoints: {
+                    return {
                         0: {
                             itemsToShow: 1.2,
                             itemsToSlide: 1
@@ -109,6 +89,22 @@
                             itemsToSlide: 5,
                         }
                     }
+                }
+            }
+        },
+        data() {
+            return {
+                hooperSettings: {
+                    centerMode: false,
+                    infiniteScroll: false,
+                    autoPlay: true,
+                    playSpeed: 3000,
+                    mouseDrag: false,
+                    touchDrag: false,
+                    wheelControl: false,
+                    trimWhiteSpace: true,
+                    pagination: 'fraction',
+                    breakpoints: this.breakpoints
                 },
             }
         }
