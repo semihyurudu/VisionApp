@@ -12,6 +12,8 @@
 
                     <VideoCarouselItem :video="item" v-if="type === 'video'" />
 
+                    <CastCarouselItem :cast-item="item" v-if="type === 'cast'" />
+
                 </slide>
 
                 <slide class="show-all-poster" v-if="!loading && this.showAllLink">
@@ -42,6 +44,7 @@
     import ListTvCarouselItem from "../../layouts/tv/ListTvCarouselItem";
     import ListPersonCarouselItem from "../../layouts/person/ListPersonCarouselItem";
     import VideoCarouselItem from "../../layouts/video/VideoCarouselItem";
+    import CastCarouselItem from "../../layouts/cast/CastCarouselItem";
 
     export default {
         name: 'Carousel',
@@ -52,7 +55,8 @@
             ListMoviesCarouselItem,
             ListTvCarouselItem,
             ListPersonCarouselItem,
-            VideoCarouselItem
+            VideoCarouselItem,
+            CastCarouselItem
         },
         props: {
             type: {

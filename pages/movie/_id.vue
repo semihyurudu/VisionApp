@@ -102,7 +102,11 @@
                     <b-col xl="9">
                         <div class="carousel-container">
                             <BlockTitle title="Cast" />
-                            <CastCarousel :cast="cast" :loading="castLoading"/>
+                            <Carousel
+                                    :items="cast"
+                                    :loading="castLoading"
+                                    type="cast"
+                            />
                         </div>
 
                         <div class="carousel-container" v-if="videosLength > 0">
@@ -165,14 +169,12 @@
     import {helper} from '../../mixins/helper.js';
     import PercentageCircle from '../../node_modules/vue-css-percentage-circle';
     import CrewItem from "../../components/partials/crew/CrewItem";
-    import CastCarousel from "../../components/layouts/cast/CastCarousel";
     import SidebarTitleDescription from "../../components/partials/SidebarTitleDescription";
     import Keywords from "../../components/partials/Keywords";
     import Loading from '../../node_modules/vue-loading-overlay';
     import Carousel from "../../components/partials/carousel/Carousel";
     import Reviews from "../../components/layouts/reviews/Reviews";
     import BlockTitle from "../../components/partials/BlockTitle";
-
 
     export default {
         name: 'MovieItem',
@@ -181,7 +183,6 @@
             Carousel,
             PercentageCircle,
             CrewItem,
-            CastCarousel,
             SidebarTitleDescription,
             Keywords,
             Loading,
