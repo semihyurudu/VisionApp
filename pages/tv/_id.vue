@@ -19,23 +19,23 @@
                                     </b-col>
                                     <b-col lg="8" class="movie-or-tv-item-content-table">
                                         <div class="movie-or-tv-item-content-details">
-                                            <h1>{{movie['title']}}
-                                                <span v-if="movie['release_date']">
-                                                    ({{getYearFromString(movie['release_date'])}})
+                                            <h1>{{tv['name']}}
+                                                <span v-if="tv['first_air_date']">
+                                                    ({{getYearFromString(tv['first_air_date'])}})
                                                 </span>
                                             </h1>
                                             <ul>
                                                 <li class="movie-or-tv-type">
-                                                    MOVIE
+                                                    TV
                                                 </li>
-                                                <li v-if="movie['release_date']">
-                                                    {{movie['release_date']}}
+                                                <li v-if="tv['first_air_date']">
+                                                    {{tv['first_air_date']}}
                                                 </li>
-                                                <li v-if="movie['genres']">
-                                                    <span v-for="(genre, index) in movie['genres']">
+                                                <li v-if="tv['genres']">
+                                                    <span v-for="(genre, index) in tv['genres']">
                                                       <nuxt-link :to="getGenrePageUrl('movie', genre.id, genre['name'])">
                                                         {{genre['name']}}<span
-                                                              v-if="(index+1) !== movie['genres'].length">,</span>
+                                                              v-if="(index+1) !== tv['genres'].length">,</span>
                                                       </nuxt-link>
                                                     </span>
                                                 </li>
@@ -43,13 +43,12 @@
 
                                             <div class="movie-or-tv-item-percentage">
                                                 <PercentageCircle
-                                                        :percent="getPercentage(movie['vote_average'])"
+                                                        :percent="getPercentage(tv['vote_average'])"
                                                         size="small"
                                                         active-color="orange"
                                                         complete-color="orange"
                                                 />
                                                 <span class="score-title">User<br/>Score</span>
-
 
                                                 <div class="movie-or-tv-trailer" v-if="Object.entries(trailer).length > 0">
                                                     <b-button v-b-modal.trailer-modal variant="dark">
@@ -78,9 +77,9 @@
 
                                             </div>
 
-                                            <div class="movie-or-tv-item-overview" v-if="movie['overview']">
+                                            <div class="movie-or-tv-item-overview" v-if="tv['overview']">
                                                 <h5>Overview</h5>
-                                                <p>{{movie['overview']}}</p>
+                                                <p>{{tv['overview']}}</p>
                                             </div>
 
                                             <div class="movie-or-tv-item-crew" v-if="crew">
@@ -112,9 +111,9 @@
                             />
                         </div>
 
+
                         <div class="carousel-container" v-if="videosLength > 0">
                             <BlockTitle title="Videos" />
-
                             <Carousel
                                     :items="videos"
                                     :loading="false"
@@ -124,49 +123,60 @@
                         </div>
 
                         <div class="carousel-container">
-                            <BlockTitle title="Similar Movies" />
+                            <BlockTitle title="Similar TV Shows" />
                             <Carousel
-                                    :items="similarMovies"
-                                    :loading="similarMoviesLoading"
-                                    type="movie"
+                                    :items="similarTvShows"
+                                    :loading="similarTvShowsLoading"
+                                    type="tv"
                             />
                         </div>
 
                         <div class="carousel-container">
                             <BlockTitle title="Recommendations" />
                             <Carousel
-                                    :items="recommendationMovies"
-                                    :loading="recommendationMoviesLoading"
-                                    type="movie"
+                                    :items="recommendationTvShows"
+                                    :loading="recommendationTvShowsLoading"
+                                    type="tv"
                             />
                         </div>
 
-
                         <div class="reviews-container">
                             <BlockTitle title="Reviews" />
-                            <Reviews type="movie" />
+                            <Reviews type="tv" />
                         </div>
-
 
                     </b-col>
                     <b-col xl="3">
-                        <SidebarTitleDescription title="Status" :description="movie['status']"/>
+                        <SidebarTitleDescription title="Type" :description="tv['type']"/>
+                        <SidebarTitleDescription title="Status" :description="tv['status']"/>
                         <SidebarTitleDescription title="Original Language"
-                                                 :description="getLanguageFromCode(movie['original_language'])"/>
-                        <SidebarTitleDescription title="Budget" :description="getBudget(movie['budget'])"/>
-                        <SidebarTitleDescription title="Revenue" :description="formatMoney(movie['revenue'])"
-                                                 v-if="movie['revenue']"/>
+                                                 :description="getLanguageFromCode(tv['original_language'])"
+                        />
+
+                        <div class="networks-container" v-if="tv['networks'].length > 0">
+                            <span><b>Network</b></span><br />
+                            <div class="networks-item" v-for="(item, index) in tv['networks']" :key="index">
+                                <img
+                                        :src="getNetworkLogo(item['logo_path'])"
+                                        :alt="item['name']"
+                                        :title="item['name']"
+                                />
+                            </div>
+                        </div>
 
                         <div class="keywords-container">
                             <span><b>Keywords</b></span><br/>
                             <Keywords :keywords="keywords" :loading="keywordsLoading" />
                         </div>
+
                     </b-col>
                 </b-row>
             </b-container>
+
         </div>
     </main>
 </template>
+
 
 <script>
     import {helper} from '../../mixins/helper.js';
@@ -180,7 +190,7 @@
     import BlockTitle from "../../components/partials/BlockTitle";
 
     export default {
-        name: 'MovieItem',
+        name: 'TvItem',
         mixins: [helper],
         components: {
             Carousel,
@@ -192,60 +202,51 @@
             Reviews,
             BlockTitle
         },
+        computed: {
+            getBackdrop() {
+                let style = '';
+
+                if (this.tv['backdrop_path'])
+                    style = `background-image: url(${this.getBackdropPath() + this.tv['backdrop_path']})`;
+
+                return style;
+            },
+            getBackdropColor() {
+                let style = 'background-image: linear-gradient(to right, #949494 150px, #949494 100%)';
+
+                if (this.tv['backdrop_path'])
+                    style = 'background-image:' + this.getRandomBackdropColor();
+
+                return style;
+            },
+            getPoster() {
+                let image = '';
+
+                if (this.tv['poster_path'])
+                    image = this.getPosterPath() + this.tv['poster_path'];
+                else
+                    image = '/default_poster.png';
+
+                return image;
+            },
+
+        },
         methods: {
-            getMovieDetail() {
-                fetch(this.getMovieDetailsUrl(this.$route.params.id))
+            getNetworkLogo(image) {
+                return this.getNetworkLogoPath() + image;
+            },
+            getDetails() {
+                fetch(this.getTvDetailsUrl(this.$route.params.id))
                     .then((res) => {
                         return res.json()
                     })
                     .then((res) => {
-                        this.movie = res;
+                        this.tv = res;
                         this.isLoading = false;
                     })
             },
-            getCredits() {
-                fetch(this.getCreditsUrl('movie', this.$route.params.id))
-                    .then((res) => {
-                        return res.json()
-                    })
-                    .then((res) => {
-                        this.cast = res.cast;
-                        this.crew = res.crew;
-                        this.castLoading = false;
-                    })
-            },
-            getKeywords() {
-                fetch(this.getKeywordsUrl('movie', this.$route.params.id))
-                    .then((res) => {
-                        return res.json()
-                    })
-                    .then((res) => {
-                        this.keywords = res.keywords;
-                        this.keywordsLoading = false;
-                    })
-            },
-            getSimilarMovies() {
-                fetch(this.getSimilarMoviesUrl(this.$route.params.id))
-                    .then((res) => {
-                        return res.json()
-                    })
-                    .then((res) => {
-                        this.similarMovies = res.results;
-                        this.similarMoviesLoading = false;
-                    })
-            },
-            getRecommendationMovies() {
-                fetch(this.getRecommendationMoviesUrl(this.$route.params.id))
-                    .then((res) => {
-                        return res.json()
-                    })
-                    .then((res) => {
-                        this.recommendationMovies = res.results;
-                        this.recommendationMoviesLoading = false;
-                    })
-            },
             getVideos() {
-                fetch(this.getVideosUrl('movie', this.$route.params.id))
+                fetch(this.getVideosUrl('tv', this.$route.params.id))
                     .then((res) => {
                         return res.json()
                     })
@@ -284,45 +285,60 @@
                             this.trailer = trailer;
                         }
                     })
-            }
-        },
-        computed: {
-            getBackdrop() {
-                let style = '';
-
-                if (this.movie['backdrop_path'])
-                    style = `background-image: url(${this.getBackdropPath() + this.movie['backdrop_path']})`;
-
-                return style;
             },
-            getBackdropColor() {
-                let style = 'background-image: linear-gradient(to right, #949494 150px, #949494 100%)';
-
-                if (this.movie['backdrop_path'])
-                    style = 'background-image:' + this.getRandomBackdropColor();
-
-                return style;
+            getCredits() {
+                fetch(this.getCreditsUrl('tv', this.$route.params.id))
+                    .then((res) => {
+                        return res.json()
+                    })
+                    .then((res) => {
+                        this.cast = res.cast;
+                        this.crew = res.crew;
+                        this.castLoading = false;
+                    })
             },
-            getPoster() {
-                let image = '';
-
-                if (this.movie['poster_path'])
-                    image = this.getPosterPath() + this.movie['poster_path'];
-                else
-                    image = '/default_poster.png';
-
-                return image;
+            getKeywords() {
+                fetch(this.getKeywordsUrl('tv', this.$route.params.id))
+                    .then((res) => {
+                        return res.json()
+                    })
+                    .then((res) => {
+                        this.keywords = res.results;
+                        this.keywordsLoading = false;
+                        console.log('key', this.keywords, res.keywords)
+                    })
+            },
+            getSimilarTvShows() {
+                fetch(this.getSimilarTvShowsUrl(this.$route.params.id))
+                    .then((res) => {
+                        return res.json()
+                    })
+                    .then((res) => {
+                        this.similarTvShows = res.results;
+                        this.similarTvShowsLoading = false;
+                    })
+            },
+            getRecommendationTvShows() {
+                fetch(this.getRecommendationTvShowsUrl(this.$route.params.id))
+                    .then((res) => {
+                        return res.json()
+                    })
+                    .then((res) => {
+                        this.recommendationTvShows = res.results;
+                        this.recommendationTvShowsLoading = false;
+                    })
             }
         },
         data() {
             return {
-                movie: {},
+                tv: {},
+                isLoading: true,
                 crew: [],
                 cast: [],
                 castLoading: true,
                 keywords: [],
                 keywordsLoading: true,
-                isLoading: true,
+                trailer: {},
                 videos: [],
                 videosLoading: true,
                 videosLength: 0,
@@ -336,20 +352,35 @@
                         itemsToSlide: Math.floor(this.videosLength)
                     }
                 },
-                trailer: {},
-                similarMovies: [],
-                similarMoviesLoading: true,
-                recommendationMovies: [],
-                recommendationMoviesLoading: true
+                similarTvShows: [],
+                similarTvShowsLoading: true,
+                recommendationTvShows: [],
+                recommendationTvShowsLoading: true
             }
         },
         created() {
-            this.getMovieDetail();
+            this.getDetails();
+            this.getVideos();
             this.getCredits();
             this.getKeywords();
-            this.getVideos();
-            this.getSimilarMovies();
-            this.getRecommendationMovies();
+            this.getSimilarTvShows();
+            this.getRecommendationTvShows();
         }
     }
 </script>
+
+<style scoped>
+    .networks-container {
+        margin-bottom: 20px;
+        float: left;
+        width: 100%;
+    }
+    .networks-item {
+        float: left;
+        margin: 5px 15px 10px 0;
+    }
+
+    .networks-item img {
+        height: 25px;
+    }
+</style>

@@ -28,6 +28,9 @@ export const helper = {
     getSmallProfilePath() {
       return 'https://image.tmdb.org/t/p/w90_and_h90_face'
     },
+    getNetworkLogoPath() {
+      return 'https://image.tmdb.org/t/p/h30'
+    },
     substringWithWords(text, length) {
       // return text.replace(/^(.{70}[^\s]*).*/, "$1");
       return text.substr(0, length);
@@ -76,20 +79,26 @@ export const helper = {
     getMovieDetailsUrl(id) {
       return this.apiUrl() + 'movie/' + id + '?' + this.getRequestAppend();
     },
-    getMovieCreditsUrl(id) {
-      return this.apiUrl() + 'movie/' + id + '/credits?' + this.getRequestAppend();
+    getCreditsUrl(type, id) {
+      return this.apiUrl() + type + '/' + id + '/credits?' + this.getRequestAppend();
     },
-    getMovieKeywordsUrl(id) {
-      return this.apiUrl() + 'movie/' + id + '/keywords?' + this.getRequestAppend();
+    getKeywordsUrl(type, id) {
+      return this.apiUrl() + type + '/' + id + '/keywords?' + this.getRequestAppend();
     },
-    getMovieVideosUrl(id) {
-      return this.apiUrl() + 'movie/' + id + '/videos?' + this.getRequestAppend();
+    getVideosUrl(type, id) {
+      return this.apiUrl() + type + '/' + id + '/videos?' + this.getRequestAppend();
     },
     getSimilarMoviesUrl(id) {
       return this.apiUrl() + 'movie/' + id + '/similar?' + this.getRequestAppend();
     },
-    getRecommendationsMoviesUrl(id) {
+    getSimilarTvShowsUrl(id) {
+      return this.apiUrl() + 'tv/' + id + '/similar?' + this.getRequestAppend();
+    },
+    getRecommendationMoviesUrl(id) {
       return this.apiUrl() + 'movie/' + id + '/recommendations?' + this.getRequestAppend();
+    },
+    getRecommendationTvShowsUrl(id) {
+      return this.apiUrl() + 'tv/' + id + '/recommendations?' + this.getRequestAppend();
     },
     getGenrePageUrl(type, id, name) {
       return '/genre/' + type + '/' + id + '?name=' + name;
@@ -99,6 +108,9 @@ export const helper = {
     },
     getWithGenresUrl(type, id, page) {
       return this.apiUrl() + 'discover/' + type + '?with_genres=' + id + '&page=' + page + '&' + this.getRequestAppend()
+    },
+    getTvDetailsUrl(id) {
+      return this.apiUrl() + 'tv/' + id + '?' + this.getRequestAppend();
     },
     getRandomBackdropColor() {
       const colors = [
@@ -155,8 +167,11 @@ export const helper = {
     getYoutubeIframeSrc(key) {
       return 'https://www.youtube.com/embed/' + key;
     },
-    getMovieReviewsUrl(id, page) {
-      return this.apiUrl() + 'movie/' + id + '/reviews?page=' + page + '&' + this.getRequestAppend();
+    getReviewsUrl(type, id, page) {
+      return this.apiUrl() + type + '/' + id + '/reviews?page=' + page + '&' + this.getRequestAppend();
+    },
+    getPercentage(ratio) {
+      return ratio * 10;
     }
   }
 };

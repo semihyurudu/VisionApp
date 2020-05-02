@@ -66,7 +66,6 @@
           }
         },
         closeMenu() {
-          console.log('here')
           this.isOpen = false;
         },
         hasChild(item) {
@@ -81,8 +80,6 @@
           return child;
         },
         openChild(item) {
-
-
           let backButton = [
             {
               back_button: true,
@@ -101,7 +98,6 @@
           return item.back_button;
         },
         backToParent(item) {
-          console.log(item.second_menu, item);
           let menu = [];
 
           if(item.second_menu) {
