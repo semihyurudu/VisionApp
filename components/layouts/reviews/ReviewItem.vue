@@ -76,6 +76,14 @@
         margin-left: 20px;
         font-weight: bold;
         margin-bottom: 0;
+        display: table;
+        height: 50px;
+        width: calc(100% - 70px);
+        overflow: hidden;
+    }
+    .review-item-title h6 span {
+        display: table-cell;
+        vertical-align: middle;
     }
 
     .review-item .review-content {

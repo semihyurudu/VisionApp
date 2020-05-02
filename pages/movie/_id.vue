@@ -56,7 +56,7 @@
 
                                                     <b-modal id="trailer-modal" centered :title="trailer['name']" size="lg">
                                                         <div class="embed-container">
-                                                            <iframe :src="getYoutubeIframe(trailer['key'])" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                                                            <iframe :src="getYoutubeIframeSrc(trailer['key'])" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
                                                         </div>
                                                         <template v-slot:modal-footer>
                                                             <div class="w-100">

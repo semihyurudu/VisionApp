@@ -81,6 +81,62 @@
                 type: String,
                 required: false
             },
+            centerMode: {
+                type: Boolean,
+                required: false,
+                default() {
+                    return false;
+                }
+            },
+            infiniteScroll: {
+                type: Boolean,
+                required: false,
+                default() {
+                    return false;
+                }
+            },
+            autoPlay: {
+                type: Boolean,
+                required: false,
+                default() {
+                    return true;
+                }
+            },
+            playSpeed: {
+                type: Number,
+                required: false,
+                default() {
+                    return 3000;
+                }
+            },
+            mouseDrag: {
+                type: Boolean,
+                required: false,
+                default() {
+                    return false;
+                }
+            },
+            touchDrag: {
+                type: Boolean,
+                required: false,
+                default() {
+                    return false;
+                }
+            },
+            wheelControl: {
+                type: Boolean,
+                required: false,
+                default() {
+                    return false;
+                }
+            },
+            trimWhiteSpace: {
+                type: Boolean,
+                required: false,
+                default() {
+                    return true;
+                }
+            },
             breakpoints: {
                 type: Object,
                 required: false,
@@ -113,22 +169,17 @@
         data() {
             return {
                 hooperSettings: {
-                    centerMode: false,
-                    infiniteScroll: false,
-                    autoPlay: true,
-                    playSpeed: 3000,
-                    mouseDrag: false,
-                    touchDrag: false,
-                    wheelControl: false,
-                    trimWhiteSpace: true,
-                    pagination: 'fraction',
+                    centerMode: this.centerMode,
+                    infiniteScroll: this.infiniteScroll,
+                    autoPlay: this.autoPlay,
+                    playSpeed: this.playSpeed,
+                    mouseDrag: this.mouseDrag,
+                    touchDrag: this.touchDrag,
+                    wheelControl: this.wheelControl,
+                    trimWhiteSpace: this.trimWhiteSpace,
                     breakpoints: this.breakpoints
                 },
             }
         }
     }
 </script>
-
-<style scoped>
-
-</style>

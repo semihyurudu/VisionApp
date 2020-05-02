@@ -152,7 +152,7 @@ export const helper = {
 
       return val;
     },
-    getYoutubeIframe(key) {
+    getYoutubeIframeSrc(key) {
       return 'https://www.youtube.com/embed/' + key;
     },
     getMovieReviewsUrl(id, page) {
