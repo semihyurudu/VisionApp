@@ -10,6 +10,8 @@
 
                     <ListPersonCarouselItem :person="item" v-if="type === 'person'" />
 
+                    <VideoCarouselItem :video="item" v-if="type === 'video'" />
+
                 </slide>
 
                 <slide class="show-all-poster" v-if="!loading && this.showAllLink">
@@ -39,6 +41,7 @@
     import ListMoviesCarouselItem from "../../layouts/movie/ListMoviesCarouselItem";
     import ListTvCarouselItem from "../../layouts/tv/ListTvCarouselItem";
     import ListPersonCarouselItem from "../../layouts/person/ListPersonCarouselItem";
+    import VideoCarouselItem from "../../layouts/video/VideoCarouselItem";
 
     export default {
         name: 'Carousel',
@@ -48,7 +51,8 @@
             HooperNavigation,
             ListMoviesCarouselItem,
             ListTvCarouselItem,
-            ListPersonCarouselItem
+            ListPersonCarouselItem,
+            VideoCarouselItem
         },
         props: {
             type: {

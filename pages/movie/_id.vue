@@ -107,7 +107,13 @@
 
                         <div class="carousel-container" v-if="videosLength > 0">
                             <BlockTitle title="Videos" />
-                            <VideoCarousel :videos="videos" :items-to-show="videosLength" />
+
+                            <Carousel
+                                    :items="videos"
+                                    :loading="false"
+                                    type="video"
+                                    :breakpoints="videosBreakpoints"
+                            />
                         </div>
 
                         <div class="carousel-container">
@@ -115,6 +121,7 @@
                             <Carousel
                                     :items="similarMovies"
                                     :loading="similarMoviesLoading"
+                                    type="movie"
                             />
                         </div>
 
@@ -123,6 +130,7 @@
                             <Carousel
                                     :items="recommendationsMovies"
                                     :loading="recommendationsMoviesLoading"
+                                    type="movie"
                             />
                         </div>
 
@@ -161,10 +169,10 @@
     import SidebarTitleDescription from "../../components/partials/SidebarTitleDescription";
     import Keywords from "../../components/partials/Keywords";
     import Loading from '../../node_modules/vue-loading-overlay';
-    import VideoCarousel from "../../components/layouts/video/VideoCarousel";
     import Carousel from "../../components/partials/carousel/Carousel";
     import Reviews from "../../components/layouts/reviews/Reviews";
     import BlockTitle from "../../components/partials/BlockTitle";
+
 
     export default {
         name: 'MovieItem',
@@ -177,7 +185,6 @@
             SidebarTitleDescription,
             Keywords,
             Loading,
-            VideoCarousel,
             Reviews,
             BlockTitle
         },
@@ -259,6 +266,8 @@
                                     break;
                             }
 
+                            this.videosBreakpoints[1140]['itemsToShow'] = length;
+                            this.videosBreakpoints[1140]['itemsToSlide'] = Math.floor(length);
                             this.videosLength = length;
 
                             let trailer;
@@ -316,6 +325,16 @@
                 videos: [],
                 videosLoading: true,
                 videosLength: 0,
+                videosBreakpoints: {
+                    0: {
+                        itemsToShow: 1,
+                        itemsToSlide: 1
+                    },
+                    1140: {
+                        itemsToShow: this.videosLength,
+                        itemsToSlide: Math.floor(this.videosLength)
+                    }
+                },
                 trailer: {},
                 similarMovies: [],
                 similarMoviesLoading: true,
