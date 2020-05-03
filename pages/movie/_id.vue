@@ -1,5 +1,5 @@
 <template>
-    <main>
+    <main class="pt-0">
         <loading :active.sync="isLoading"
                  :can-cancel="false"
                  :is-full-page="true">

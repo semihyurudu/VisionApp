@@ -112,6 +112,12 @@ export const helper = {
     getTvDetailsUrl(id) {
       return this.apiUrl() + 'tv/' + id + '?' + this.getRequestAppend();
     },
+    getPersonDetailsUrl(id) {
+      return this.apiUrl() + 'person/' + id + '?' + this.getRequestAppend();
+    },
+    getPersonExternalIdsUrl(id) {
+      return this.apiUrl() + 'person/' + id + '/external_ids?' + this.getRequestAppend();
+    },
     getRandomBackdropColor() {
       const colors = [
           'linear-gradient(to right, rgba(16.47%, 16.08%, 13.33%, 1.00) 150px, rgba(21.96%, 21.96%, 21.96%, 0.84) 100%)',
@@ -157,7 +163,6 @@ export const helper = {
     getBudget(budget) {
       let val = '-';
 
-
       if(budget && budget !== 0) {
         val = this.formatMoney(budget);
       }
@@ -172,6 +177,9 @@ export const helper = {
     },
     getPercentage(ratio) {
       return ratio * 10;
+    },
+    getPersonImdbUrl(id) {
+      return 'https://www.imdb.com/name/' + id;
     }
   }
 };
