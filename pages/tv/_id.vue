@@ -305,7 +305,6 @@
                     .then((res) => {
                         this.keywords = res.results;
                         this.keywordsLoading = false;
-                        console.log('key', this.keywords, res.keywords)
                     })
             },
             getSimilarTvShows() {

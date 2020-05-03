@@ -19,17 +19,19 @@
 
                         <SidebarTitleDescription
                             title="Gender"
-                            :description="person['gender']"
+                            :description="getGenderName"
                         />
 
                         <SidebarTitleDescription
                             title="Birthday"
                             :description="person['birthday']"
+                            v-if="person['birthday']"
                         />
 
                         <SidebarTitleDescription
                             title="Place of Birth"
                             :description="person['place_of_birth']"
+                            v-if="person['place_of_birth']"
                         />
 
 
@@ -37,15 +39,26 @@
                     <b-col xl="8">
                         <h1 class="mb-4">{{person['name']}}</h1>
 
-                        <b>Biography</b><br />
-                        <p>
-                            {{person['biography']}}
-                        </p>
+                        <div v-if="person['biography']">
+                            <b>Biography</b><br />
+                            <p>
+                                {{person['biography']}}
+                            </p>
+                        </div>
 
                         <div class="carousel-container">
                             <BlockTitle title="Known For" />
+                            <Carousel
+                                    :items="knownFor"
+                                    :loading="false"
+                                    show-all-link="/movie/trending/day"
+                                    type="movie-or-tv"
+                                    :breakpoints="knownForBreakpoints"
+                            />
                         </div>
 
+
+                        <Groups :groups="groups" />
 
                     </b-col>
                 </b-row>
@@ -62,6 +75,7 @@
     import ExternalIds from "../../components/partials/person/ExternalIds";
     import Carousel from "../../components/partials/carousel/Carousel"
     import BlockTitle from "../../components/partials/BlockTitle";
+    import Groups from "../../components/layouts/person/Groups";
 
     export default {
         name: 'PersonItem',
@@ -72,10 +86,19 @@
             SidebarTitleDescription,
             ExternalIds,
             Carousel,
-            BlockTitle
+            BlockTitle,
+            Groups
         },
         computed: {
-
+            getGenderName() {
+                let name = '';
+                if(parseInt(this.person['gender']) === 1) {
+                    name = 'Female'
+                } else if(parseInt(this.person['gender']) === 2) {
+                    name = 'Male'
+                }
+                return name;
+            }
         },
         methods: {
             getDetails() {
@@ -86,8 +109,6 @@
                     .then((res) => {
                         this.person = res;
                         this.isLoading = false;
-
-                        console.log(res)
                     })
             },
             getExternalIds() {
@@ -96,7 +117,87 @@
                         return res.json()
                     })
                     .then((res) => {
-                        this.externalIds = res;
+                        this.externalIds = {
+                            ...res,
+                            website: this.person['homepage']
+                        };
+                        this.getCombinedCredits();
+                    })
+            },
+            getCombinedCredits() {
+                fetch(this.getPersonCombinedCreditsUrl(this.$route.params.id))
+                    .then((res) => {
+                        return res.json()
+                    })
+                    .then((res) => {
+                        let cast = res.cast.filter((x) => {
+                            return (x['poster_path']);
+                        });
+                        let crew = res.crew.filter((x) => {
+                            return (x['department'] === this.person['known_for_department']) && (x['poster_path']);
+                        });
+
+                        this.knownFor = cast.concat(crew);
+
+
+                        let groups = [];
+                        let groupsMap = this.groupBy(res.crew, group => group['department']);
+
+                        for (let department of groupsMap.keys()) {
+                            groups.push({
+                                department,
+                                values: groupsMap.get(department)
+                            });
+                        }
+
+                        if(groups.filter((x) => {
+                            return x['department'] === this.person['known_for_department']
+                        }).length < 1) {
+                            groups.unshift({
+                                department: this.person['known_for_department'],
+                                values: res.cast
+                            });
+                        }
+
+                        Object.values(groups).map((group) => {
+                            Object.values(group['values']).map((item) => {
+                                switch (item['media_type']) {
+                                    case 'movie':
+                                        item['year'] = this.getYearFromString(item['release_date']);
+                                        break;
+                                    case 'tv':
+                                        item['year'] = this.getYearFromString(item['first_air_date']);
+                                        break;
+                                }
+                            });
+                        });
+
+                        let groupValuesMapped = [];
+                        let groupValuesItems = {};
+
+                        Object.values(groups).map((group) => {
+                            groupValuesMapped = this.groupBy(group['values'], x => x['year']);
+
+                            for (let value of groupValuesMapped.keys()) {
+                                if(typeof groupValuesItems[value] === 'undefined') {
+                                    groupValuesItems[value] = [
+                                        group['values'].filter((x) => {
+                                            return x.year === value
+                                        })[0]
+                                    ]
+                                } else {
+                                    groupValuesItems[value].push(group['values'].filter((x) => {
+                                        return x.year === value
+                                    })[0])
+                                }
+
+                            }
+
+                            group['values'] = groupValuesItems
+                        });
+
+                        this.groups = groups;
+
                     })
             }
         },
@@ -104,7 +205,27 @@
             return {
                 person: {},
                 isLoading: true,
-                externalIds: {}
+                externalIds: {},
+                knownFor: [],
+                knownForBreakpoints: {
+                    0: {
+                        itemsToShow: 1.2,
+                        itemsToSlide: 1
+                    },
+                    320: {
+                        itemsToShow: 2.2,
+                        itemsToSlide: 2
+                    },
+                    768: {
+                        itemsToShow: 3.2,
+                        itemsToSlide: 3
+                    },
+                    960: {
+                        itemsToShow: 4.3,
+                        itemsToSlide: 4
+                    }
+                },
+                groups: []
             }
         },
         created() {

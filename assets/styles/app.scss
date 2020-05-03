@@ -91,6 +91,7 @@ main {
   margin-bottom: 0;
   color: #fff;
   font-weight: bold;
+  font-size: 22px;
 }
 
 .show-all-poster img {
@@ -410,4 +411,44 @@ iframe.video-carousel-item {
   padding: 5px;
   line-height: 12px;
   font-size: 12px !important;
+}
+
+.person-group-date {
+  width: 60px;
+  float: left;
+  font-size: 14px;
+  line-height: 24px;
+  text-align: center;
+  min-height: 1px;
+}
+
+.person-group-divider {
+  float: left;
+  width: 20px;
+}
+
+.person-group-title {
+  float: left;
+  width: calc(100% - 80px);
+}
+
+.person-group-title label {
+  margin-bottom: 0;
+}
+
+.person-group-title a {
+  color: #3a3a3a;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 16px;
+}
+
+.person-group-title span {
+  color: #a0a0a0;
+  font-size: 15px;
+  width: 100%;
+}
+
+.person-group-title span label {
+  color: #7b7b7b;
 }

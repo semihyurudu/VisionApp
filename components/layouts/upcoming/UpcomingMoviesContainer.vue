@@ -13,7 +13,7 @@
                                 <Carousel
                                         :items="upcomingMoviesOfDay"
                                         :loading="upcomingMoviesOfDayLoading"
-                                        show-all-link="upcoming"
+                                        show-all-link="/movie/upcoming/day"
                                         type="movie"
                                 />
                             </b-tab>
@@ -24,7 +24,7 @@
                                 <Carousel
                                         :items="upcomingMoviesOfWeek"
                                         :loading="upcomingMoviesOfWeekLoading"
-                                        show-all-link="upcoming"
+                                        show-all-link="/movie/upcoming/week"
                                         type="movie"
                                 />
                             </b-tab>

@@ -4,9 +4,9 @@
             <hooper :settings="hooperSettings" v-if="!loading && items.length > 0">
                 <slide v-for="(item, index) in items" :key="index">
 
-                    <ListMoviesCarouselItem :movie="item" v-if="type === 'movie'" />
+                    <ListMoviesCarouselItem :movie="item" v-if="(type === 'movie') || (type === 'movie-or-tv' && item['media_type'] === 'movie')" />
 
-                    <ListTvCarouselItem :tv="item" v-if="type === 'tv'" />
+                    <ListTvCarouselItem :tv="item" v-if="(type === 'tv') || (type === 'movie-or-tv' && item['media_type'] === 'tv')" />
 
                     <ListPersonCarouselItem :person="item" v-if="type === 'person'" />
 

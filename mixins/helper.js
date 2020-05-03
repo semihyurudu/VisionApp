@@ -118,6 +118,9 @@ export const helper = {
     getPersonExternalIdsUrl(id) {
       return this.apiUrl() + 'person/' + id + '/external_ids?' + this.getRequestAppend();
     },
+    getPersonCombinedCreditsUrl(id) {
+      return this.apiUrl() + 'person/' + id + '/combined_credits?' + this.getRequestAppend();
+    },
     getRandomBackdropColor() {
       const colors = [
           'linear-gradient(to right, rgba(16.47%, 16.08%, 13.33%, 1.00) 150px, rgba(21.96%, 21.96%, 21.96%, 0.84) 100%)',
@@ -134,13 +137,14 @@ export const helper = {
     },
     getYearFromString(date) {
       let year = '';
-      let arr = date.split('-');
 
-      year = arr.filter((x) => {
-        return x.length === 4
-      });
-
-      return year[0];
+      if(date) {
+        let arr = date.split('-');
+        year = arr.filter((x) => {
+          return x.length === 4
+        })[0];
+      }
+      return year;
     },
     formatMoney(amount, currency = '$', decimalCount = 2, decimal = ".", thousands = ",") {
       try {
@@ -180,6 +184,19 @@ export const helper = {
     },
     getPersonImdbUrl(id) {
       return 'https://www.imdb.com/name/' + id;
+    },
+    groupBy(list, keyGetter) {
+      const map = new Map();
+      list.forEach((item) => {
+        const key = keyGetter(item);
+        const collection = map.get(key);
+        if (!collection) {
+          map.set(key, [item]);
+        } else {
+          collection.push(item);
+        }
+      });
+      return map;
     }
   }
 };

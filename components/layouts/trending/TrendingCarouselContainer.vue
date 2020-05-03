@@ -13,8 +13,8 @@
                                 <Carousel
                                         :items="trendsOfDay"
                                         :loading="trendsOfDayLoading"
-                                        show-all-link="trending/day"
-                                        type="movie"
+                                        show-all-link="/movie/trending/day"
+                                        type="movie-or-tv"
                                 />
                             </b-tab>
                             <b-tab>
@@ -24,8 +24,8 @@
                                 <Carousel
                                         :items="trendsOfWeek"
                                         :loading="trendsOfWeekLoading"
-                                        show-all-link="trending/week"
-                                        type="movie"
+                                        show-all-link="/movie/trending/week"
+                                        type="movie-or-tv"
                                 />
                             </b-tab>
                         </b-tabs>
@@ -58,6 +58,7 @@
                 fetch(this.trendingUrl('all', 'day'))
                     .then((res) => { return res.json() })
                     .then((res) => {
+
                         this.trendsOfDay = res.results.filter((x) => {
                             return (x['poster_path'] || x['profile_path'])
                         });
