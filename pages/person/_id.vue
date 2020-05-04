@@ -136,7 +136,10 @@
                             return (x['department'] === this.person['known_for_department']) && (x['poster_path']);
                         });
 
-                        let groups = [];
+                        let groups = [{
+                            department: this.person['known_for_department'],
+                            values: res.cast
+                        }];
                         let groupsMap = this.groupBy(res.crew, group => group['department']);
 
                         for (let department of groupsMap.keys()) {
@@ -145,22 +148,6 @@
                                 values: groupsMap.get(department)
                             });
                         }
-
-                        /*if(groups.filter((x) => {
-                            return x['department'] === this.person['known_for_department']
-                        }).length < 1) {
-                            groups.unshift({
-                                department: this.person['known_for_department'],
-                                values: res.cast
-                            });
-                        }*/
-
-                        groups.push({
-                            department: this.person['known_for_department'],
-                            values: res.cast
-                        });
-
-                        console.log('1 grup', groups)
 
                         Object.values(groups).map((group) => {
                             Object.values(group['values']).map((item) => {
