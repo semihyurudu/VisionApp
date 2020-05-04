@@ -50,15 +50,14 @@
                             <BlockTitle title="Known For" />
                             <Carousel
                                     :items="knownFor"
-                                    :loading="false"
+                                    :loading="knownForLoading"
                                     show-all-link="/movie/trending/day"
                                     type="movie-or-tv"
                                     :breakpoints="knownForBreakpoints"
                             />
                         </div>
 
-
-                        <Groups :groups="groups" />
+                        <Groups :groups="groups" :loading="knownForLoading" />
 
                     </b-col>
                 </b-row>
@@ -137,9 +136,6 @@
                             return (x['department'] === this.person['known_for_department']) && (x['poster_path']);
                         });
 
-                        this.knownFor = cast.concat(crew);
-
-
                         let groups = [];
                         let groupsMap = this.groupBy(res.crew, group => group['department']);
 
@@ -150,14 +146,21 @@
                             });
                         }
 
-                        if(groups.filter((x) => {
+                        /*if(groups.filter((x) => {
                             return x['department'] === this.person['known_for_department']
                         }).length < 1) {
                             groups.unshift({
                                 department: this.person['known_for_department'],
                                 values: res.cast
                             });
-                        }
+                        }*/
+
+                        groups.push({
+                            department: this.person['known_for_department'],
+                            values: res.cast
+                        });
+
+                        console.log('1 grup', groups)
 
                         Object.values(groups).map((group) => {
                             Object.values(group['values']).map((item) => {
@@ -193,10 +196,12 @@
 
                             }
 
-                            group['values'] = groupValuesItems
+                            group['values'] = this.objectReverseToArray(groupValuesItems)
                         });
 
+                        this.knownFor = cast.concat(crew);
                         this.groups = groups;
+                        this.knownForLoading = false;
 
                     })
             }
@@ -207,6 +212,7 @@
                 isLoading: true,
                 externalIds: {},
                 knownFor: [],
+                knownForLoading: true,
                 knownForBreakpoints: {
                     0: {
                         itemsToShow: 1.2,

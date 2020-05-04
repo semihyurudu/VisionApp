@@ -197,6 +197,21 @@ export const helper = {
         }
       });
       return map;
+    },
+    objectReverseToArray(obj) {
+      let newArray = [];
+
+      Object.keys(obj)
+          .sort()
+          .reverse()
+          .forEach(key => {
+            newArray.push( {
+              key,
+              'value':obj[key]
+            })
+          });
+
+      return newArray
     }
   }
 };

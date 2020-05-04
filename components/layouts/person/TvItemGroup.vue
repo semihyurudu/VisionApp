@@ -8,7 +8,10 @@
             |
         </div>
         <div class="person-group-title">
-            {{item['name']}}
+            <nuxt-link :to="getTvUrl(item['id'])">
+                {{item['name']}}
+            </nuxt-link>
+
             <span v-if="item['character']">as {{item['name']}}</span>
             <span v-if="item['job']"> (Job: {{item['job']}})</span>
         </div>
@@ -25,6 +28,11 @@
             item: {
                 type: Object,
                 required: true
+            }
+        },
+        methods: {
+            getTvUrl(id) {
+                return '/tv/' + id;
             }
         }
     }

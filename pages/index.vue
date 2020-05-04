@@ -7,7 +7,7 @@
     </loading>
 
     <div v-if="!isLoading">
-      <main class="homepage">
+      <main class="homepage pt-0">
         <HomeSearch />
       </main>
 
