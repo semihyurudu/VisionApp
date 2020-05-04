@@ -1,14 +1,14 @@
 <template>
     <div class="person-groups" v-if="!loading && groups.length > 0">
         <b-form-select
-                v-model="departmentSelected"
-                :options="departmentOptions"
+                v-model="selected"
+                :options="options"
                 class="department-options-filter"
                 size="sm"
         >
         </b-form-select>
         <div class="person-group" v-for="(group, index) in groups" :key="index">
-            <div v-show="(departmentSelected === 'all' || departmentSelected === group['department'])">
+            <div v-show="(selected === 'all' || selected === group['department'])">
                 <h4>{{group['department']}}</h4>
                 <div class="person-group-list-container">
                     <ul v-for="(childGroup, i) in group['values']" :key="i">
@@ -36,6 +36,10 @@
                 type: Array,
                 required: true
             },
+            options: {
+                type: Array,
+                required: true
+            },
             loading: {
                 type: Boolean,
                 required: true
@@ -47,29 +51,9 @@
         },
         data() {
             return {
-                departmentSelected: 'all',
-                departmentOptions: []
+                selected: 'all'
             }
         },
-        mounted() {
-            let departmentOptions = [{
-                value: 'all',
-                text: 'All'
-            }];
-
-            Object.values(this.groups).map((group) => {
-                departmentOptions.push({
-                    value: group['department'],
-                    text: group['department']
-                });
-            });
-
-            this.departmentOptions = departmentOptions;
-            setTimeout(() => {
-                document.getElementsByClassName('department-options-filter')[0].style.display = (departmentOptions > 1) ? 'block' : 'hide'
-            }, 500)
-
-        }
     }
 </script>
 

@@ -66,7 +66,7 @@
                             />
                         </div>
 
-                        <Groups :groups="groups" :loading="knownForLoading" />
+                        <Groups :groups="groups" :options="groupOptions" :loading="knownForLoading" />
 
                     </b-col>
                 </b-row>
@@ -201,6 +201,10 @@
 
                         let groupValuesMapped = [];
                         let groupValuesItems = {};
+                        let groupOptions = [{
+                            text: 'All',
+                            value: 'all'
+                        }];
 
                         Object.values(groups).map((group) => {
 
@@ -221,12 +225,23 @@
                                 }
                             }
 
-                            group['values'] = this.objectReverseToArray(groupValuesItems)
+                            group['values'] = this.objectReverseToArray(groupValuesItems);
+                            
+                            
+                            groupOptions.push({
+                                text: group['department'],
+                                value: group['department']
+                            })
+                            
                         });
 
+                        
+                        
+                        
                         this.knownFor = cast.concat(crew);
                         this.groups = groups;
                         this.knownForLoading = false;
+                        this.groupOptions = groupOptions;
                     })
             }
         },
@@ -255,7 +270,8 @@
                         itemsToSlide: 4
                     }
                 },
-                groups: []
+                groups: [],
+                groupOptions: []
             }
         },
         created() {

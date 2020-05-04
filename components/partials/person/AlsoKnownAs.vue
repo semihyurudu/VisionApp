@@ -16,9 +16,6 @@
                 type: Array,
                 required: true
             }
-        },
-        mounted() {
-            console.log(this.alsoKnownAs)
         }
     }
 </script>
