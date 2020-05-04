@@ -20,20 +20,28 @@
                         <SidebarTitleDescription
                             title="Gender"
                             :description="getGenderName"
-                            v-if="getGenderName"
                         />
 
                         <SidebarTitleDescription
                             title="Birthday"
-                            :description="person['birthday']"
-                            v-if="person['birthday']"
+                            :description="getBirthday"
                         />
 
                         <SidebarTitleDescription
                             title="Place of Birth"
-                            :description="person['place_of_birth']"
-                            v-if="person['place_of_birth']"
+                            :description="getPlaceOfBirth"
                         />
+
+                        <SidebarTitleDescription
+                            title="Also Known Us"
+                            v-if="person['also_known_as'].length > 0"
+                            class="mb-0"
+                        />
+                        <AlsoKnownAs
+                            :also-known-as="person['also_known_as']"
+                            v-if="person['also_known_as'].length > 0"
+                        />
+
 
 
                     </b-col>
@@ -76,6 +84,7 @@
     import Carousel from "../../components/partials/carousel/Carousel"
     import BlockTitle from "../../components/partials/BlockTitle";
     import Groups from "../../components/layouts/person/Groups";
+    import AlsoKnownAs from "../../components/partials/person/AlsoKnownAs";
 
     export default {
         name: 'PersonItem',
@@ -87,17 +96,32 @@
             ExternalIds,
             Carousel,
             BlockTitle,
-            Groups
+            Groups,
+            AlsoKnownAs
         },
         computed: {
             getGenderName() {
-                let name = '';
+                let name = '-';
                 if(parseInt(this.person['gender']) === 1) {
                     name = 'Female';
                 } else if(parseInt(this.person['gender']) === 2) {
                     name = 'Male';
                 }
                 return name;
+            },
+            getBirthday() {
+                let day = '-';
+                if(this.person['birthday']) {
+                    day = this.person['birthday'];
+                }
+                return day;
+            },
+            getPlaceOfBirth() {
+                let place = '-';
+                if(this.person['place_of_birth']) {
+                    place = this.person['place_of_birth']
+                }
+                return place;
             }
         },
         methods: {
@@ -137,10 +161,22 @@
                             return (x['department'] === this.person['known_for_department']) && (x['poster_path']);
                         });
 
+                        Object.values(res.cast).map((item) => {
+                            switch (item['media_type']) {
+                                case 'movie':
+                                    item['year'] = this.getYearFromString(item['release_date']);
+                                    break;
+                                case 'tv':
+                                    item['year'] = this.getYearFromString(item['first_air_date']);
+                                    break;
+                            }
+                        });
+
                         let groups = [{
                             department: this.person['known_for_department'],
                             values: res.cast
                         }];
+
                         let groupsMap = this.groupBy(res.crew, group => group['department']);
 
                         for (let department of groupsMap.keys()) {
@@ -167,7 +203,9 @@
                         let groupValuesItems = {};
 
                         Object.values(groups).map((group) => {
+
                             groupValuesMapped = this.groupBy(group['values'], x => x['year']);
+                            groupValuesItems = {};
 
                             for (let value of groupValuesMapped.keys()) {
                                 if(typeof groupValuesItems[value] === 'undefined') {
@@ -181,7 +219,6 @@
                                         return x.year === value
                                     })[0])
                                 }
-
                             }
 
                             group['values'] = this.objectReverseToArray(groupValuesItems)
@@ -190,7 +227,6 @@
                         this.knownFor = cast.concat(crew);
                         this.groups = groups;
                         this.knownForLoading = false;
-
                     })
             }
         },
