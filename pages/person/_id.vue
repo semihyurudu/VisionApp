@@ -20,6 +20,7 @@
                         <SidebarTitleDescription
                             title="Gender"
                             :description="getGenderName"
+                            v-if="getGenderName"
                         />
 
                         <SidebarTitleDescription
@@ -92,9 +93,9 @@
             getGenderName() {
                 let name = '';
                 if(parseInt(this.person['gender']) === 1) {
-                    name = 'Female'
+                    name = 'Female';
                 } else if(parseInt(this.person['gender']) === 2) {
-                    name = 'Male'
+                    name = 'Male';
                 }
                 return name;
             }

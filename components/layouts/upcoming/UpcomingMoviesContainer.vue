@@ -3,33 +3,13 @@
         <b-container>
             <b-row>
                 <b-col col>
-                    <div class="carousel-tabs-container">
-                        <h4>Upcoming Movies</h4>
-                        <b-tabs lazy>
-                            <b-tab active>
-                                <template v-slot:title>
-                                    <b-icon-layers-half></b-icon-layers-half> <strong>Day</strong>
-                                </template>
-                                <Carousel
-                                        :items="upcomingMoviesOfDay"
-                                        :loading="upcomingMoviesOfDayLoading"
-                                        show-all-link="/movie/upcoming/day"
-                                        type="movie"
-                                />
-                            </b-tab>
-                            <b-tab>
-                                <template v-slot:title>
-                                    <b-icon-layers-fill></b-icon-layers-fill> <strong>Week</strong>
-                                </template>
-                                <Carousel
-                                        :items="upcomingMoviesOfWeek"
-                                        :loading="upcomingMoviesOfWeekLoading"
-                                        show-all-link="/movie/upcoming/week"
-                                        type="movie"
-                                />
-                            </b-tab>
-                        </b-tabs>
-                    </div>
+                    <BlockTitle title="Upcoming Movies" />
+                    <Carousel
+                            :items="upcomingMovies"
+                            :loading="upcomingMoviesLoading"
+                            show-all-link="/movie/upcoming"
+                            type="movie"
+                    />
                 </b-col>
             </b-row>
         </b-container>
@@ -39,43 +19,35 @@
 <script>
     import { helper } from '../../../mixins/helper.js';
     import Carousel from "../../partials/carousel/Carousel";
+    import BlockTitle from "../../partials/BlockTitle";
     export default {
         name: 'upcomingMoviesOfWeekContainer',
         mixins: [helper],
         components: {
+            BlockTitle,
             Carousel,
         },
         data() {
             return {
-                upcomingMoviesOfDay: [],
-                upcomingMoviesOfDayLoading: true,
-                upcomingMoviesOfWeek: [],
-                upcomingMoviesOfWeekLoading: true,
+                upcomingMovies: [],
+                upcomingMoviesLoading: true,
+                BlockTitle
             }
         },
         methods: {
-            getUpcomingMovies(type, period) {
-                fetch(this.trendingUrl(type, period))
+            getUpcomingMovies(page) {
+                fetch(this.getUpcomingMoviesUrl(page))
                     .then((res) => { return res.json() })
                     .then((res) => {
-                        switch (period) {
-                            case 'day':
-                                this.upcomingMoviesOfDay = res.results;
-                                this.upcomingMoviesOfDayLoading = false;
-                                break;
-                            case 'week':
-                                this.upcomingMoviesOfWeek = res.results;
-                                this.upcomingMoviesOfWeekLoading = false;
-                                break;
-                            default:
-                                break;
-                        }
+                        this.upcomingMovies = res.results.filter((x) => {
+                            return x['poster_path'] && x['title'];
+                        });
+                        this.upcomingMoviesLoading = false;
                     })
             },
         },
         mounted() {
-            this.getUpcomingMovies('all', 'day');
-            this.getUpcomingMovies('all', 'week');
+            this.getUpcomingMovies(1);
         }
     }
 </script>
