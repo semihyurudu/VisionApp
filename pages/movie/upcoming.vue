@@ -1,12 +1,12 @@
 <template>
-    <div class="tv-genres-item">
+    <div class="upcoming-movies">
         <b-container>
             <b-row>
                 <b-col col>
-                    <BlockTitle :title="getPageTitle" />
+                    <BlockTitle title="Upcoming Movies" />
                     <b-overlay :show="loading" rounded="sm" :class="loading ? 'default-overlay-loading' : ''">
-                        <div v-if="!loading && tvShows.length > 0">
-                            <ListTvShows :tv-shows="tvShows" />
+                        <div v-if="!loading && movies.length > 0">
+                            <ListMovies :movies="movies" />
                             <b-pagination
                                     v-model="page"
                                     :total-rows="total"
@@ -14,57 +14,43 @@
                                     aria-controls="my-table"
                                     align="center"
                                     input="inputTriggered"
-                                    @change="getTvShows"
+                                    @change="getMovies"
                                     v-if="total > 0"
                                     class="mt-3"
                             ></b-pagination>
                         </div>
-                        <span class="text-dark" v-if="!loading && tvShows.length < 1">
-                            We don't have any TV Shows.
+                        <span class="text-dark" v-if="!loading && movies.length < 1">
+                            We don't have any movies.
                         </span>
                     </b-overlay>
-
                 </b-col>
             </b-row>
         </b-container>
-
     </div>
 </template>
 
 <script>
-    import BlockTitle from "../../../components/partials/BlockTitle";
-    import {helper} from '../../../mixins/helper.js';
-    import ListTvShows from "../../../components/layouts/tv/ListTvShows";
+    import BlockTitle from "../../components/partials/BlockTitle";
+    import {helper} from '../../mixins/helper.js';
+    import ListMovies from "../../components/layouts/movie/ListMovies";
+
     export default {
-        name: 'MovieGenresItem',
+        name: 'PopularMovies',
         mixins: [helper],
         components: {
             BlockTitle,
-            ListTvShows
-        },
-        computed: {
-            getPageTitle() {
-                let name = '';
-
-                if(this.$route.query.name) {
-                    name = this.$route.query.name + ' ';
-                }
-
-                name += 'TV Shows';
-
-                return name;
-            }
+            ListMovies
         },
         methods: {
-            getTvShows(page) {
+            getMovies(page) {
                 this.loading = true;
 
-                fetch(this.getWithGenresUrl('tv', this.$route.params.id, page))
+                fetch(this.upcomingMoviesUrl(page))
                     .then((res) => {
                         return res.json()
                     })
                     .then((res) => {
-                        this.tvShows = res.results;
+                        this.movies = res.results;
                         this.loading = false;
                         this.total = res['total_results'];
                         this.length = (res['total_results'] / res['total_pages']);
@@ -75,14 +61,14 @@
         data() {
             return {
                 loading: true,
-                tvShows: [],
+                movies: [],
                 page: 1,
                 total: 0,
                 length: 0
             }
         },
         created() {
-            this.getTvShows(1);
+            this.getMovies(1);
         }
     }
 </script>

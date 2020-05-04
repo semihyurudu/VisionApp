@@ -67,6 +67,9 @@ export const helper = {
     popularMoviesUrl(page) {
       return this.apiUrl() + 'movie/popular?page=' + page + '&' + this.getRequestAppend();
     },
+    upcomingMoviesUrl(page) {
+      return this.apiUrl() + 'movie/upcoming?page=' + page + '&' + this.getRequestAppend();
+    },
     popularTvShowsUrl(page) {
       return this.apiUrl() + 'tv/popular?page=' + page + '&' + this.getRequestAppend();
     },

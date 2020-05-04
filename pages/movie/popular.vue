@@ -1,5 +1,5 @@
 <template>
-    <div class="movie-genres-item">
+    <div class="popular-movies">
         <b-container>
             <b-row>
                 <b-col col>
