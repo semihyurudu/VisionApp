@@ -127,6 +127,12 @@ export const helper = {
     getPersonCombinedCreditsUrl(id) {
       return this.apiUrl() + 'person/' + id + '/combined_credits?' + this.getRequestAppend();
     },
+    getKeywordDetails(id) {
+      return this.apiUrl() + 'keyword/' + id + '?' + this.getRequestAppend();
+    },
+    getKeywordMoviesUrl(id, include_adult, page) {
+      return this.apiUrl() + 'keyword/' + id + '/movies?page=' + page + '&include_adult=' + include_adult + '&' + this.getRequestAppend();
+    },
     getRandomBackdropColor() {
       const colors = [
           'linear-gradient(to right, rgba(16.47%, 16.08%, 13.33%, 1.00) 150px, rgba(21.96%, 21.96%, 21.96%, 0.84) 100%)',
