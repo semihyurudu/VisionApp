@@ -99,7 +99,7 @@
                 type: Boolean,
                 required: false,
                 default() {
-                    return true;
+                    return false;
                 }
             },
             playSpeed: {
