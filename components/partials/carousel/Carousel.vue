@@ -154,13 +154,9 @@
                             itemsToShow: 3.2,
                             itemsToSlide: 3
                         },
-                        960: {
+                        1140: {
                             itemsToShow: 4.3,
                             itemsToSlide: 4
-                        },
-                        1140: {
-                            itemsToShow: 5.5,
-                            itemsToSlide: 5,
                         }
                     }
                 }

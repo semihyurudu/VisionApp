@@ -9,16 +9,16 @@
     <div v-if="!isLoading">
       <main class="homepage pt-0">
         <HomeSearch />
+
+        <WhatIsPopularCarouselContainer />
+
+        <div class=" black-image-bg">
+          <TrendingCarouselContainer />
+        </div>
+
+        <UpcomingMoviesContainer style="margin-top: 50px" />
+
       </main>
-
-      <WhatIsPopularCarouselContainer />
-
-      <div class=" black-image-bg">
-        <TrendingCarouselContainer />
-      </div>
-
-      <UpcomingMoviesContainer style="margin-top: 50px" />
-
     </div>
   </div>
 </template>

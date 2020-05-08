@@ -8,7 +8,7 @@ export const helper = {
       return '1b3c8e5cc36a460bb507fea55c7f8f56';
     },
     getLanguage() {
-      return 'en-US';
+      return 'tr-TR';
     },
     getPosterPath() {
       return 'https://image.tmdb.org/t/p/w600_and_h900_bestv2';

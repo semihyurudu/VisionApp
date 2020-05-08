@@ -7,7 +7,7 @@
         <div v-if="!isLoading">
             <b-container>
                 <b-row>
-                    <b-col xl="4">
+                    <b-col md="4">
                         <ProfileImage :path="person['profile_path']" />
 
                         <ExternalIds :external-ids="externalIds" v-if="Object.entries(externalIds).length > 0" />
@@ -45,7 +45,7 @@
 
 
                     </b-col>
-                    <b-col xl="8">
+                    <b-col md="8">
                         <h1 class="mb-4">{{person['name']}}</h1>
 
                         <div v-if="person['biography']">
@@ -62,7 +62,6 @@
                                     :loading="knownForLoading"
                                     show-all-link="/movie/trending/day"
                                     type="movie-or-tv"
-                                    :breakpoints="knownForBreakpoints"
                             />
                         </div>
 
@@ -252,24 +251,6 @@
                 externalIds: {},
                 knownFor: [],
                 knownForLoading: true,
-                knownForBreakpoints: {
-                    0: {
-                        itemsToShow: 1.2,
-                        itemsToSlide: 1
-                    },
-                    320: {
-                        itemsToShow: 2.2,
-                        itemsToSlide: 2
-                    },
-                    768: {
-                        itemsToShow: 3.2,
-                        itemsToSlide: 3
-                    },
-                    960: {
-                        itemsToShow: 4.3,
-                        itemsToSlide: 4
-                    }
-                },
                 groups: [],
                 groupOptions: []
             }
