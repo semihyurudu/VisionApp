@@ -83,6 +83,11 @@
         },
         created() {
             this.getMovies(1);
+        },
+        head() {
+            return {
+                title: this.getHeadTitle(this.getPageTitle)
+            }
         }
     }
 </script>

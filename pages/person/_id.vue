@@ -258,6 +258,11 @@
         created() {
             this.getDetails();
             this.getExternalIds()
+        },
+        head() {
+            return {
+                title: this.getHeadTitle(this.person['name'])
+            }
         }
     }
 </script>

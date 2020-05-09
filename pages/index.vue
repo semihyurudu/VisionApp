@@ -52,6 +52,11 @@
           setTimeout(() => {
             this.isLoading = false;
           }, 500)
+      },
+      head() {
+        return {
+          title: this.getHeadTitle()
+        }
       }
   }
 </script>

@@ -350,6 +350,11 @@
             this.getVideos();
             this.getSimilarMovies();
             this.getRecommendationMovies();
+        },
+        head() {
+            return {
+                title: this.getHeadTitle(this.movie['title'])
+            }
         }
     }
 </script>

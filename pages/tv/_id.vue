@@ -364,6 +364,11 @@
             this.getKeywords();
             this.getSimilarTvShows();
             this.getRecommendationTvShows();
+        },
+        head() {
+            return {
+                title: this.getHeadTitle(this.tv['name'])
+            }
         }
     }
 </script>

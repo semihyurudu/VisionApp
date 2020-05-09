@@ -3,7 +3,7 @@
         <b-container>
             <b-row>
                 <b-col col>
-                    <BlockTitle title="Popular Tv Shows" />
+                    <BlockTitle :title="getPageTitle" />
                     <b-overlay :show="loading" rounded="sm" :class="loading ? 'default-overlay-loading' : ''">
                         <div v-if="!loading && tvShows.length > 0">
                             <ListTvShows :tv-shows="tvShows" />
@@ -41,6 +41,11 @@
             BlockTitle,
             ListTvShows
         },
+        computed: {
+            getPageTitle() {
+                return 'Popular TV Shows'
+            }
+        },
         methods: {
             getTvShows(page) {
                 this.loading = true;
@@ -69,6 +74,11 @@
         },
         created() {
             this.getTvShows(1);
+        },
+        head() {
+            return {
+                title: this.getHeadTitle(this.getPageTitle)
+            }
         }
     }
 </script>

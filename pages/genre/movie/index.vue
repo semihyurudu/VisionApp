@@ -3,7 +3,7 @@
         <b-container>
             <b-row>
                 <b-col col>
-                    <BlockTitle title="Movie Genres" />
+                    <BlockTitle :title="getPageTitle" />
                     <GenreList :genres="genres" :loading="loading" type="movie" />
                 </b-col>
             </b-row>
@@ -22,6 +22,11 @@
         components: {
             GenreList,
             BlockTitle
+        },
+        computed: {
+            getPageTitle() {
+                return 'Genres of Movie'
+            }
         },
         methods: {
             getMovies() {
@@ -43,6 +48,11 @@
         },
         mounted() {
             this.getMovies();
+        },
+        head() {
+            return {
+                title: this.getHeadTitle(this.getPageTitle)
+            }
         }
     }
 </script>
