@@ -60,7 +60,6 @@
                             <Carousel
                                     :items="knownFor"
                                     :loading="knownForLoading"
-                                    show-all-link="/movie/trending/day"
                                     type="movie-or-tv"
                             />
                         </div>
