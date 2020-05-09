@@ -161,7 +161,7 @@
                             itemsToShow: 3.2,
                             itemsToSlide: 3
                         },
-                        1140: {
+                        1025: {
                             itemsToShow: 4.3,
                             itemsToSlide: 4
                         }
