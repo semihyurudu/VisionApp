@@ -36,7 +36,7 @@
             ReviewItem
         },
         props: {
-            url: {
+            type: {
                 type: String,
                 required: true
             }
@@ -45,7 +45,7 @@
             getReviews(page) {
                 this.loading = true;
 
-                fetch(this.getMovieReviewsUrl(this.$route.params.id, page))
+                fetch(this.getReviewsUrl(this.type, this.$route.params.id, page))
                     .then((res) => {
                         return res.json()
                     })
@@ -53,6 +53,7 @@
                         this.reviews = res.results;
                         this.loading = false;
                         this.total = res['total_results'];
+                        this.page = page;
                     })
             },
         },

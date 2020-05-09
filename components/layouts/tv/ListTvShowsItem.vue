@@ -1,11 +1,11 @@
 <template>
-  <div class="list-movie-item">
+  <div class="list-tv-shows-item">
     <nuxt-link :to="getMovieUrl">
     <img :src="getPoster" />
-    <div class="list-movie-item-content">
-      <h3><span>{{movie['original_title']}}</span></h3>
-      <div class="list-movie-item-summary">
-        <span>{{substringWithWords(movie['overview'], 80)}}...</span>
+    <div class="list-tv-shows-item-content">
+      <h3><span>{{tv['name']}}</span></h3>
+      <div class="list-tv-shows-item-summary">
+        <span>{{substringWithWords(tv['overview'], 80)}}...</span>
       </div>
     </div>
     </nuxt-link>
@@ -18,20 +18,20 @@
       name: 'ListMovieItem',
       mixins: [helper],
       props: {
-          movie: {
+          tv: {
               type: Object,
               required: true
           }
       },
       computed: {
           getMovieUrl() {
-              return `/movie/${this.movie.id}`;
+              return `/tv/${this.tv.id}`;
           },
           getPoster() {
               let image = '';
 
-              if(this.movie['poster_path']) {
-                image = this.getPosterPath() + this.movie['poster_path'];
+              if(this.tv['poster_path']) {
+                image = this.getPosterPath() + this.tv['poster_path'];
               } else {
                 image = '/default_poster.png';
               }
@@ -43,14 +43,14 @@
 </script>
 
 <style scoped>
-  .list-movie-item {
+  .list-tv-shows-item {
     margin: 15px 0;
   }
-  .list-movie-item-content {
+  .list-tv-shows-item-content {
     background: #185d77;
     color: white;
   }
-  .list-movie-item-content h3 {
+  .list-tv-shows-item-content h3 {
     padding: 10px;
     text-align: center;
     margin-bottom: 0;
@@ -63,11 +63,11 @@
     overflow: hidden;
     border-bottom: 1px solid #12485d;
   }
-  .list-movie-item-content h3 span {
+  .list-tv-shows-item-content h3 span {
     display: table-cell;
     vertical-align: middle;
   }
-  .list-movie-item-summary {
+  .list-tv-shows-item-summary {
     padding: 10px;
     text-align: center;
 
@@ -75,21 +75,21 @@
     display: table;
     height: 105px;
   }
-  .list-movie-item-summary span {
+  .list-tv-shows-item-summary span {
     display: table-cell;
     vertical-align: middle;
   }
-  .list-movie-item-content {
+  .list-tv-shows-item-content {
     background: #185d77;
     color: white;
   }
-  .list-movie-item-content a {
+  .list-tv-shows-item-content a {
     color: #fff;
     text-decoration: none;
     transition-duration: 0.2s;
   }
 
-  .list-movie-item-content a:hover h3 {
+  .list-tv-shows-item-content a:hover h3 {
     background: #12485c;
   }
 

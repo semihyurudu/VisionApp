@@ -1,22 +1,32 @@
 <template>
-    <div class="trending-carousel black-image-bg">
+    <div class="trending-carousel">
         <b-container>
             <b-row>
                 <b-col col>
                     <div class="carousel-tabs-container">
                         <h4>Trending</h4>
-                        <b-tabs v-model="tabIndex" lazy>
+                        <b-tabs lazy>
                             <b-tab active>
                                 <template v-slot:title>
                                     <b-icon-layers-half></b-icon-layers-half> <strong>Day</strong>
                                 </template>
-                                <TrendingCarousel :trends="trendsOfDay" :loading="trendsOfDayLoading" />
+                                <Carousel
+                                        :items="trendsOfDay"
+                                        :loading="trendsOfDayLoading"
+                                        show-all-link="/movie/trending/day"
+                                        type="movie-or-tv"
+                                />
                             </b-tab>
                             <b-tab>
                                 <template v-slot:title>
                                     <b-icon-layers-fill></b-icon-layers-fill> <strong>Week</strong>
                                 </template>
-                                <TrendingCarousel :trends="trendsOfWeek" :loading="trendsOfWeekLoading" />
+                                <Carousel
+                                        :items="trendsOfWeek"
+                                        :loading="trendsOfWeekLoading"
+                                        show-all-link="/movie/trending/week"
+                                        type="movie-or-tv"
+                                />
                             </b-tab>
                         </b-tabs>
                     </div>
@@ -28,14 +38,15 @@
 
 <script>
     import { helper } from '../../../mixins/helper.js';
-    import TrendingCarousel from "./TrendingCarousel";
+    import Carousel from "../../partials/carousel/Carousel";
     export default {
         name: 'TrendingCarouselContainer',
         mixins: [helper],
-        components: {TrendingCarousel},
+        components: {
+            Carousel
+        },
         data() {
             return {
-                tabIndex: 0,
                 trendsOfDay: [],
                 trendsOfDayLoading: true,
                 trendsOfWeek: [],
@@ -47,6 +58,7 @@
                 fetch(this.trendingUrl('all', 'day'))
                     .then((res) => { return res.json() })
                     .then((res) => {
+
                         this.trendsOfDay = res.results.filter((x) => {
                             return (x['poster_path'] || x['profile_path'])
                         });

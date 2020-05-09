@@ -26,8 +26,19 @@ img {
   max-width: 100%;
 }
 main {
-  padding-bottom: 30px;
+  padding-top: 30px;
+  padding-bottom: 50px;
 }
+.page-link {
+  color: #383838;
+}
+
+.page-item.active .page-link {
+  background: #383838;
+  border-color: #383838;
+  pointer-events: none;
+}
+
 .b-pagination {
   float: left;
   width: 100%;
@@ -78,6 +89,7 @@ main {
   margin-bottom: 0;
   color: #fff;
   font-weight: bold;
+  font-size: 22px;
 }
 
 .show-all-poster img {
@@ -106,6 +118,12 @@ main {
   position: absolute !important;
   top: -40px;
   right: -10px;
+}
+.c100 {
+  background-color: #424242 !important;
+}
+.c100:after {
+  background-color: #2d2d2d !important;
 }
 .c100 span {
   color: #dd9d29 !important;
@@ -205,6 +223,7 @@ main {
 .movie-or-tv-item-content-details ul li {
   float: left;
   margin-left: 30px;
+  margin-top: 5px;
   font-size: 16px;
 }
 
@@ -249,7 +268,7 @@ main {
   float: left;
   width: 100%;
   margin-top: 5px;
-  height: 185px;
+  max-height: 185px;
   overflow-x: hidden;
   overflow-y: auto;
 }
@@ -280,7 +299,9 @@ main {
 .carousel-with-poster-image img {
   border: 1px solid #efefef;
 }
-
+.black-image-bg .carousel-with-poster-image img {
+  border-color: #444444;
+}
 .embed-container {
   position: relative;
   padding-bottom: 56.25%;
@@ -299,7 +320,7 @@ main {
   height: 100%;
 }
 
-.videos-carousel iframe {
+iframe.video-carousel-item {
   width: 100%;
   padding: 10px;
   min-height: 210px;
@@ -308,4 +329,125 @@ main {
 .default-overlay-loading {
   min-height: 200px;
   margin-bottom: 20px;
+}
+
+.hooper-list {
+  position: relative;
+}
+
+.hooper-list .hooper-navigation button {
+  background: #d4d4d4;
+  top: auto;
+  bottom: 0;
+  margin-top: -28px;
+  border-radius: 100%;
+  font-size: 46px;
+  padding: 0 !important;
+  line-height: 10px;
+  width: 48px;
+  height: 48px;
+  outline: none !important;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+  transition-duration: 0.2s;
+  -webkit-transition-duration: 0.2s;
+  -moz-transition-duration: 0.2s;
+  -o-transition-duration: 0.2s;
+}
+.hooper-list .hooper-navigation button:hover {
+  background: #cacaca;
+}
+
+.hooper-prev {
+  left: 50% !important;
+  margin-left: -55px;
+}
+
+.hooper-next {
+  right: 50% !important;
+  margin-right: -55px;
+}
+.hooper-list {
+  padding-bottom: 70px;
+}
+
+.movie-or-tv-item {
+  position: relative;
+  color: #fff;
+}
+
+.movie-or-tv-item-content {
+  width: 100%;
+}
+
+.movie-or-tv-item-bg {
+  border-bottom: 1px solid rgba(21.57%, 12.55%, 26.86%, 1.00);
+  background-position: right -200px top;
+  background-size: cover;
+  background-repeat: no-repeat;
+  margin-bottom: 50px;
+}
+
+.movie-or-tv-item-bg-field {
+  background-image: linear-gradient(to right, rgb(50, 63, 68) 150px, rgba(115, 115, 115, 0.84) 100%);
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.keywords-container {
+  margin-bottom: 20px;
+  float: left;
+  width: 100%;
+}
+.movie-or-tv-trailer {
+  float: left;
+  margin-top: 20px;
+  margin-left: 40px;
+}
+.movie-or-tv-type {
+  border: 1px solid #fff;
+  border-radius: 3px;
+  padding: 5px;
+  line-height: 12px;
+  font-size: 12px !important;
+}
+
+.person-group-date {
+  width: 60px;
+  float: left;
+  font-size: 14px;
+  line-height: 24px;
+  text-align: center;
+  min-height: 1px;
+}
+
+.person-group-divider {
+  float: left;
+  width: 20px;
+}
+
+.person-group-title {
+  float: left;
+  width: calc(100% - 80px);
+}
+
+.person-group-title label {
+  margin-bottom: 0;
+}
+
+.person-group-title a {
+  color: #3a3a3a;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 16px;
+}
+
+.person-group-title span {
+  color: #a0a0a0;
+  font-size: 15px;
+  width: 100%;
+}
+
+.person-group-title span label {
+  color: #7b7b7b;
 }

@@ -2,6 +2,7 @@
   <div>
     <Header />
     <nuxt />
+    <Footer />
   </div>
 </template>
 
@@ -9,6 +10,7 @@
   import Vue from 'vue';
   import { BootstrapVueIcons } from 'bootstrap-vue';
   import Header from "../components/layouts/Header";
+  import Footer from "../components/layouts/Footer";
   import { mapGetters } from 'vuex';
 
 
@@ -16,7 +18,7 @@
 
   export default {
     name: 'MainLayout',
-    components: {Header},
+    components: {Header, Footer},
     computed: {
       ...mapGetters({
       }),

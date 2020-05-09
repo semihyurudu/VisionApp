@@ -2,8 +2,8 @@
   <div class="list-movies">
     <b-container>
       <b-row>
-        <b-col md="6" lg="3" v-for="(movie, index) in movies" :key="index">
-          <ListMovieItem :movie=movie></ListMovieItem>
+        <b-col md="6" lg="3" v-for="(tv, index) in tvShows" :key="index">
+          <ListTvShowsItem :tv=tv></ListTvShowsItem>
         </b-col>
       </b-row>
     </b-container>
@@ -11,17 +11,17 @@
 </template>
 
 <script>
-  import ListMovieItem from "./ListMovieItem";
+  import ListTvShowsItem from "./ListTvShowsItem";
   import { helper } from '@/mixins/helper.js';
 
   export default {
-      name: 'ListMovies',
+      name: 'ListTvShows',
       mixins: [helper],
       components: {
-          ListMovieItem
+        ListTvShowsItem
       },
       props: {
-        movies: {
+        tvShows: {
           type: Array,
           required: true,
           default() {
