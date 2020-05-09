@@ -83,7 +83,7 @@
 
 <style scoped>
     .trending-carousel {
-        background-image: url('/trending-bg.jpg');
+        background-image: url('/images/trending-bg.jpg');
         background-size: cover;
         background-repeat: no-repeat;
         padding-top: 70px;

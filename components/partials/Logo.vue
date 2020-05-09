@@ -1,7 +1,7 @@
 <template>
   <div class="logo">
     <nuxt-link to="/">
-      <img src="/vision-app-logo.png" />
+      <img src="/images/logo.png" />
     </nuxt-link>
   </div>
 </template>
