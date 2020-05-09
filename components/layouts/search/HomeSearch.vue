@@ -1,30 +1,40 @@
 <template>
   <div class="home-search">
-    <b-container>
-      <b-row>
-        <b-col col>
-          <b-input-group class="home-search-input-group">
-            <b-input-group-prepend>
-              <SearchTypeSelect v-on:OnChangedSearchType="CameSearchTypeFromChild" />
-            </b-input-group-prepend>
-            <b-form-input
-              placeholder="Search for a movie, tv show, person..."
-              v-model="text"
-              @keypress.enter="Search"
-              autocomplete="off"
-            >
-            </b-form-input>
-            <b-input-group-append>
-              <b-button variant="danger" @click="Search">SEARCH</b-button>
-            </b-input-group-append>
-          </b-input-group>
-        </b-col>
-      </b-row>
-    </b-container>
+    <div class="home-search-field">
+      <vue-particles />
+      <vue-particles />
+      <b-container>
+        <b-row>
+          <b-col col>
+            <vue-particles />
+            <b-input-group class="home-search-input-group">
+              <b-input-group-prepend>
+                <SearchTypeSelect v-on:OnChangedSearchType="CameSearchTypeFromChild" />
+              </b-input-group-prepend>
+              <b-form-input
+                placeholder="Search for a movie, tv show, person..."
+                v-model="text"
+                @keypress.enter="Search"
+                autocomplete="off"
+              >
+              </b-form-input>
+              <b-input-group-append>
+                <b-button variant="danger" @click="Search">SEARCH</b-button>
+              </b-input-group-append>
+            </b-input-group>
+          </b-col>
+        </b-row>
+      </b-container>
+    </div>
   </div>
 </template>
 
 <script>
+
+  import Vue from 'vue';
+    import VueParticles from '../../../components/partials/vue-particles/vue-particles'
+    Vue.use(VueParticles)
+
     import { helper } from '@/mixins/helper.js';
     import SearchTypeSelect from "../../partials/SearchTypeSelect";
     export default {
@@ -37,7 +47,8 @@
           }
       },
       components: {
-        SearchTypeSelect
+        SearchTypeSelect,
+        VueParticles,
       },
       methods: {
           Search() {
@@ -61,13 +72,24 @@
 
 <style scoped>
   .home-search {
-    background-image: url('../../../assets/images/home-search-backdrop-02.jpg');
+    background-image: url('../../../assets/images/home-search-backdrop-01.jpg');
     background-repeat: no-repeat;
     background-size: cover;
-    background-position: bottom center;
+    background-position: top center;
+    position: relative;
+  }
+  .home-search .home-search-field {
+    background: rgba(0, 0, 0, 0.3);
+  }
+  .home-search .container .col {
+    height: 380px;
   }
   .home-search-input-group {
-    margin: 150px 0 170px 0;
+    position: absolute;
+    top: 50%;
+    margin-top: -30px;
+    left: 0;
+    right: 0;
   }
 
   .home-search-input-group input {

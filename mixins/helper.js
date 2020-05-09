@@ -8,7 +8,7 @@ export const helper = {
       return '1b3c8e5cc36a460bb507fea55c7f8f56';
     },
     getLanguage() {
-      return 'en-US';
+      return 'tr-TR';
     },
     getPosterPath() {
       return 'https://image.tmdb.org/t/p/w600_and_h900_bestv2';
@@ -27,6 +27,9 @@ export const helper = {
     },
     getSmallProfilePath() {
       return 'https://image.tmdb.org/t/p/w90_and_h90_face'
+    },
+    getNetworkLogoPath() {
+      return 'https://image.tmdb.org/t/p/h30'
     },
     substringWithWords(text, length) {
       // return text.replace(/^(.{70}[^\s]*).*/, "$1");
@@ -64,6 +67,9 @@ export const helper = {
     popularMoviesUrl(page) {
       return this.apiUrl() + 'movie/popular?page=' + page + '&' + this.getRequestAppend();
     },
+    upcomingMoviesUrl(page) {
+      return this.apiUrl() + 'movie/upcoming?page=' + page + '&' + this.getRequestAppend();
+    },
     popularTvShowsUrl(page) {
       return this.apiUrl() + 'tv/popular?page=' + page + '&' + this.getRequestAppend();
     },
@@ -76,20 +82,56 @@ export const helper = {
     getMovieDetailsUrl(id) {
       return this.apiUrl() + 'movie/' + id + '?' + this.getRequestAppend();
     },
-    getMovieCreditsUrl(id) {
-      return this.apiUrl() + 'movie/' + id + '/credits?' + this.getRequestAppend();
+    getCreditsUrl(type, id) {
+      return this.apiUrl() + type + '/' + id + '/credits?' + this.getRequestAppend();
     },
-    getMovieKeywordsUrl(id) {
-      return this.apiUrl() + 'movie/' + id + '/keywords?' + this.getRequestAppend();
+    getKeywordsUrl(type, id) {
+      return this.apiUrl() + type + '/' + id + '/keywords?' + this.getRequestAppend();
     },
-    getMovieVideosUrl(id) {
-      return this.apiUrl() + 'movie/' + id + '/videos?' + this.getRequestAppend();
+    getVideosUrl(type, id) {
+      return this.apiUrl() + type + '/' + id + '/videos?' + this.getRequestAppend();
     },
     getSimilarMoviesUrl(id) {
       return this.apiUrl() + 'movie/' + id + '/similar?' + this.getRequestAppend();
     },
-    getRecommendationsMoviesUrl(id) {
+    getSimilarTvShowsUrl(id) {
+      return this.apiUrl() + 'tv/' + id + '/similar?' + this.getRequestAppend();
+    },
+    getRecommendationMoviesUrl(id) {
       return this.apiUrl() + 'movie/' + id + '/recommendations?' + this.getRequestAppend();
+    },
+    getUpcomingMoviesUrl(page) {
+      return this.apiUrl() + 'movie/upcoming?page=' + page + '&' + this.getRequestAppend();
+    },
+    getRecommendationTvShowsUrl(id) {
+      return this.apiUrl() + 'tv/' + id + '/recommendations?' + this.getRequestAppend();
+    },
+    getGenrePageUrl(type, id, name) {
+      return '/genre/' + type + '/' + id + '?name=' + name;
+    },
+    getGenreListUrl(type) {
+      return this.apiUrl() + 'genre/' + type + '/list?' + this.getRequestAppend();
+    },
+    getWithGenresUrl(type, id, page) {
+      return this.apiUrl() + 'discover/' + type + '?with_genres=' + id + '&page=' + page + '&' + this.getRequestAppend()
+    },
+    getTvDetailsUrl(id) {
+      return this.apiUrl() + 'tv/' + id + '?' + this.getRequestAppend();
+    },
+    getPersonDetailsUrl(id) {
+      return this.apiUrl() + 'person/' + id + '?' + this.getRequestAppend();
+    },
+    getPersonExternalIdsUrl(id) {
+      return this.apiUrl() + 'person/' + id + '/external_ids?' + this.getRequestAppend();
+    },
+    getPersonCombinedCreditsUrl(id) {
+      return this.apiUrl() + 'person/' + id + '/combined_credits?' + this.getRequestAppend();
+    },
+    getKeywordDetails(id) {
+      return this.apiUrl() + 'keyword/' + id + '?' + this.getRequestAppend();
+    },
+    getKeywordMoviesUrl(id, include_adult, page) {
+      return this.apiUrl() + 'keyword/' + id + '/movies?page=' + page + '&include_adult=' + include_adult + '&' + this.getRequestAppend();
     },
     getRandomBackdropColor() {
       const colors = [
@@ -107,13 +149,14 @@ export const helper = {
     },
     getYearFromString(date) {
       let year = '';
-      let arr = date.split('-');
 
-      year = arr.filter((x) => {
-        return x.length === 4
-      });
-
-      return year[0];
+      if(date) {
+        let arr = date.split('-');
+        year = arr.filter((x) => {
+          return x.length === 4
+        })[0];
+      }
+      return year;
     },
     formatMoney(amount, currency = '$', decimalCount = 2, decimal = ".", thousands = ",") {
       try {
@@ -136,18 +179,70 @@ export const helper = {
     getBudget(budget) {
       let val = '-';
 
-
       if(budget && budget !== 0) {
         val = this.formatMoney(budget);
       }
 
       return val;
     },
-    getYoutubeIframe(key) {
+    getYoutubeIframeSrc(key) {
       return 'https://www.youtube.com/embed/' + key;
     },
-    getMovieReviewsUrl(id, page) {
-      return this.apiUrl() + 'movie/' + id + '/reviews?page=' + page + '&' + this.getRequestAppend();
+    getReviewsUrl(type, id, page) {
+      return this.apiUrl() + type + '/' + id + '/reviews?page=' + page + '&' + this.getRequestAppend();
+    },
+    getPercentage(ratio) {
+      return ratio * 10;
+    },
+    getPersonImdbUrl(id) {
+      return 'https://www.imdb.com/name/' + id;
+    },
+    groupBy(list, keyGetter) {
+      const map = new Map();
+      list.forEach((item) => {
+        const key = keyGetter(item);
+        const collection = map.get(key);
+        if (!collection) {
+          map.set(key, [item]);
+        } else {
+          collection.push(item);
+        }
+      });
+      return map;
+    },
+    objectReverseToArray(obj) {
+      let newArray = [];
+
+      Object.keys(obj)
+          .sort()
+          .reverse()
+          .forEach(key => {
+            newArray.push( {
+              key,
+              'value':obj[key]
+            })
+          });
+
+      return newArray
+    },
+    getSocialAccounts() {
+      return [
+          {
+            url: 'https://www.facebook.com/',
+            name: 'Facebook',
+            image: '/social/facebook.png'
+          },
+          {
+            url: 'https://www.twitter.com/',
+            name: 'Twitter',
+            image: '/social/twitter.png'
+          },
+          {
+            url: 'https://www.instagram.com/',
+            name: 'Instagram',
+            image: '/social/instagram.png'
+          }
+      ]
     }
   }
 };

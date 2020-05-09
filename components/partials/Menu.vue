@@ -36,17 +36,16 @@
                 name: 'HOME PAGE',
               },
               {
-                name: 'MOVIES',
+                name: 'GENRES',
                 second_menu: true,
                 children: [
                   {
-                    name: 'MOVIES2',
-                    children: [
-                      {
-                        path: '/movie/23',
-                        name: 'IN THEATERS',
-                      }
-                    ]
+                    name: 'MOVIES',
+                    path: '/genre/movie'
+                  },
+                  {
+                    name: 'TV SHOWS',
+                    path: '/genre/tv'
                   }
                 ]
               }
@@ -81,8 +80,6 @@
           return child;
         },
         openChild(item) {
-
-
           let backButton = [
             {
               back_button: true,
@@ -101,7 +98,6 @@
           return item.back_button;
         },
         backToParent(item) {
-          console.log(item.second_menu, item);
           let menu = [];
 
           if(item.second_menu) {
