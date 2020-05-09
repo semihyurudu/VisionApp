@@ -73,6 +73,9 @@ export const helper = {
     popularTvShowsUrl(page) {
       return this.apiUrl() + 'tv/popular?page=' + page + '&' + this.getRequestAppend();
     },
+    topRatedTvShowsUrl(page) {
+      return this.apiUrl() + 'tv/top_rated?page=' + page + '&' + this.getRequestAppend();
+    },
     popularPeoplesUrl(page) {
       return this.apiUrl() + 'person/popular?page=' + page + '&' + this.getRequestAppend();
     },
