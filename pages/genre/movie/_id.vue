@@ -1,5 +1,5 @@
 <template>
-    <div class="movie-genres-item">
+    <main class="movie-genres-item">
         <b-container>
             <b-row>
                 <b-col col>
@@ -27,8 +27,7 @@
                 </b-col>
             </b-row>
         </b-container>
-
-    </div>
+    </main>
 </template>
 
 <script>

@@ -49,6 +49,9 @@
 }
 
 @media screen and(min-width: $minXl) {
+  main {
+    min-height: 851px;
+  }
   .movie-or-tv-item-content-table {
     height: 510px;
   }

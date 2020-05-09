@@ -1,5 +1,5 @@
 <template>
-    <div class="tv-genres-item">
+    <main class="tv-genres-item">
         <b-container>
             <b-row>
                 <b-col col>
@@ -28,7 +28,7 @@
             </b-row>
         </b-container>
 
-    </div>
+    </main>
 </template>
 
 <script>

@@ -1,5 +1,5 @@
 <template>
-  <div id="app">
+  <main id="app" class="pt-0">
 
     <loading :active.sync="isLoading"
              :can-cancel="false"
@@ -7,7 +7,8 @@
     </loading>
 
     <div v-if="!isLoading">
-      <main class="homepage pt-0">
+      <div class="homepage">
+
         <HomeSearch />
 
         <WhatIsPopularCarouselContainer />
@@ -18,9 +19,9 @@
 
         <UpcomingMoviesContainer style="margin-top: 50px" />
 
-      </main>
+      </div>
     </div>
-  </div>
+  </main>
 </template>
 
 <script>
