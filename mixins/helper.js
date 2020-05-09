@@ -224,6 +224,25 @@ export const helper = {
           });
 
       return newArray
+    },
+    getSocialAccounts() {
+      return [
+          {
+            url: 'https://www.facebook.com/',
+            name: 'Facebook',
+            image: '/social/facebook.png'
+          },
+          {
+            url: 'https://www.twitter.com/',
+            name: 'Twitter',
+            image: '/social/twitter.png'
+          },
+          {
+            url: 'https://www.instagram.com/',
+            name: 'Instagram',
+            image: '/social/instagram.png'
+          }
+      ]
     }
   }
 };

@@ -36,6 +36,16 @@
     border-radius: 0 !important;
     padding: 10px !important;
   }
+  .footer-social {
+    margin-top: 15px;
+    margin-bottom: 10px;
+  }
+  .footer-social ul {
+    width: 100%;
+  }
+  .footer-social ul li img {
+    height: 40px !important;
+  }
 }
 
 @media screen and(min-width: $minXl) {

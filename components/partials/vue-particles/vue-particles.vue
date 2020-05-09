@@ -63,15 +63,15 @@
       },
       lineOpacity: {
         type: Number,
-        default: 0.3
+        default: 0.6
       },
       linesDistance: {
         type: Number,
-        default: 200
+        default: 150
       },
       moveSpeed: {
         type: Number,
-        default: 4
+        default: 3
       },
       hoverEffect: {
         type: Boolean,
