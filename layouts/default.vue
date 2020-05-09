@@ -49,5 +49,5 @@
 </script>
 
 <style lang="scss">
-  @import "../assets/styles/app.scss";
+  @import "../static/styles/app.scss";
 </style>

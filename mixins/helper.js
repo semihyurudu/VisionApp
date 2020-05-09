@@ -11,7 +11,7 @@ export const helper = {
       return '1b3c8e5cc36a460bb507fea55c7f8f56';
     },
     getLanguage() {
-      return 'en-US';
+      return 'tr-TR';
     },
     getPosterPath() {
       return 'https://image.tmdb.org/t/p/w600_and_h900_bestv2';
@@ -40,6 +40,15 @@ export const helper = {
     },
     getSearchUrl(search_type, query, page) {
       return this.apiUrl() + 'search/' + search_type + '?api_key=' + this.apiKey() + '&query=' + query + '&language=' + this.getLanguage() + '&page=' + page;
+    },
+    getDefaultPoster() {
+      return '/images/default_poster.png';
+    },
+    getDefaultProfileImage() {
+      return '/images/default_profile.png';
+    },
+    getShowAllPoster() {
+      return '/show-all-poster.jpg';
     },
     getSearchTypeText(search_type) {
       let text = '';

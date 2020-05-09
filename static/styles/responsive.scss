@@ -1,0 +1,59 @@
+@import "sizes.scss";
+
+@media screen and(max-width: $maxMd) {
+  .carousel-tabs-container > h4 {
+    position: static !important;
+    margin-bottom: 15px;
+    font-size: 20px;
+  }
+  .home-search .container .col {
+    height: 180px !important;
+  }
+
+  .movie-or-tv-item-content-poster {
+    margin-bottom: 30px;
+  }
+  .movie-or-tv-item-content-details h1 {
+    font-size: 26px !important;
+  }
+}
+
+@media screen and(max-width: $maxSm) {
+  .home-search-input-group {
+    margin-top: -55px !important;
+    left: 30px !important;
+    right: 30px !important;
+    width: calc(100% - 60px) !important;
+  }
+  .home-search-input-group .input-group-append {
+    float:left;
+    width: 100%;
+    margin-left: 0 !important;
+  }
+  .home-search-input-group .input-group-append button {
+    float:left;
+    width: 100%;
+    border-radius: 0 !important;
+    padding: 10px !important;
+  }
+  .footer-social {
+    margin-top: 15px;
+    margin-bottom: 10px;
+  }
+  .footer-social ul {
+    width: 100%;
+  }
+  .footer-social ul li img {
+    height: 40px !important;
+  }
+}
+
+@media screen and(min-width: $minXl) {
+  main {
+    min-height: 851px;
+  }
+  .movie-or-tv-item-content-table {
+    height: 510px;
+  }
+}
+

@@ -19,7 +19,7 @@
                 <slide class="show-all-poster" v-if="!loading && this.showAllLink">
                     <nuxt-link :to="this.showAllLink">
                         <div class="carousel-with-poster-image">
-                            <img src="/show-all-poster.jpg"/>
+                            <img :src="showAllPoster" />
                         </div>
                         <h4>
                             Show All
@@ -38,6 +38,7 @@
 
 
 <script>
+    import { helper } from '../../../mixins/helper.js';
     import {Hooper, Slide, Navigation as HooperNavigation} from 'hooper';
     import 'hooper/dist/hooper.css';
     import ListMoviesCarouselItem from "../../layouts/movie/ListMoviesCarouselItem";
@@ -48,6 +49,7 @@
 
     export default {
         name: 'Carousel',
+        mixins: [helper],
         components: {
             Hooper,
             Slide,
@@ -57,6 +59,11 @@
             ListPersonCarouselItem,
             VideoCarouselItem,
             CastCarouselItem
+        },
+        computed: {
+            showAllPoster() {
+                return this.getShowAllPoster()
+            }
         },
         props: {
             type: {

@@ -17,7 +17,7 @@
         },
         computed: {
             getImage() {
-                let image = '/default_poster.png';
+                let image = this.getDefaultPoster();
 
                 if(this.path) {
                     image = this.getLargeProfilePath() + this.path;
