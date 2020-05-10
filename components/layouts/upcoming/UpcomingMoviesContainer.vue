@@ -35,8 +35,8 @@
             }
         },
         methods: {
-            getUpcomingMovies(page) {
-                fetch(this.getUpcomingMoviesUrl(page))
+            getUpcomingMovies() {
+                fetch(this.getUpcomingMoviesUrl())
                     .then((res) => { return res.json() })
                     .then((res) => {
                         this.upcomingMovies = res.results.filter((x) => {
@@ -47,7 +47,7 @@
             },
         },
         mounted() {
-            this.getUpcomingMovies(1);
+            this.getUpcomingMovies();
         }
     }
 </script>

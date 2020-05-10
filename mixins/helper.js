@@ -84,17 +84,14 @@ export const helper = {
     getRequestAppend() {
       return 'api_key=' + this.apiKey() + '&language=' + this.getLanguage()
     },
-    popularMoviesUrl(page) {
-      return this.apiUrl() + 'movie/popular?page=' + page + '&' + this.getRequestAppend();
+    popularMoviesUrl() {
+      return this.apiUrl() + 'movie/popular?' + this.getRequestAppend();
     },
-    upcomingMoviesUrl(page) {
-      return this.apiUrl() + 'movie/upcoming?page=' + page + '&' + this.getRequestAppend();
+    popularTvShowsUrl() {
+      return this.apiUrl() + 'tv/popular?' + this.getRequestAppend();
     },
-    popularTvShowsUrl(page) {
-      return this.apiUrl() + 'tv/popular?page=' + page + '&' + this.getRequestAppend();
-    },
-    topRatedTvShowsUrl(page) {
-      return this.apiUrl() + 'tv/top_rated?page=' + page + '&' + this.getRequestAppend();
+    topRatedTvShowsUrl() {
+      return this.apiUrl() + 'tv/top_rated?' + this.getRequestAppend();
     },
     popularPeoplesUrl(page) {
       return this.apiUrl() + 'person/popular?page=' + page + '&' + this.getRequestAppend();
@@ -130,13 +127,13 @@ export const helper = {
       return this.apiUrl() + 'tv/' + id + '/recommendations?' + this.getRequestAppend();
     },
     getGenrePageUrl(type, id, name) {
-      return '/genre/' + type + '/' + id + '?name=' + name;
+      return '/genre/' + type + '/' + id + '?name=' + encodeURI(name);
     },
     getGenreListUrl(type) {
       return this.apiUrl() + 'genre/' + type + '/list?' + this.getRequestAppend();
     },
-    getWithGenresUrl(type, id, page) {
-      return this.apiUrl() + 'discover/' + type + '?with_genres=' + id + '&page=' + page + '&' + this.getRequestAppend()
+    getWithGenresUrl(type, id) {
+      return this.apiUrl() + 'discover/' + type + '?with_genres=' + id + '&' + this.getRequestAppend()
     },
     getTvDetailsUrl(id) {
       return this.apiUrl() + 'tv/' + id + '?' + this.getRequestAppend();
@@ -153,8 +150,8 @@ export const helper = {
     getKeywordDetails(id) {
       return this.apiUrl() + 'keyword/' + id + '?' + this.getRequestAppend();
     },
-    getKeywordMoviesUrl(id, include_adult, page) {
-      return this.apiUrl() + 'keyword/' + id + '/movies?page=' + page + '&include_adult=' + include_adult + '&' + this.getRequestAppend();
+    getKeywordMoviesUrl(id, include_adult = true) {
+      return this.apiUrl() + 'keyword/' + id + '/movies?include_adult=' + include_adult + '&' + this.getRequestAppend();
     },
     getRandomBackdropColor() {
       const colors = [
