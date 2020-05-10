@@ -1,7 +1,7 @@
 <template>
     <div class="review-item">
         <div class="review-item-title">
-            <img src="/avatar.png" />
+            <img src="/images/avatar.png" />
             <h6>{{review['author']}}</h6>
         </div>
         <div :class="getContentClass">

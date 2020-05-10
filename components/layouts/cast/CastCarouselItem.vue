@@ -30,7 +30,7 @@
                 if(path) {
                     image = this.getSmallPosterPath() + path;
                 } else {
-                    image = '/default_poster.png';
+                    image = this.getDefaultPoster();
                 }
 
                 return image;

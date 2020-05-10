@@ -3,13 +3,13 @@
         <ListItems
                 :url="getItemsUrl"
                 :type="getType"
-                :name="this.$route.query.name"
+                name="Top Rated"
         />
     </main>
 </template>
 
 <script>
-    import ListItems from "../../../components/layouts/list/ListItems";
+    import ListItems from "../../components/layouts/list/ListItems";
     import { helper } from '@/mixins/helper.js';
 
     export default {
@@ -20,10 +20,10 @@
         },
         computed: {
             getItemsUrl() {
-                return this.getWithGenresUrl(this.getType, this.$route.params.id)
+                return this.topRatedTvShowsUrl()
             },
             getType() {
-                return 'movie';
+                return 'tv';
             }
         }
     }

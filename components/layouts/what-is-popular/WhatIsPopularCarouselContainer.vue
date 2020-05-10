@@ -70,7 +70,7 @@
         },
         methods: {
             getPopularMovies() {
-                fetch(this.popularMoviesUrl(1))
+                fetch(this.popularMoviesUrl())
                     .then((res) => { return res.json() })
                     .then((res) => {
                         this.movies = res.results.filter((x) => {
@@ -80,7 +80,7 @@
                     })
             },
             getPopularTvShows() {
-                fetch(this.popularTvShowsUrl(1))
+                fetch(this.popularTvShowsUrl())
                     .then((res) => { return res.json() })
                     .then((res) => {
                         this.tvShows = res.results.filter((x) => {

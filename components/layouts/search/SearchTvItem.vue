@@ -45,7 +45,7 @@
               if(path && path !== '') {
                   url = this.getSmallPosterPath() + path;
               } else {
-                  url = '/default_poster.png';
+                  url = this.getDefaultPoster();
               }
 
               return url;

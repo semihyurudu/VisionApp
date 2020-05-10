@@ -38,9 +38,9 @@
                 let image = '';
 
                 if(path) {
-                    image = this.getSmallPosterPath() + path;
+                    image = this.getPosterPath() + path;
                 } else {
-                    image = '/default_poster.png';
+                    image = this.getDefaultPoster();
                 }
 
                 return image;

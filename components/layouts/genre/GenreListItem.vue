@@ -21,6 +21,9 @@
                 type: String,
                 required: true
             }
+        },
+        mounted() {
+            console.log('genre name', this.genre['name'], this.getGenrePageUrl(this.type, this.genre['id'], this.genre['name']))
         }
     }
 </script>

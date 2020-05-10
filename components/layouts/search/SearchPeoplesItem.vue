@@ -45,7 +45,7 @@
               if(path && path !== '') {
                   url = this.getSmallProfilePath() + path;
               } else {
-                  url = '/default_profile.png';
+                  url = this.getDefaultProfileImage();
               }
 
               return url;

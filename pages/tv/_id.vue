@@ -225,7 +225,7 @@
                 if (this.tv['poster_path'])
                     image = this.getPosterPath() + this.tv['poster_path'];
                 else
-                    image = '/default_poster.png';
+                    image = this.getDefaultPoster();
 
                 return image;
             },
@@ -364,6 +364,11 @@
             this.getKeywords();
             this.getSimilarTvShows();
             this.getRecommendationTvShows();
+        },
+        head() {
+            return {
+                title: this.getHeadTitle(this.tv['name'])
+            }
         }
     }
 </script>

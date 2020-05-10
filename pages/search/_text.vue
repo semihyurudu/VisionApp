@@ -71,7 +71,14 @@
     export default {
         name: 'Search',
         mixins: [helper],
-        components: {Header, SearchMovieItem, SearchTvItem, SearchPeoplesItem, Loading, SearchResultsSidebar},
+        components: {
+            Header,
+            SearchMovieItem,
+            SearchTvItem,
+            SearchPeoplesItem,
+            Loading,
+            SearchResultsSidebar
+        },
         data() {
             return {
                 isLoading: true,
@@ -125,7 +132,9 @@
                     personCount: this.$route.query.search_type === 'person' ? this.result.total : 0,
                     tvCount: this.$route.query.search_type === 'tv' ? this.result.total : 0
                 };
-
+            },
+            getPageTitle() {
+                return 'Search Results of "' + this.$route.query.text + '"'
             }
         },
         methods: {
@@ -215,6 +224,11 @@
                         }
 
                     })
+            }
+        },
+        head() {
+            return {
+                title: this.getHeadTitle(this.getPageTitle)
             }
         }
     }

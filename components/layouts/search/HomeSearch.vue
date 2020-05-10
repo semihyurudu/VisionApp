@@ -72,10 +72,10 @@
 
 <style scoped>
   .home-search {
-    background-image: url('../../../assets/images/home-search-backdrop-01.jpg');
+    background-image: url('../../../static/images/home_search_backdrop.jpg');
     background-repeat: no-repeat;
     background-size: cover;
-    background-position: top center;
+    background-position: bottom center;
     position: relative;
   }
   .home-search .home-search-field {

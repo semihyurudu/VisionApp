@@ -309,7 +309,7 @@
                 if (this.movie['poster_path'])
                     image = this.getPosterPath() + this.movie['poster_path'];
                 else
-                    image = '/default_poster.png';
+                    image = this.getDefaultPoster();
 
                 return image;
             }
@@ -350,6 +350,11 @@
             this.getVideos();
             this.getSimilarMovies();
             this.getRecommendationMovies();
+        },
+        head() {
+            return {
+                title: this.getHeadTitle(this.movie['title'])
+            }
         }
     }
 </script>
