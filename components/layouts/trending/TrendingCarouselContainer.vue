@@ -13,7 +13,6 @@
                                 <Carousel
                                         :items="trendsOfDay"
                                         :loading="trendsOfDayLoading"
-                                        show-all-link="/movie/trending/day"
                                         type="movie-or-tv"
                                 />
                             </b-tab>
@@ -24,7 +23,6 @@
                                 <Carousel
                                         :items="trendsOfWeek"
                                         :loading="trendsOfWeekLoading"
-                                        show-all-link="/movie/trending/week"
                                         type="movie-or-tv"
                                 />
                             </b-tab>
@@ -58,9 +56,8 @@
                 fetch(this.trendingUrl('all', 'day'))
                     .then((res) => { return res.json() })
                     .then((res) => {
-
                         this.trendsOfDay = res.results.filter((x) => {
-                            return (x['poster_path'] || x['profile_path'])
+                            return (x['poster_path'] || x['profile_path']) && (x['media_type'] === 'movie' || x['media_type'] === 'tv')
                         });
                         this.trendsOfDayLoading = false;
                     })
@@ -69,7 +66,9 @@
                 fetch(this.trendingUrl('all', 'week'))
                     .then((res) => { return res.json() })
                     .then((res) => {
-                        this.trendsOfWeek = res.results;
+                        this.trendsOfWeek = res.results.filter((x) => {
+                            return (x['poster_path'] || x['profile_path']) && (x['media_type'] === 'movie' || x['media_type'] === 'tv')
+                        });
                         this.trendsOfWeekLoading = false;
                     })
             },
@@ -83,7 +82,7 @@
 
 <style scoped>
     .trending-carousel {
-        background-image: url('/trending-bg.jpg');
+        background-image: url('/images/trending-bg.jpg');
         background-size: cover;
         background-repeat: no-repeat;
         padding-top: 70px;

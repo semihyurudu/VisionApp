@@ -1,14 +1,14 @@
 <template>
-    <div class="genre-movies">
+    <main class="genre-tv-shows">
         <b-container>
             <b-row>
                 <b-col col>
-                    <BlockTitle title="TV Genres" />
+                    <BlockTitle :title="getPageTitle" />
                     <GenreList :genres="genres" :loading="loading" type="tv" />
                 </b-col>
             </b-row>
         </b-container>
-    </div>
+    </main>
 </template>
 
 <script>
@@ -22,6 +22,11 @@
         components: {
             GenreList,
             BlockTitle
+        },
+        computed: {
+            getPageTitle() {
+                return 'Genres of TV Show'
+            }
         },
         methods: {
             getMovies() {
@@ -43,6 +48,11 @@
         },
         mounted() {
             this.getMovies();
+        },
+        head() {
+            return {
+                title: this.getHeadTitle(this.getPageTitle)
+            }
         }
     }
 </script>

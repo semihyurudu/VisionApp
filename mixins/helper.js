@@ -1,6 +1,9 @@
 import ISO6391 from 'iso-639-1';
 export const helper = {
   methods: {
+    projectName() {
+      return 'Vision App'
+    },
     apiUrl() {
       return 'https://api.themoviedb.org/3/';
     },
@@ -8,7 +11,7 @@ export const helper = {
       return '1b3c8e5cc36a460bb507fea55c7f8f56';
     },
     getLanguage() {
-      return 'tr-TR';
+      return 'en-US';
     },
     getPosterPath() {
       return 'https://image.tmdb.org/t/p/w600_and_h900_bestv2';
@@ -38,6 +41,15 @@ export const helper = {
     getSearchUrl(search_type, query, page) {
       return this.apiUrl() + 'search/' + search_type + '?api_key=' + this.apiKey() + '&query=' + query + '&language=' + this.getLanguage() + '&page=' + page;
     },
+    getDefaultPoster() {
+      return '/images/default_poster.png';
+    },
+    getDefaultProfileImage() {
+      return '/images/default_profile.png';
+    },
+    getShowAllPoster() {
+      return '/images/show-all-poster.jpg';
+    },
     getSearchTypeText(search_type) {
       let text = '';
       switch (search_type) {
@@ -61,17 +73,25 @@ export const helper = {
       return text;
 
     },
+    getHeadTitle(title) {
+      let val = this.projectName();
+      if(title) {
+        val = (title + ' | ' + val);
+      }
+
+      return val;
+    },
     getRequestAppend() {
       return 'api_key=' + this.apiKey() + '&language=' + this.getLanguage()
     },
-    popularMoviesUrl(page) {
-      return this.apiUrl() + 'movie/popular?page=' + page + '&' + this.getRequestAppend();
+    popularMoviesUrl() {
+      return this.apiUrl() + 'movie/popular?' + this.getRequestAppend();
     },
-    upcomingMoviesUrl(page) {
-      return this.apiUrl() + 'movie/upcoming?page=' + page + '&' + this.getRequestAppend();
+    popularTvShowsUrl() {
+      return this.apiUrl() + 'tv/popular?' + this.getRequestAppend();
     },
-    popularTvShowsUrl(page) {
-      return this.apiUrl() + 'tv/popular?page=' + page + '&' + this.getRequestAppend();
+    topRatedTvShowsUrl() {
+      return this.apiUrl() + 'tv/top_rated?' + this.getRequestAppend();
     },
     popularPeoplesUrl(page) {
       return this.apiUrl() + 'person/popular?page=' + page + '&' + this.getRequestAppend();
@@ -107,13 +127,13 @@ export const helper = {
       return this.apiUrl() + 'tv/' + id + '/recommendations?' + this.getRequestAppend();
     },
     getGenrePageUrl(type, id, name) {
-      return '/genre/' + type + '/' + id + '?name=' + name;
+      return '/genre/' + type + '/' + id + '?name=' + encodeURI(name);
     },
     getGenreListUrl(type) {
       return this.apiUrl() + 'genre/' + type + '/list?' + this.getRequestAppend();
     },
-    getWithGenresUrl(type, id, page) {
-      return this.apiUrl() + 'discover/' + type + '?with_genres=' + id + '&page=' + page + '&' + this.getRequestAppend()
+    getWithGenresUrl(type, id) {
+      return this.apiUrl() + 'discover/' + type + '?with_genres=' + id + '&' + this.getRequestAppend()
     },
     getTvDetailsUrl(id) {
       return this.apiUrl() + 'tv/' + id + '?' + this.getRequestAppend();
@@ -130,8 +150,8 @@ export const helper = {
     getKeywordDetails(id) {
       return this.apiUrl() + 'keyword/' + id + '?' + this.getRequestAppend();
     },
-    getKeywordMoviesUrl(id, include_adult, page) {
-      return this.apiUrl() + 'keyword/' + id + '/movies?page=' + page + '&include_adult=' + include_adult + '&' + this.getRequestAppend();
+    getKeywordMoviesUrl(id, include_adult = true) {
+      return this.apiUrl() + 'keyword/' + id + '/movies?include_adult=' + include_adult + '&' + this.getRequestAppend();
     },
     getRandomBackdropColor() {
       const colors = [

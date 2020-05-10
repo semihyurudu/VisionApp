@@ -48,6 +48,34 @@
                     path: '/genre/tv'
                   }
                 ]
+              },
+              {
+                name: 'MOVIES',
+                second_menu: true,
+                children: [
+                  {
+                    name: 'POPULAR',
+                    path: '/movie/popular'
+                  },
+                  {
+                    name: 'UPCOMING',
+                    path: '/movie/upcoming'
+                  }
+                ]
+              },
+              {
+                name: 'TV SHOWS',
+                second_menu: true,
+                children: [
+                  {
+                    name: 'POPULAR',
+                    path: '/tv/popular'
+                  },
+                  {
+                    name: 'TOP RATED',
+                    path: '/tv/top-rated'
+                  }
+                ]
               }
             ],
             parent_menu: [],

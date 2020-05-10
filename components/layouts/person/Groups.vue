@@ -5,6 +5,7 @@
                 :options="options"
                 class="department-options-filter"
                 size="sm"
+                v-if="options.length > 2"
         >
         </b-form-select>
         <div class="person-group" v-for="(group, index) in groups" :key="index">
