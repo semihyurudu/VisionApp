@@ -10,21 +10,29 @@
                                 <template v-slot:title>
                                     <b-icon-layers-half></b-icon-layers-half> <strong>Day</strong>
                                 </template>
-                                <Carousel
-                                        :items="trendsOfDay"
+                                <CarouselSlider
                                         :loading="trendsOfDayLoading"
-                                        type="movie-or-tv"
-                                />
+                                >
+                                    <slide v-for="(item, index) in day.results" :key="index">
+                                        <ListTvCarouselItem :tv="item" v-if="item.media_type === 'tv'" />
+                                        <ListMoviesCarouselItem :movie="item" v-if="item.media_type === 'movie'" />
+                                    </slide>
+                                </CarouselSlider>
+
+
                             </b-tab>
                             <b-tab>
                                 <template v-slot:title>
-                                    <b-icon-layers-fill></b-icon-layers-fill> <strong>Week</strong>
+                                    <b-icon-layers-half></b-icon-layers-half> <strong>Week</strong>
                                 </template>
-                                <Carousel
-                                        :items="trendsOfWeek"
+                                <CarouselSlider
                                         :loading="trendsOfWeekLoading"
-                                        type="movie-or-tv"
-                                />
+                                >
+                                    <slide v-for="(item, index) in week.results" :key="index">
+                                        <ListTvCarouselItem :tv="item" v-if="item.media_type === 'tv'" />
+                                        <ListMoviesCarouselItem :movie="item" v-if="item.media_type === 'movie'" />
+                                    </slide>
+                                </CarouselSlider>
                             </b-tab>
                         </b-tabs>
                     </div>
@@ -35,47 +43,48 @@
 </template>
 
 <script>
+    import {mapGetters, mapActions} from 'vuex'
     import { helper } from '../../../mixins/helper.js';
     import Carousel from "../../partials/carousel/Carousel";
+    import CarouselSlider from "../../partials/carousel/CarouselSlider";
+    import ListMoviesCarouselItem from "../movie/ListMoviesCarouselItem";
+    import ListTvCarouselItem from "../tv/ListTvCarouselItem";
+    import {Slide} from 'hooper';
     export default {
         name: 'TrendingCarouselContainer',
         mixins: [helper],
         components: {
-            Carousel
+            Carousel,
+            CarouselSlider,
+            Slide,
+            ListTvCarouselItem,
+            ListMoviesCarouselItem
         },
-        data() {
-            return {
-                trendsOfDay: [],
-                trendsOfDayLoading: true,
-                trendsOfWeek: [],
-                trendsOfWeekLoading: true,
+
+        computed: {
+            ...mapGetters({
+                "day": "trends/day",
+                "week": "trends/week",
+                "loadings": "loadings"
+            }),
+
+            trendsOfDayLoading() {
+                return this.loadings.findIndex(e => e === 'getTrends_day_all') > -1
+            },
+
+            trendsOfWeekLoading() {
+                return this.loadings.findIndex(e => e === 'getTrends_week_all') > -1
             }
         },
+
         methods: {
-            getTrendsOfDay() {
-                fetch(this.trendingUrl('all', 'day'))
-                    .then((res) => { return res.json() })
-                    .then((res) => {
-                        this.trendsOfDay = res.results.filter((x) => {
-                            return (x['poster_path'] || x['profile_path']) && (x['media_type'] === 'movie' || x['media_type'] === 'tv')
-                        });
-                        this.trendsOfDayLoading = false;
-                    })
-            },
-            getTrendsOfWeek() {
-                fetch(this.trendingUrl('all', 'week'))
-                    .then((res) => { return res.json() })
-                    .then((res) => {
-                        this.trendsOfWeek = res.results.filter((x) => {
-                            return (x['poster_path'] || x['profile_path']) && (x['media_type'] === 'movie' || x['media_type'] === 'tv')
-                        });
-                        this.trendsOfWeekLoading = false;
-                    })
-            },
+            ...mapActions({
+                "getTrends": "trends/getTrends"
+            }),
         },
         mounted() {
-            this.getTrendsOfDay();
-            this.getTrendsOfWeek();
+            this.getTrends('day');
+            this.getTrends('week');
         }
     }
 </script>

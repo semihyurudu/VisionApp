@@ -36,7 +36,7 @@ export const helper = {
     },
     substringWithWords(text, length) {
       // return text.replace(/^(.{70}[^\s]*).*/, "$1");
-      return text.substr(0, length);
+      return text && text.substr(0, length);
     },
     getSearchUrl(search_type, query, page) {
       return this.apiUrl() + 'search/' + search_type + '?api_key=' + this.apiKey() + '&query=' + query + '&language=' + this.getLanguage() + '&page=' + page;

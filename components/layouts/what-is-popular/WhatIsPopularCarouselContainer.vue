@@ -10,24 +10,28 @@
                                 <template v-slot:title>
                                     <b-icon-film></b-icon-film> <strong>{{getSearchTypeText('movie')}}</strong>
                                 </template>
-                                <Carousel
-                                        :items="movies"
-                                        :loading="moviesLoading"
+                                <CarouselSlider
+                                        :loading="isPopularMoviesLoading"
                                         show-all-link="/movie/popular"
-                                        type="movie"
-                                />
+                                >
+                                    <slide v-for="(item, index) in popular_movies.results" :key="index">
+                                        <ListMoviesCarouselItem :movie="item" />
+                                    </slide>
+                                </CarouselSlider>
                             </b-tab>
 
                             <b-tab>
                                 <template v-slot:title>
                                     <b-icon-tv></b-icon-tv> <strong>{{getSearchTypeText('tv')}}</strong>
                                 </template>
-                                <Carousel
-                                        :items="tvShows"
-                                        :loading="tvShowsLoading"
+                                <CarouselSlider
+                                        :loading="isPopularTvShowsLoading"
                                         show-all-link="/tv/popular"
-                                        type="tv"
-                                />
+                                >
+                                    <slide v-for="(item, index) in popular_tv_shows.results" :key="index">
+                                        <ListTvCarouselItem :tv="item" />
+                                    </slide>
+                                </CarouselSlider>
                             </b-tab>
 
                             <b-tab>
@@ -51,44 +55,46 @@
 </template>
 
 <script>
+    import {mapGetters, mapActions} from 'vuex'
+    import ListMoviesCarouselItem from "../movie/ListMoviesCarouselItem";
+    import ListTvCarouselItem from "../tv/ListTvCarouselItem";
+    import {Slide} from 'hooper';
     import { helper } from '../../../mixins/helper.js';
     import Carousel from "../../partials/carousel/Carousel";
+    import CarouselSlider from "../../partials/carousel/CarouselSlider";
     export default {
         name: 'WhatIsPopularCarousel',
         mixins: [helper],
-        components: {Carousel},
+        components: {Carousel, ListMoviesCarouselItem, ListTvCarouselItem, CarouselSlider, Slide},
         data() {
             return {
                 tabIndex: 0,
-                movies: [],
                 moviesLoading: true,
-                tvShows: [],
                 tvShowsLoading: true,
                 peoples: [],
                 peoplesLoading: true
             }
         },
+        computed: {
+            ...mapGetters({
+                "loadings": "loadings",
+                "popular_movies": "movies/popular_movies",
+                "popular_tv_shows": "tv_shows/popular_tv_shows",
+            }),
+
+            isPopularMoviesLoading() {
+                return this.loadings.findIndex(e => e === 'getPopularMovies') > -1
+            },
+
+            isPopularTvShowsLoading() {
+                return this.loadings.findIndex(e => e === 'getPopularTvShows') > -1
+            }
+        },
         methods: {
-            getPopularMovies() {
-                fetch(this.popularMoviesUrl())
-                    .then((res) => { return res.json() })
-                    .then((res) => {
-                        this.movies = res.results.filter((x) => {
-                            return x['poster_path'];
-                        });
-                        this.moviesLoading = false;
-                    })
-            },
-            getPopularTvShows() {
-                fetch(this.popularTvShowsUrl())
-                    .then((res) => { return res.json() })
-                    .then((res) => {
-                        this.tvShows = res.results.filter((x) => {
-                            return x['poster_path'];
-                        });
-                        this.tvShowsLoading = false;
-                    })
-            },
+            ...mapActions({
+                "getPopularMovies": "movies/getPopularMovies",
+                "getPopularTvShows": "tv_shows/getPopularTvShows",
+            }),
             getPopularPeoples() {
                 fetch(this.popularPeoplesUrl(1))
                     .then((res) => { return res.json() })
@@ -101,7 +107,7 @@
             }
         },
         mounted() {
-            this.getPopularMovies();
+            this.getPopularMovies()
             this.getPopularTvShows();
             this.getPopularPeoples()
         }

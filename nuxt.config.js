@@ -28,6 +28,7 @@ export default {
   ** Plugins to load before mounting the App
   */
   plugins: [
+      "~/plugins/services.js"
   ],
   /*
   ** Nuxt.js dev-modules
@@ -40,7 +41,14 @@ export default {
   modules: [
     // Doc: https://bootstrap-vue.js.org
     'bootstrap-vue/nuxt',
+    '@nuxtjs/axios',
+    '@nuxtjs/dotenv'
   ],
+
+  axios: {
+    baseURL: 'https://api.themoviedb.org/3'
+  },
+
   /*
   ** Build configuration
   */

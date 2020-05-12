@@ -29,19 +29,19 @@
     methods: {
       routeChanged() {
 
-        if(this.$route.name === 'search-text') {
-          this.$store.commit('SET_SEARCH_BAR', {
-            isShow: true,
-            text: this.$route.query.text,
-            search_type: this.$route.query.search_type
-          });
-        } else {
-          this.$store.commit('SET_SEARCH_BAR', {
-            isShow: false,
-            text: '',
-            search_type: 'multi'
-          });
-        }
+        // if(this.$route.name === 'search-text') {
+        //   this.$store.commit('SET_SEARCH_BAR', {
+        //     isShow: true,
+        //     text: this.$route.query.text,
+        //     search_type: this.$route.query.search_type
+        //   });
+        // } else {
+        //   this.$store.commit('SET_SEARCH_BAR', {
+        //     isShow: false,
+        //     text: '',
+        //     search_type: 'multi'
+        //   });
+        // }
 
       }
     }
