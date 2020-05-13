@@ -38,12 +38,14 @@
                                 <template v-slot:title>
                                     <b-icon-people-fill></b-icon-people-fill> <strong>{{getSearchTypeText('person')}}</strong>
                                 </template>
-                                <Carousel
-                                        :items="peoples"
-                                        :loading="peoplesLoading"
+                                <CarouselSlider
+                                        :loading="isPopularPeoplesLoading"
                                         show-all-link="/person/popular"
-                                        type="person"
-                                />
+                                >
+                                    <slide v-for="(item, index) in popular_peoples.results" :key="index">
+                                        <ListPersonCarouselItem :person="item" />
+                                    </slide>
+                                </CarouselSlider>
                             </b-tab>
                         </b-tabs>
                     </div>
@@ -58,6 +60,7 @@
     import {mapGetters, mapActions} from 'vuex'
     import ListMoviesCarouselItem from "../movie/ListMoviesCarouselItem";
     import ListTvCarouselItem from "../tv/ListTvCarouselItem";
+    import ListPersonCarouselItem from "../person/ListPersonCarouselItem";
     import {Slide} from 'hooper';
     import { helper } from '../../../mixins/helper.js';
     import Carousel from "../../partials/carousel/Carousel";
@@ -65,7 +68,14 @@
     export default {
         name: 'WhatIsPopularCarousel',
         mixins: [helper],
-        components: {Carousel, ListMoviesCarouselItem, ListTvCarouselItem, CarouselSlider, Slide},
+        components: {
+            Carousel,
+            ListMoviesCarouselItem,
+            ListTvCarouselItem,
+            CarouselSlider,
+            Slide,
+            ListPersonCarouselItem
+        },
         data() {
             return {
                 tabIndex: 0,
@@ -80,6 +90,7 @@
                 "loadings": "loadings",
                 "popular_movies": "movies/popular_movies",
                 "popular_tv_shows": "tv_shows/popular_tv_shows",
+                "popular_peoples": "peoples/popular",
             }),
 
             isPopularMoviesLoading() {
@@ -88,28 +99,23 @@
 
             isPopularTvShowsLoading() {
                 return this.loadings.findIndex(e => e === 'getPopularTvShows') > -1
+            },
+
+            isPopularPeoplesLoading() {
+                return this.loadings.findIndex(e => e === 'getPopularPeoples') > -1
             }
         },
         methods: {
             ...mapActions({
                 "getPopularMovies": "movies/getPopularMovies",
                 "getPopularTvShows": "tv_shows/getPopularTvShows",
-            }),
-            getPopularPeoples() {
-                fetch(this.popularPeoplesUrl(1))
-                    .then((res) => { return res.json() })
-                    .then((res) => {
-                        this.peoples = res.results.filter((x) => {
-                            return x['profile_path'];
-                        });
-                        this.peoplesLoading = false;
-                    })
-            }
+                "getPopularPeoples": "peoples/getPopular",
+            })
         },
         mounted() {
-            this.getPopularMovies()
+            this.getPopularMovies(1);
             this.getPopularTvShows();
-            this.getPopularPeoples()
+            this.getPopularPeoples();
         }
     }
 </script>

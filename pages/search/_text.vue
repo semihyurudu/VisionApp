@@ -157,7 +157,7 @@
             personResults() {
                 if (this.$route.query.search_type === 'multi') {
                     return this.search_results.results.filter(e => e.media_type === 'person')
-                }else if (this.$route.query.search_type === 'person') {
+                } else if (this.$route.query.search_type === 'person') {
                     return this.search_results.results
                 }
 

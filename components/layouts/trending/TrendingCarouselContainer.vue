@@ -25,9 +25,7 @@
                                 <template v-slot:title>
                                     <b-icon-layers-half></b-icon-layers-half> <strong>Week</strong>
                                 </template>
-                                <CarouselSlider
-                                        :loading="trendsOfWeekLoading"
-                                >
+                                <CarouselSlider :loading="trendsOfWeekLoading">
                                     <slide v-for="(item, index) in week.results" :key="index">
                                         <ListTvCarouselItem :tv="item" v-if="item.media_type === 'tv'" />
                                         <ListMoviesCarouselItem :movie="item" v-if="item.media_type === 'movie'" />
@@ -60,7 +58,6 @@
             ListTvCarouselItem,
             ListMoviesCarouselItem
         },
-
         computed: {
             ...mapGetters({
                 "day": "trends/day",
@@ -83,7 +80,10 @@
             }),
         },
         mounted() {
-            this.getTrends('day');
+            this.getTrends('day')
+                .then((res) => {
+                    console.log('res1', res)
+                })
             this.getTrends('week');
         }
     }

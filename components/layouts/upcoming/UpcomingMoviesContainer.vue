@@ -4,12 +4,11 @@
             <b-row>
                 <b-col col>
                     <BlockTitle title="Upcoming Movies" />
-                    <Carousel
-                            :items="upcomingMovies"
-                            :loading="upcomingMoviesLoading"
-                            show-all-link="/movie/upcoming"
-                            type="movie"
-                    />
+                    <CarouselSlider :loading="isLoading">
+                        <slide v-for="(item, index) in upcoming_movies.results" :key="index">
+                            <ListMoviesCarouselItem :movie="item" />
+                        </slide>
+                    </CarouselSlider>
                 </b-col>
             </b-row>
         </b-container>
@@ -17,34 +16,34 @@
 </template>
 
 <script>
+    import {mapGetters, mapActions} from 'vuex'
     import { helper } from '../../../mixins/helper.js';
-    import Carousel from "../../partials/carousel/Carousel";
     import BlockTitle from "../../partials/BlockTitle";
+    import CarouselSlider from "../../partials/carousel/CarouselSlider";
+    import ListMoviesCarouselItem from "../movie/ListMoviesCarouselItem";
+    import {Slide} from 'hooper';
     export default {
-        name: 'upcomingMoviesOfWeekContainer',
+        name: 'upcomingMoviesContainer',
         mixins: [helper],
         components: {
             BlockTitle,
-            Carousel,
+            CarouselSlider,
+            Slide,
+            ListMoviesCarouselItem
         },
-        data() {
-            return {
-                upcomingMovies: [],
-                upcomingMoviesLoading: true,
-                BlockTitle
+        computed: {
+            ...mapGetters({
+                "loadings": "loadings",
+                "upcoming_movies": "movies/upcoming"
+            }),
+            isLoading() {
+                return this.loadings.findIndex(e => e === 'getUpcomingMovies') > -1
             }
         },
         methods: {
-            getUpcomingMovies() {
-                fetch(this.getUpcomingMoviesUrl())
-                    .then((res) => { return res.json() })
-                    .then((res) => {
-                        this.upcomingMovies = res.results.filter((x) => {
-                            return x['poster_path'] && x['title'];
-                        });
-                        this.upcomingMoviesLoading = false;
-                    })
-            },
+            ...mapActions({
+                "getUpcomingMovies": "movies/getUpcoming"
+            })
         },
         mounted() {
             this.getUpcomingMovies();
